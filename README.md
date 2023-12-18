@@ -10,3 +10,9 @@ Pengembangan Versi 3
 ### if no macbook
 OS - Linux (Ubuntu)
 Javascript runtime - bun
+
+### vite
+running command terminal
+```
+bunx vite
+```
