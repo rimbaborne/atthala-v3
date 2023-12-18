@@ -3,3 +3,10 @@
 ## Tentang
 
 Pengembangan Versi 3
+
+
+## Dev Recomendation (tested)
+
+### if no macbook
+OS - Linux (Ubuntu)
+Javascript runtime - bun
