@@ -8,7 +8,7 @@
                     is="transition" child
                     v-if="modal.stack === 1 && modal.animate"
                     animation="opacity">
-                    <div v-show="modal.onTopOfStack" class="fixed z-30 inset-0 bg-black/75" />
+                    <div v-show="modal.onTopOfStack" class="fixed z-40 inset-0 bg-black/75" />
                 </x-splade-component>
 
                 <div

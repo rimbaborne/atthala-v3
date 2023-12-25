@@ -1,6 +1,6 @@
 <x-splade-component is="modal-wrapper" :base-attributes="$attributes->except('class')" :key="$modalKey" :close-button="$closeButton" :close-explicitly="$closeExplicitly" :name="$name">
     <!-- Full-screen scrollable container -->
-    <div class="fixed inset-0 z-40 overflow-y-auto p-4">
+    <div class="fixed inset-0 z-50 overflow-y-auto p-4">
         <!-- Container to center the panel -->
         <div class="flex min-h-full justify-center" v-bind:class="{
             'items-start': modal.position === 'top',
