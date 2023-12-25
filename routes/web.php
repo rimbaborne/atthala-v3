@@ -41,7 +41,9 @@ Route::middleware('splade')->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        Route::get('/super-admin', [SuperAdminController::class, 'index'])->name('superadmin.index');
+        Route::group(['prefix' => 'super-admin'], function () {
+            require __DIR__.'/sub/super-admin.php';
+        });
     });
 
     require __DIR__.'/auth.php';
