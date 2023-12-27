@@ -8,6 +8,7 @@
         "php": "^8.1",
         "codeat3/blade-carbon-icons": "^2.17",
         "guzzlehttp/guzzle": "^7.2",
+        "kirschbaum-development/eloquent-power-joins": "^3.4",
         "laravel/framework": "^10.10",
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.3",

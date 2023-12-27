@@ -11,4 +11,8 @@ Route::get('/roles', [SuperAdminController::class, 'roles'])->name('superadmin.r
 Route::get('/roles/create', [SuperAdminController::class, 'roles_create'])->name('superadmin.roles.create');
 Route::post('/roles/store', [SuperAdminController::class, 'roles_store'])->name('superadmin.roles.store');
 
-// Other admin routes...
+Route::get('/users', [SuperAdminController::class, 'users'])->name('superadmin.users.index');
+Route::get('/users/create', [SuperAdminController::class, 'users_create'])->name('superadmin.users.create');
+Route::post('/users/store', [SuperAdminController::class, 'users_store'])->name('superadmin.users.store');
+
+Route::get('/log-dml', [SuperAdminController::class, 'log_dml'])->name('superadmin.users.log-dml');

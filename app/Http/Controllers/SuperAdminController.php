@@ -113,4 +113,18 @@ class SuperAdminController extends Controller
         }
 
     }
+
+    public function log_dml() {
+        $log_dml = SpladeTable::for(LogDML::class)
+        ->column(
+            key     : 'user.name',
+            label   : 'user',
+            sortable: true
+        )
+        ->column('from')
+        ->column('to')
+        ->paginate(10);
+
+        return view('modules.log-dml.index', compact('log_dml'));
+    }
 }
