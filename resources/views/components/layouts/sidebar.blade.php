@@ -78,12 +78,10 @@
                         </x-link-item>
                     </li>
                     <li>
-                        <Link href="users" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group hover:border hover:border-gray-500 border border-transparent">
+                        <x-link-item :href="route('superadmin.users.index')" :active="request()->routeIs('superadmin.users.index')">
                             @svg('carbon-user-multiple', 'text-gray-600 h-6 w-6')
-                            <span class="ml-3" sidebar-toggle-item="">
-                                Users
-                            </span>
-                        </Link>
+                            <span class="ml-3">Users</span>
+                        </x-link-item>
                     </li>
                     <li>
                         <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100" aria-controls="dropdown-layouts" data-collapse-toggle="dropdown-layouts">

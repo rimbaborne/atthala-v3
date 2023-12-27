@@ -29,6 +29,9 @@
                 <p class="mb-6 text-lg font-normal text-gray-500">
                     Akun Anda tidak memiliki akses dihalaman ini.
                 </p>
+                <div>
+                    <a href="{{ route('dashboard') }}" class="font-semibold text-sm">Kembali Ke Dashboard</a>
+                </div>
             </div>
         </div>
     </body>

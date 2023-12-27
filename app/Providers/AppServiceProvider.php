@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Splade::defaultToast(function ($toast) {
-            $toast->info()->leftTop()->autoDismiss(10);
+            $toast->info()->rightTop()->autoDismiss(10);
         });
     }
 }
