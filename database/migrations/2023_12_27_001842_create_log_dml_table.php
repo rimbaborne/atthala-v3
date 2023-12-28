@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('log_dml', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->json('from');
-            $table->json('to');
+            $table->string('status');
+            $table->json('from')->nullable();
+            $table->json('to')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

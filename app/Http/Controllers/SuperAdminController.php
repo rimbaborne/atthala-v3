@@ -12,6 +12,8 @@ use Spatie\Permission\Models\Permission;
 use ProtoneMedia\Splade\Facades\Toast;
 
 use function App\Providers\log_dml;
+use function App\Providers\dml_created;
+;
 
 class SuperAdminController extends Controller
 {
@@ -103,7 +105,7 @@ class SuperAdminController extends Controller
 
         try {
             $role = Role::create(['name' => request()->name]);
-            log_dml('CREATED', $role);
+            log_dml(dml_created(), null, $role);
 
             Toast::title('Data Berhasil Ditambahkan');
             return redirect()->route('superadmin.roles.index');
@@ -118,9 +120,9 @@ class SuperAdminController extends Controller
         $log_dml = SpladeTable::for(LogDML::class)
         ->column(
             key     : 'user.name',
-            label   : 'user',
-            sortable: true
+            label   : 'user'
         )
+        ->column('status')
         ->column('from')
         ->column('to')
         ->paginate(10);

@@ -13,6 +13,7 @@ class LogDML extends Model
 
     protected $fillable = [
         'user_id',
+        'status',
         'from',
         'to',
     ];
