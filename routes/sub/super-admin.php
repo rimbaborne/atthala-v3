@@ -15,4 +15,7 @@ Route::get('/users', [SuperAdminController::class, 'users'])->name('superadmin.u
 Route::get('/users/create', [SuperAdminController::class, 'users_create'])->name('superadmin.users.create');
 Route::post('/users/store', [SuperAdminController::class, 'users_store'])->name('superadmin.users.store');
 
-Route::get('/log-dml', [SuperAdminController::class, 'log_dml'])->name('superadmin.users.log-dml');
+Route::get('/log-dml', [SuperAdminController::class, 'log_dml'])->name('superadmin.log-dml');
+
+Route::get('/divisi', [SuperAdminController::class, 'divisi'])->name('superadmin.divisi');
+

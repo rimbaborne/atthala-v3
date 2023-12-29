@@ -6,10 +6,13 @@ use App\Models\LogDML;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\SpladeTable;
 use App\Models\User;
+use App\Repositories\Interface\DivisiRepoInterface;
 use Maatwebsite\Excel\Excel;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ProtoneMedia\Splade\Facades\Toast;
+use App\Http\Controllers\Modules\DivisiController;
+use App\Models\Modules\Divisi;
 
 use function App\Providers\log_dml;
 use function App\Providers\dml_created;
@@ -128,5 +131,12 @@ class SuperAdminController extends Controller
         ->paginate(10);
 
         return view('modules.log-dml.index', compact('log_dml'));
+    }
+
+    public function divisi(DivisiRepoInterface $divisiRepo) {
+
+        $divisi = $divisiRepo->getDivisi();
+
+        return view('modules.divisi.index', compact('divisi'));
     }
 }
