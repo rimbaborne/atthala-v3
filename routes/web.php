@@ -28,8 +28,12 @@ Route::middleware('splade')->group(function () {
     // Registers routes to support async File Uploads with Filepond...
     Route::spladeUploads();
 
-    Route::get('/', function () {
-        return view('welcome');
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
+
+    Route::middleware('auth.redirect')->group(function () {
+        Route::get('/');
     });
 
     Route::middleware('auth')->group(function () {
