@@ -15,8 +15,6 @@ use App\Http\Controllers\Modules\DivisiController;
 use App\Models\Modules\Divisi;
 
 use function App\Providers\log_dml;
-use function App\Providers\dml_created;
-;
 
 class SuperAdminController extends Controller
 {
@@ -108,7 +106,7 @@ class SuperAdminController extends Controller
 
         try {
             $role = Role::create(['name' => request()->name]);
-            log_dml(dml_created(), null, $role);
+            log_dml('CREATED', null, $role);
 
             Toast::title('Data Berhasil Ditambahkan');
             return redirect()->route('superadmin.roles.index');

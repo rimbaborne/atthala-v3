@@ -21,18 +21,6 @@ class LogDMLServiceProvider extends ServiceProvider
                 'to'      => json_encode($data_to),
             ]);
         }
-
-        function dml_created() {
-            return 'CREATED';
-        }
-
-        function dml_updated() {
-            return 'UPDATED';
-        }
-
-        function dml_deleted() {
-            return 'DELETED';
-        }
     }
 
     /**
