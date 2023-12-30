@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 use ProtoneMedia\Splade\SpladeTable;
 use App\Models\User;
 use App\Repositories\Interface\DivisiRepoInterface;
-use Maatwebsite\Excel\Excel;
+use App\Repositories\Interface\UserRepoInterface;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ProtoneMedia\Splade\Facades\Toast;
-use App\Http\Controllers\Modules\DivisiController;
-use App\Models\Modules\Divisi;
+use App\Tables\Users;
 
 use function App\Providers\log_dml;
 
@@ -27,30 +26,9 @@ class SuperAdminController extends Controller
         return view('dashboard.super-admin.index');
     }
 
-    public function users() {
-        return view('modules.users.index', [
-            'users' => SpladeTable::for(User::class)
-        ->withGlobalSearch(columns: ['name', 'email'])
-        ->searchInput('name')
-        ->searchInput(
-            key: 'email',
-            label: 'Find your email',
-        )
-        ->selectFilter('name', [
-            'en' => 'English',
-            'nl' => 'Dutch',
-        ])
-        ->selectFilter('email', [
-            'en' => 'oke',
-            'nl' => 'okeeok',
-        ])
-        ->defaultSort('name')
-        ->column(key: 'name', searchable: true, sortable: true, canBeHidden: false)
-        ->column(key: 'email', searchable: true, sortable: true)
-        ->column(label: 'Action')
-        // ->export()
-        ->paginate(15),
-        ]);
+    public function users_index(UserRepoInterface $userRepo) {
+        $users = $userRepo->getData();
+        return view('modules.users.index', compact('users'));
     }
 
     public function users_create() {
@@ -84,7 +62,7 @@ class SuperAdminController extends Controller
         return view('modules.coa.index', compact('roles', 'permissions'));
     }
 
-    public function roles() {
+    public function roles_index() {
         $roles = SpladeTable::for(Role::class)
                 ->column('name')
                 ->column('created_at')
@@ -117,7 +95,7 @@ class SuperAdminController extends Controller
 
     }
 
-    public function log_dml() {
+    public function log_dml_index() {
         $log_dml = SpladeTable::for(LogDML::class)
         ->column(
             key     : 'user.name',
@@ -131,7 +109,7 @@ class SuperAdminController extends Controller
         return view('modules.log-dml.index', compact('log_dml'));
     }
 
-    public function divisi(DivisiRepoInterface $divisiRepo) {
+    public function divisi_index(DivisiRepoInterface $divisiRepo) {
 
         $divisi = $divisiRepo->getDivisi();
 
