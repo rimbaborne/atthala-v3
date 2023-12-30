@@ -55,5 +55,8 @@ class User extends Authenticatable
         return $this->belongsTo(UserHasRoles::class, 'id', 'model_id');
     }
 
+    public function hitung() {
 
+        return $this->belongsTo(User::class, 'id');
+    }
 }

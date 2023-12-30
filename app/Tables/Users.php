@@ -53,6 +53,14 @@ class Users extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table->withGlobalSearch(columns:['name', 'email'])
+            ->column(
+                label:'data',
+                key: 'hitung',
+                as: function (User $user) {
+                    $a = $user->has_roles->role->id;
+                    return $a;
+                }
+            )
             ->rowLink(fn (User $user) => route('superadmin.roles.index', ['id' => $user->id]))
             ->export()
             ->column('name')
