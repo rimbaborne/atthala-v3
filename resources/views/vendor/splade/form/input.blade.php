@@ -7,7 +7,7 @@
     v-model="{{ $vueModel() }}"
     #default="inputScope"
 >
-    <label class="block">
+    <label class="block py-2">
         @includeWhen($label, 'splade::form.label', ['label' => $label])
 
         <div class="flex rounded-md border border-gray-300 shadow-sm">

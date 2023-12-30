@@ -42,12 +42,10 @@
                         </Link>
                     </li>
                     <li>
-                        <Link href="divisi" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group hover:border hover:border-gray-500 border border-transparent">
+                        <x-link-item :href="route('superadmin.divisi.index')" :active="request()->routeIs('superadmin.divisi.index')">
                             @svg('carbon-chart-point', 'text-gray-600 h-6 w-6')
-                            <span class="ml-3" sidebar-toggle-item="">
-                                Divisi
-                            </span>
-                        </Link>
+                            <span class="ml-3">Divisi</span>
+                        </x-link-item>
                     </li>
                     <li>
                         <Link href="unit" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group hover:border hover:border-gray-500 border border-transparent">
