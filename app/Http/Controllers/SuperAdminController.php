@@ -17,9 +17,10 @@ use function App\Providers\log_dml;
 
 class SuperAdminController extends Controller
 {
-    public function __construct()
+    private DivisiRepoInterface $divisiRepo;
+    public function __construct(DivisiRepoInterface $divisiRepo)
     {
-        // $this->middleware(['role:super-admin']);
+        $this->divisiRepo = $divisiRepo;
     }
 
     public function index() {
@@ -109,9 +110,8 @@ class SuperAdminController extends Controller
         return view('modules.log-dml.index', compact('log_dml'));
     }
 
-    public function divisi_index(DivisiRepoInterface $divisiRepo) {
-
-        $divisi = $divisiRepo->getDivisi();
+    public function divisi_index() {
+        $divisi = $this->divisiRepo->getDivisi();
 
         return view('modules.divisi.index', compact('divisi'));
     }

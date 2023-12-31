@@ -11,6 +11,7 @@ use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Str;
+use App\Repositories\Interface\DivisiRepoInterface;
 
 class Users extends AbstractTable
 {
@@ -19,9 +20,12 @@ class Users extends AbstractTable
      *
      * @return void
      */
-    public function __construct()
+    private DivisiRepoInterface $divisiRepo;
+    public function __construct(
+        DivisiRepoInterface $divisiRepo
+    )
     {
-        // $this->oke = 'oke' ?? null;
+        $this->divisiRepo = $divisiRepo;
     }
 
     /**
@@ -58,7 +62,8 @@ class Users extends AbstractTable
                 key: 'hitung',
                 as: function (User $user) {
                     $a = $user->has_roles->role->id;
-                    return $a;
+                    $b = $this->divisiRepo->getData();
+                    return $b;
                 }
             )
             ->rowLink(fn (User $user) => route('superadmin.roles.index', ['id' => $user->id]))

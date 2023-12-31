@@ -21,6 +21,11 @@ class DivisiRepository implements DivisiRepoInterface {
         return $getDivisi;
     }
 
+    function getData() {
+        $a = 2*3;
+        return $a;
+    }
+
     function createDivisi() {
 
     }
