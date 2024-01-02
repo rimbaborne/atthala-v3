@@ -14,7 +14,7 @@
     :reset-on-new-remote-url="@js($resetOnNewRemoteUrl)"
 >
     <template #default="{!! $scope !!}">
-        <label class="block" v-bind:class="{ 'pointer-events-none': select.loading }">
+        <label class="block py-2" v-bind:class="{ 'pointer-events-none': select.loading }">
             @includeWhen($label, 'splade::form.label', ['label' => $label])
 
             <div class="relative">
