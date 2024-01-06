@@ -57,26 +57,27 @@ class Users extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table->withGlobalSearch(columns:['name', 'email'])
-            ->column(
-                label:'data',
-                key: 'hitung',
-                as: function (User $user) {
-                    $a = $user->has_roles->role->id;
-                    $b = $this->divisiRepo->getData();
-                    return $b;
-                }
-            )
-            ->rowLink(fn (User $user) => route('superadmin.roles.index', ['id' => $user->id]))
+
+            ->rowLink(fn (User $user) => route('superadmin.users.show', $user))
             ->export()
             ->column('name')
             ->column('email')
-            ->bulkAction(
-                label: 'Delete Users',
-                each: fn (User $user) => $user->delete(),
-                confirm: true,
-                requirePassword: true,
+            ->column(
+                label:'Role',
+                key: 'has_roles.role.name',
+                // as: function (User $user) {
+                //     $a = $user->created_at->diffForHumans();
+                //     return $a;
+                // }
             )
-            ->column('action')
+            ->column(
+                label:'Dibuat',
+                key: 'data',
+                as: function (User $user) {
+                    $a = $user->created_at->format('d M Y');
+                    return $a;
+                }
+            )
             ->paginate(10);
     }
 }
