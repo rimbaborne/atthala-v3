@@ -24,6 +24,7 @@
                     ])->merge([
                         'multiple' => $multiple,
                         'name' => $name,
+                        'value' => 1,
                         'v-model' => $choicesOptions() ? null : $vueModel(),
                         'data-validation-key' => $validationKey(),
                     ]) }} >
