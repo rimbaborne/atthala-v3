@@ -12,7 +12,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(\App\Contracts\NotificationService::class, \App\Services\WhatsappService::class);
+        $this->app->bind(\App\Contracts\LogService::class, \App\Services\LogDMLService::class);
     }
 
     /**
