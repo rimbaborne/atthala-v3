@@ -32,9 +32,9 @@ Route::middleware('splade')->group(function () {
     //     return view('welcome');
     // });
 
-    Route::middleware('auth.redirect')->group(function () {
-        Route::get('/');
-    });
+    // Route::middleware('auth.redirect')->group(function () {
+    //     Route::get('/');
+    // });
 
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
@@ -51,4 +51,7 @@ Route::middleware('splade')->group(function () {
     });
 
     require __DIR__.'/auth.php';
+
+    # Routing Website Utama Non Auth
+    require __DIR__.'/sub/website.php';
 });
