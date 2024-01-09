@@ -13,6 +13,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(\App\Repositories\Interface\DivisiRepoInterface::class, \App\Repositories\DivisiRepository::class);
         $this->app->bind(\App\Repositories\Interface\UserRepoInterface::class, \App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Repositories\Interface\RoleRepoInterface::class, \App\Repositories\RoleRepository::class);
     }
 
     /**

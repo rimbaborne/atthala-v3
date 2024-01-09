@@ -1,13 +1,11 @@
 <x-splade-modal>
-    <x-splade-form action="{{ route('superadmin.users.store') }}" onkeydown="return event.key != 'Enter';">
+    <x-splade-form action="{{ route('superadmin.users.password.update', ['id' => $id]) }}" method="PUT" onkeydown="return event.key != 'Enter';">
         <div class="relative">
             <x-forms.header>
-                Tambah Data User
+                Ubah Password
             </x-forms.header>
 
             <x-forms.body>
-                <x-splade-input type="text" name="name" :label="__('Name')" required autofocus />
-                <x-splade-input type="email" name="email" :label="__('Email')" required />
                 <x-splade-input type="text" name="password" :label="__('Password')" required autocomplete="new-password" />
             </x-forms.body>
 

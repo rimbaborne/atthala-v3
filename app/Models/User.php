@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Models\Modules\Divisi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -14,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -47,16 +46,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    function divisi_() {
+    public function divisi_()
+    {
         return $this->belongsTo(Divisi::class, 'id', 'id');
     }
 
-    function has_roles() {
+    public function has_roles()
+    {
         return $this->belongsTo(UserHasRoles::class, 'id', 'model_id');
     }
 
-    public function hitung() {
-
+    public function data()
+    {
         return $this->belongsTo(User::class, 'id');
     }
 }

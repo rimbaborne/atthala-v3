@@ -22,6 +22,15 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // 'name'     => 'required|string|min:3|max:50',
+            // 'email'    => 'required|unique:users|email',
+            // 'password' => 'required|string|min:6|max:50',
+        ];
+    }
+
+    public function rulesCreate(): array
+    {
+        return [
             'name'     => 'required|string|min:3|max:50',
             'email'    => 'required|unique:users|email',
             'password' => 'required|string|min:6|max:50',
@@ -32,13 +41,22 @@ class UserRequest extends FormRequest
     {
         return [
             'name'     => 'required|string|min:3|max:50',
-            'role'     => 'int|exists:roles,id',
+            'role'     => 'nullable|exists:roles,id',
         ];
     }
     public function rulesUpdatePassword(): array
     {
         return [
             'password' => 'required|string|min:6|max:50',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama diperlukan',
+            'name.min' => 'Password minimal 3 karakter',
+            'password.min' => 'Password minimal 6 karakter',
         ];
     }
 }
