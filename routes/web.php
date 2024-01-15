@@ -50,6 +50,10 @@ Route::middleware('splade')->group(function () {
         });
     });
 
+    Route::get('/phpmyinfo', function () {
+        phpinfo();
+    })->name('phpmyinfo');
+
     require __DIR__.'/auth.php';
 
     # Routing Website Utama Non Auth

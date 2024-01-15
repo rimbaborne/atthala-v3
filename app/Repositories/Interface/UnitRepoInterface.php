@@ -2,8 +2,7 @@
 
 namespace App\Repositories\Interface;
 
-interface DivisiRepoInterface {
-    public function getDivisi();
+interface UnitRepoInterface {
     public function getDataTable();
     public function findData($id);
     public function storeData(array $data);

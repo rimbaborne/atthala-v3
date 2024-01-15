@@ -24,6 +24,12 @@ Route::put('/users/password/{id}', [SuperAdminController::class, 'users_password
 Route::get('/log-dml', [SuperAdminController::class, 'log_dml_index'])->name('superadmin.log-dml.index');
 
 Route::get('/divisi', [SuperAdminController::class, 'divisi_index'])->name('superadmin.divisi.index');
+Route::get('/divisi/create', [SuperAdminController::class, 'divisi_create'])->name('superadmin.divisi.create');
+Route::post('/divisi/store', [SuperAdminController::class, 'divisi_store'])->name('superadmin.divisi.store');
+
+Route::get('/unit', [SuperAdminController::class, 'unit_index'])->name('superadmin.unit.index');
+Route::get('/unit/create', [SuperAdminController::class, 'unit_create'])->name('superadmin.unit.create');
+Route::post('/unit/store', [SuperAdminController::class, 'unit_store'])->name('superadmin.unit.store');
 
 Route::get('/kirim',[SuperAdminController::class,'teskirim']);
 

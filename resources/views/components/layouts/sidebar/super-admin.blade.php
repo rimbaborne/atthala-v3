@@ -23,19 +23,16 @@
         </x-link-item>
     </li>
     <li>
-        <Link href="unit" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group hover:border hover:border-gray-500 border border-transparent">
+        <x-link-item :href="route('superadmin.unit.index')" :active="request()->routeIs('superadmin.unit.index')">
             @svg('carbon-chart-scatter', 'text-gray-600 h-6 w-6')
-            <span class="ml-3" sidebar-toggle-item="">
-                Unit
-            </span>
-        </Link>
+            <span class="ml-3">Unit</span>
+        </x-link-item>
+
     </li>
     <li>
         <Link href="level" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group hover:border hover:border-gray-500 border border-transparent">
             @svg('carbon-distribute-horizontal-center', 'text-gray-600 h-6 w-6')
-            <span class="ml-3" sidebar-toggle-item="">
-                Level
-            </span>
+            <span class="ml-3">Level</span>
         </Link>
     </li>
     <li>

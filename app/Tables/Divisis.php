@@ -2,17 +2,12 @@
 
 namespace App\Tables;
 
-use App\Models\User;
+use App\Models\Modules\Divisi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
-use ProtoneMedia\Splade\Facades\Toast;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Support\Str;
 
-class Users extends AbstractTable
+class Divisis extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -21,7 +16,7 @@ class Users extends AbstractTable
      */
     public function __construct()
     {
-        //...
+        //
     }
 
     /**
@@ -41,7 +36,7 @@ class Users extends AbstractTable
      */
     public function for()
     {
-        return User::class;
+        return Divisi::query();
     }
 
     /**
@@ -52,24 +47,21 @@ class Users extends AbstractTable
      */
     public function configure(SpladeTable $table)
     {
-        $table->withGlobalSearch(columns:['name', 'email'])
-
-            ->rowLink(fn (User $user) => route('superadmin.users.show', $user))
-            ->export()
-            ->column('name')
-            ->column('email')
+        $table
             ->column(
-                label:'Role',
-                key: 'has_roles.role.name',
+                key     : 'user.name',
+                label   : 'Kepala Divisi'
             )
-            ->column(
-                label:'Dibuat',
-                key: 'data',
-                as: function (User $user) {
-                    $a = $user->created_at->format('d M Y');
-                    return $a;
-                }
-            )
+            ->column('nama')
+            ->column('slug')
+            ->column('created_at')
             ->paginate(10);
+
+            // ->searchInput()
+            // ->selectFilter()
+            // ->withGlobalSearch()
+
+            // ->bulkAction()
+            // ->export()
     }
 }

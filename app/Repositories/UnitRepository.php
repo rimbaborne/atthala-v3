@@ -2,35 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Tables\Divisis;
-use App\Models\Modules\Divisi;
+use App\Tables\Units;
+use App\Models\Modules\Unit;
+use App\Repositories\Interface\UnitRepoInterface;
 use Illuminate\Support\Arr;
-use App\Repositories\Interface\DivisiRepoInterface;
-use ProtoneMedia\Splade\SpladeTable;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
-class DivisiRepository implements DivisiRepoInterface {
+class UnitRepository implements UnitRepoInterface {
 
-    private Divisi $model;
-    public function __construct(Divisi $model) {
+    private Unit $model;
+    public function __construct(Unit $model) {
         $this->model = $model;
     }
 
-
-    function getDivisi()  {
-        $getDivisi = SpladeTable::for(Divisi::class)
-        ->column(
-            key     : 'user.name',
-            label   : 'Kepala Divisi'
-        )
-        ->column('nama')
-        ->column('slug')
-        ->column('created_at')
-        ->paginate(10);
-        return $getDivisi;
-    }
-
     public function getDataTable()  {
-        $getData = Divisis::class;
+        $getData = Units::class;
         return $getData;
     }
 
@@ -61,9 +48,5 @@ class DivisiRepository implements DivisiRepoInterface {
     {
         $record = $this->model->findOrFail($id);
         return $record->delete();
-    }
-
-    function deleteDivisi() {
-
     }
 }

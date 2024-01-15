@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('divisis', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id_ketua')->nullable();
+            $table->unsignedBigInteger('divisi_id')->nullable();
             $table->string('nama');
             $table->string('slug')->unique();
             $table->text('keterangan')->nullable();
 
-            $table->foreign('user_id_ketua')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('divisi_id')->references('id')->on('divisis')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('divisis');
+        Schema::dropIfExists('units');
     }
 };

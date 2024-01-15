@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogDML;
-use Illuminate\Http\Request;
 use ProtoneMedia\Splade\SpladeTable;
-use App\Models\User;
 use App\Repositories\Interface\DivisiRepoInterface;
+use App\Repositories\Interface\UnitRepoInterface;
 use App\Repositories\Interface\UserRepoInterface;
 use App\Repositories\Interface\RoleRepoInterface;
 use Spatie\Permission\Models\Role;
@@ -24,9 +23,10 @@ class SuperAdminController extends Controller
 {
     use ToastTrait;
     private $notification, $log;
-    private $divisiRepo, $userRepo, $roleRepo;
+    private $divisiRepo, $userRepo, $roleRepo, $unitRepo;
     public function __construct(
         DivisiRepoInterface $divisiRepo,
+        UnitRepoInterface $unitRepo,
         UserRepoInterface $userRepo,
         RoleRepoInterface $roleRepo,
         NotificationService $notification,
@@ -34,6 +34,7 @@ class SuperAdminController extends Controller
     )
     {
         $this->divisiRepo     = $divisiRepo;
+        $this->unitRepo       = $unitRepo;
         $this->userRepo       = $userRepo;
         $this->roleRepo       = $roleRepo;
         $this->notification   = $notification;
@@ -44,6 +45,7 @@ class SuperAdminController extends Controller
         return view('dashboard.super-admin.index');
     }
 
+    // USER
     public function users_index() {
         $users = $this->userRepo->getDataTable();
         return view('modules.users.index', compact('users'));
@@ -88,6 +90,59 @@ class SuperAdminController extends Controller
         $this->successUpdate('Password '.$user_b->email);
         return redirect()->route('superadmin.users.index');
     }
+
+    // FIXME USER Delete
+    // buat seting request & belum dites
+    public function users_delete($id) {
+        $user = $this->userRepo->findData($id);
+        $this->log->create(null, $user);
+        $this->userRepo->deleteData($id);
+        $this->successDelete($user->email);
+        return redirect()->route('superadmin.users.index');
+    }
+
+    // DIVISI
+    public function divisi_index() {
+        $divisi = $this->divisiRepo->getDivisi();
+        return view('modules.divisi.index', compact('divisi'));
+    }
+
+    public function divisi_create() {
+        return view('modules.divisi.create');
+    }
+
+    // FIXME DIVISI Store
+    // buat seting request & belum dites
+    public function divisi_store(UserRequest $request) {
+        $data = $request->validated();
+        $divisi = $this->divisiRepo->storeData($data);
+        if (!$divisi) { throw DataException::errorCreate(); }
+        $this->log->create(null, $divisi);
+        $this->successCreate($request->nama);
+        return redirect()->route('superadmin.divisi.index');
+    }
+
+    // UNIT
+    public function unit_index() {
+        $unit = $this->unitRepo->getDataTable();
+
+        return view('modules.unit.index', compact('unit'));
+    }
+    public function unit_create() {
+        return view('modules.unit.create');
+    }
+
+    // FIXME UNIT Store
+    // buat seting request & belum dites
+    public function unit_store(UserRequest $request) {
+        $data = $request->validated();
+        $unit = $this->unitRepo->storeData($data);
+        if (!$unit) { throw DataException::errorCreate(); }
+        $this->log->create(null, $unit);
+        $this->successCreate($request->nama);
+        return redirect()->route('superadmin.unit.index');
+    }
+
 
     public function coa() {
         $roles = SpladeTable::for(Role::class)
@@ -146,13 +201,5 @@ class SuperAdminController extends Controller
         return view('modules.log-dml.index', compact('log_dml'));
     }
 
-    public function divisi_index() {
-        $divisi = $this->divisiRepo->getDivisi();
 
-        return view('modules.divisi.index', compact('divisi'));
-    }
-
-    public function teskirim() {
-        return $this->notification->kirimNotifWa('tess');
-    }
 }
