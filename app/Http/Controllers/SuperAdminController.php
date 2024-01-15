@@ -6,6 +6,7 @@ use App\Models\LogDML;
 use ProtoneMedia\Splade\SpladeTable;
 use App\Repositories\Interface\DivisiRepoInterface;
 use App\Repositories\Interface\UnitRepoInterface;
+use App\Repositories\Interface\LevelRepoInterface;
 use App\Repositories\Interface\UserRepoInterface;
 use App\Repositories\Interface\RoleRepoInterface;
 use Spatie\Permission\Models\Role;
@@ -23,10 +24,11 @@ class SuperAdminController extends Controller
 {
     use ToastTrait;
     private $notification, $log;
-    private $divisiRepo, $userRepo, $roleRepo, $unitRepo;
+    private $divisiRepo, $userRepo, $roleRepo, $unitRepo, $levelRepo;
     public function __construct(
         DivisiRepoInterface $divisiRepo,
         UnitRepoInterface $unitRepo,
+        LevelRepoInterface $levelRepo,
         UserRepoInterface $userRepo,
         RoleRepoInterface $roleRepo,
         NotificationService $notification,
@@ -37,6 +39,7 @@ class SuperAdminController extends Controller
 
         $this->divisiRepo     = $divisiRepo;
         $this->unitRepo       = $unitRepo;
+        $this->levelRepo      = $levelRepo;
         $this->userRepo       = $userRepo;
         $this->roleRepo       = $roleRepo;
         $this->notification   = $notification;
@@ -143,6 +146,27 @@ class SuperAdminController extends Controller
         $this->log->create(null, $unit);
         $this->successCreate($request->nama);
         return redirect()->route('superadmin.unit.index');
+    }
+
+    //LEVEL
+    public function level_index() {
+        $level = $this->levelRepo->getDataTable();
+        return view('modules.level.index', compact('level'));
+    }
+
+    public function level_create() {
+        return view('modules.level.create');
+    }
+
+    // FIXME LEVEL Store
+    // buat seting request & belum dites
+    public function level_store(UserRequest $request) {
+        $data = $request->validated();
+        $level = $this->levelRepo->storeData($data);
+        if (!$level) { throw DataException::errorCreate(); }
+        $this->log->create(null, $level);
+        $this->successCreate($request->nama);
+        return redirect()->route('superadmin.level.index');
     }
 
 

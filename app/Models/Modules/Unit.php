@@ -22,4 +22,9 @@ class Unit extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id_keterangan');
     }
+
+    public function divisi()
+    {
+        return $this->hasOne(Divisi::class, 'id', 'divisi_id');
+    }
 }

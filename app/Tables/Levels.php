@@ -2,12 +2,12 @@
 
 namespace App\Tables;
 
-use App\Models\Modules\Unit;
+use App\Models\Modules\Level;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
-class Units extends AbstractTable
+class Levels extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -36,7 +36,7 @@ class Units extends AbstractTable
      */
     public function for()
     {
-        return Unit::query();
+        return Level::query();
     }
 
     /**
@@ -48,16 +48,12 @@ class Units extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
+            ->column(
+                key     : 'unit.nama',
+                label   : 'Unit'
+            )
             ->column('nama')
             ->column('slug')
-            ->column(
-                key     : 'user.name',
-                label   : 'Kepala Sekolah / Unit'
-            )
-            ->column(
-                key     : 'divisi.nama',
-                label   : 'Divisi'
-            )
             ->column('created_at')
             ->paginate(10);
 

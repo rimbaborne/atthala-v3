@@ -31,5 +31,6 @@ Route::get('/unit', [SuperAdminController::class, 'unit_index'])->name('superadm
 Route::get('/unit/create', [SuperAdminController::class, 'unit_create'])->name('superadmin.unit.create');
 Route::post('/unit/store', [SuperAdminController::class, 'unit_store'])->name('superadmin.unit.store');
 
-Route::get('/kirim',[SuperAdminController::class,'teskirim']);
-
+Route::get('/level', [SuperAdminController::class, 'level_index'])->name('superadmin.level.index');
+Route::get('/level/create', [SuperAdminController::class, 'level_create'])->name('superadmin.level.create');
+Route::post('/level/store', [SuperAdminController::class, 'level_store'])->name('superadmin.level.store');
