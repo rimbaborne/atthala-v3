@@ -33,6 +33,8 @@ class SuperAdminController extends Controller
         LogService $log
     )
     {
+        $this->middleware('role:super-admin');
+
         $this->divisiRepo     = $divisiRepo;
         $this->unitRepo       = $unitRepo;
         $this->userRepo       = $userRepo;
