@@ -9,4 +9,7 @@ interface UserRepoInterface {
     public function updateData($id, array $data);
     public function updateDataPassword($id, array $data);
     public function deleteData($id);
+
+    public function storeDataValidasi(array $data);
+
 }

@@ -17,7 +17,7 @@
                 </span>
             @endif
 
-            <input {{ $attributes->except(['v-if', 'v-show', 'v-for', 'class'])->class([
+            <input {{ $attributes->except(['v-if', 'v-show', 'v-for'])->class([
                 'block w-full border-0 focus:border-sky-300 focus:ring focus:ring-sky-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed',
                 'rounded-md' => !$append && !$prepend,
                 'min-w-0 flex-1 rounded-none' => $append || $prepend,

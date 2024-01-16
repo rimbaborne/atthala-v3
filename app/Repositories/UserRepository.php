@@ -8,6 +8,7 @@ use App\Repositories\Interface\UserRepoInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Carbon;
 
 class UserRepository implements UserRepoInterface {
 
@@ -60,5 +61,20 @@ class UserRepository implements UserRepoInterface {
     {
         $record = $this->model->findOrFail($id);
         return $record->delete();
+    }
+
+    //FORM BARU - PAKAI NOMOR WA
+
+    public function storeDataValidasi(array $data)
+    {
+        $code_access = rand(1000,9999);
+
+        return $this->model->create([
+            'phone_code'           => Arr::get($data,'phone_code') ?? '62',
+            'phone_number'         => Arr::get($data,'phone_number'),
+            'code_access'          => $code_access,
+            'code_access_max_date' => Carbon::now()->addMonths(6),
+            'password'             => Hash::make($code_access),
+        ]);
     }
 }

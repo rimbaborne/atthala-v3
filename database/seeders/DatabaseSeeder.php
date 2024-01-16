@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(RolesSeeder::class);
+        $this->call(PermissionsSeeder::class);
         $this->call(DivisiSeeder::class);
         $this->call(UnitSeeder::class);
         $this->call(LevelSeeder::class);
