@@ -11,7 +11,7 @@
                     </svg>
                 </button>
                 <a href="#" class="flex ml-2 md:mr-24">
-                    <img src="https://web.arrahmahbalikpapan.or.id/wp-content/uploads/2022/08/cropped-logo-1.png" class="h-10 mr-3" alt="Atthala Logo">
+                    <img src="{{ asset('assets/img/logo-arrahmah.png') }}" class="h-10 mr-3" alt="Atthala Logo">
                 </a>
             </div>
             <div class="flex items-center">
