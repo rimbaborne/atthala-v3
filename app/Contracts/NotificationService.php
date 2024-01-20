@@ -3,5 +3,5 @@
 namespace App\Contracts;
 
 interface NotificationService {
-    public function kirimNotifWa($pesan);
+    public function kirimNotifWa($nomor, $isipesan);
 }

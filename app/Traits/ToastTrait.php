@@ -18,4 +18,9 @@ trait ToastTrait {
         return Toast::title('Sukses !')
                     ->message('Data '.$pesan.' Berhasil Dihapus');
     }
+
+    public function successSendOTP($pesan) {
+        return Toast::title('Sukses !')
+                    ->message('Kode OTP '.$pesan.' Berhasil Dikirim. Silahkan Cek Pesan Whatsapp Anda');
+    }
 }

@@ -23,4 +23,9 @@ class DataException extends Exception
     {
         return Toast::title('Terjadi Kesalahan')->warning('Data Tidak Berhasil Dihapus. Hubungi Admin');
     }
+
+    public static function errorSendOTP()
+    {
+        return Toast::title('Terjadi Kesalahan')->warning('Kode OTP Tidak Berhasil Dikirim. Coba Lagi Nanti atau Hubungu wa.me/6282149604546');
+    }
 }

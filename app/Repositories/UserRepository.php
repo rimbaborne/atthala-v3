@@ -65,6 +65,10 @@ class UserRepository implements UserRepoInterface {
 
     //FORM BARU - PAKAI NOMOR WA
 
+    public function findDataPhone($number)
+    {
+        return $this->model->where('phone_number',$number)->first();
+    }
     public function storeDataValidasi(array $data)
     {
         $code_access = rand(1000,9999);
@@ -77,4 +81,15 @@ class UserRepository implements UserRepoInterface {
             'password'             => Hash::make($code_access),
         ]);
     }
+
+    public function updateOTP($nomor, $kode)
+    {
+        $record = $this->model->where('phone_number',$nomor)->first();
+        return $record->update([
+            'code_access'          => $kode,
+            'code_access_max_date' => Carbon::now()->addMonths(6),
+            'password'             => Hash::make($kode)
+        ]);
+    }
+
 }

@@ -10,6 +10,8 @@ interface UserRepoInterface {
     public function updateDataPassword($id, array $data);
     public function deleteData($id);
 
+    public function findDataPhone($number);
     public function storeDataValidasi(array $data);
+    public function updateOTP($nomor, $kode);
 
 }
