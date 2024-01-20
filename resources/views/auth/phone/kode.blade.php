@@ -20,7 +20,7 @@
                 <a id="generateOTP" href="#" class="block text-primary-700 hover:text-primary-500 py-2">
                 Klik Disini Untuk Mengirim Kode
                 </a>
-                <div id="countdown"></div>
+                <div class="text-xs text-gray-500" id="countdown"></div>
             </div>
             <div class="flex items-center">
                 <div class="relative w-full">
@@ -85,7 +85,7 @@
                 var remainingSeconds = Math.max(0, seconds - Math.floor(elapsedTime / 1000));
 
                 // Menampilkan waktu mundur
-                countdownElement.textContent = formatTime(remainingSeconds);
+                countdownElement.textContent = 'Dapat mengirim kode lagi dalam waktu '+formatTime(remainingSeconds);
 
                 // Menghentikan waktu mundur jika sudah mencapai 0
                 if (remainingSeconds === 0) {
@@ -94,6 +94,7 @@
 
                     // Menampilkan kembali tombol setelah waktu habis
                     document.getElementById('generateOTP').style.display = 'block';
+                    document.getElementById('countdown').style.display = 'node';
                     localStorage.removeItem('startTime');
                 }
             }, 1000);

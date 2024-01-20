@@ -65,7 +65,7 @@ class AuthPhoneController extends Controller
         if (!$kirim) { throw DataException::errorSendOTP(); }
         $this->successSendOTP($nomor);
 
-        return $this->successSendOTP($nomor);
+        return response()->json(['response' => 'ok']);;
     }
 
     public function akses_login(AuthPhoneRequest $request)
