@@ -2,7 +2,7 @@
     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-5 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <Link href="/" class="flex items-center">
-                <img src="{{ url('/') }}/assets/img/logo-arrahmah.png" class="mr-3 h-12 sm:h-14" alt="Arrahmah Logo" />
+                <img src="{{ url('/') }}/assets/img/logo-arrahmah.png" class="mr-3 h-10 sm:h-14" alt="Arrahmah Logo" />
             </Link>
             <div class="flex items-center lg:order-2">
                 <Link href="{{ url('/akses') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">

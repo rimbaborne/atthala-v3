@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-            Selamat datang di sistem, {{ Auth::user()->name }}
+            Selamat datang di sistem, {{ Auth::user()->name ?? Auth::user()->phone_number }}
         </h3>
     </x-slot>
 
