@@ -116,7 +116,7 @@
                 Masukkan Kode 4 Digit :
             </div>
             <div class="text-center text-sm">
-                <a id="generateOTP" href="#" class="block text-primary-700 hover:text-primary-500 py-2">
+                <a id="generateOTP" onclick="location.reload()" href="#" class="block text-primary-700 hover:text-primary-500 py-2">
                 Klik Disini Untuk Mengirim Kode
                 </a>
                 <div class="text-xs text-gray-500" id="countdown"></div>
