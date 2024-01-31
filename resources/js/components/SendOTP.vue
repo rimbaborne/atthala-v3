@@ -36,7 +36,7 @@ export default {
     sendOTP() {
       console.log('Mengirim kode OTP ke nomor handphone:', this.phoneNumber);
 
-      var apiUrl = 'https://atthala-v3.test/akses/kirim-otp/' + encodeURIComponent(this.phoneNumber);
+      var apiUrl = window.location.hostname + '/akses/kirim-otp/' + encodeURIComponent(this.phoneNumber);
 
       fetch(apiUrl)
         .then(response => {
@@ -70,7 +70,7 @@ export default {
       }, 1000);
     },
     getRemainingTimeFromServer() {
-      var apiUrl = 'https://atthala-v3.test/akses/kirim-otp/' + encodeURIComponent(this.phoneNumber) + '/sesi-waktu-batas';
+      var apiUrl = window.location.hostname + '/akses/kirim-otp/' + encodeURIComponent(this.phoneNumber) + '/sesi-waktu-batas';
 
       fetch(apiUrl)
         .then(response => {
@@ -96,7 +96,7 @@ export default {
         });
     },
     requestTimeStart() {
-        var apiUrl = 'https://atthala-v3.test/akses/kirim-otp/' + encodeURIComponent(this.phoneNumber) + '/sesi-waktu-mulai';
+        var apiUrl = window.location.hostname + '/akses/kirim-otp/' + encodeURIComponent(this.phoneNumber) + '/sesi-waktu-mulai';
 
         fetch(apiUrl)
         .then(response => {
