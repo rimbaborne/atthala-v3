@@ -37,7 +37,7 @@ Route::middleware('guest')->group(function () {
     Route::get('akses', [AuthPhoneController::class, 'akses'])->name('akses');
     Route::post('akses', [AuthPhoneController::class, 'akses_validasi'])->middleware('throttle:5,5')->name('akses.validasi');
     Route::get('akses/{nomor}', [AuthPhoneController::class, 'akses_nomor'])->name('akses.nomor');
-    Route::get('akses/kirim-otp/{nomor}', [AuthPhoneController::class, 'akses_nomor_kirim_otp'])->name('akses.nomor.kirim-otp');
+    Route::get('akses/kirim-otp/{nomor}', [AuthPhoneController::class, 'akses_nomor_kirim_otp'])->middleware('throttle:6,3')->name('akses.nomor.kirim-otp');
     Route::get('akses/kirim-otp/{nomor}/sesi-waktu-mulai', [AuthPhoneController::class, 'akses_nomor_kirim_otp_sesi_waktu_mulai'])->name('akses.nomor.kirim-otp.sesi-waktu-mulai');
     Route::get('akses/kirim-otp/{nomor}/sesi-waktu-batas', [AuthPhoneController::class, 'akses_nomor_kirim_otp_sesi_waktu_batas'])->name('akses.nomor.kirim-otp.sesi-waktu-batas');
     Route::post('akses/login', [AuthPhoneController::class, 'akses_login'])->name('akses.login');
