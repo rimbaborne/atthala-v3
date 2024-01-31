@@ -60,10 +60,10 @@ class AuthPhoneController extends Controller
     public function akses_nomor_kirim_otp($nomor)
     {
         // Logic
-        // $kode = rand(1000,9999);
-        // $user = $this->userRepo->findDataPhone($nomor);
-        // $this->userRepo->updateOTP($nomor, $kode);
-        // $this->notifService->kirimNotifWa($user->phone_code.ltrim($user->phone_number, '0'), $this->formatPesanAksesWa($kode));
+        $kode = rand(1000,9999);
+        $user = $this->userRepo->findDataPhone($nomor);
+        $this->userRepo->updateOTP($nomor, $kode);
+        $this->notifService->kirimNotifWa($user->phone_code.ltrim($user->phone_number, '0'), $this->formatPesanAksesWa($kode));
         $this->successSendOTP($nomor);
 
         return response()->json([
