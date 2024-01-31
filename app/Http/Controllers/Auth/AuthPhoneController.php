@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use App\Traits\TempPesanNotifTrait;
 use App\Traits\ToastTrait;
 use App\Exceptions\DataException;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -40,7 +41,7 @@ class AuthPhoneController extends Controller
     {
         $data = $request->validate([
             'phone_number' => ['required', 'min:9', 'max:14', new PhoneNumber],
-            'phone_code'   => ['max:6', 'nullable'],
+            'phone_code'   => ['max:6', 'nullab-le'],
         ]);
         if (User::where('phone_number', $request->phone_number)->doesntExist()) {
             $user = $this->userRepo->storeDataValidasi($data);
@@ -58,14 +59,45 @@ class AuthPhoneController extends Controller
 
     public function akses_nomor_kirim_otp($nomor)
     {
-        $kode = rand(1000,9999);
-        $user = $this->userRepo->findDataPhone($nomor);
-        $this->userRepo->updateOTP($nomor, $kode);
-        $kirim = $this->notifService->kirimNotifWa($user->phone_code.ltrim($user->phone_number, '0'), $this->formatPesanAksesWa($kode));
-        if (!$kirim) { throw DataException::errorSendOTP(); }
+        // Logic
+        // $kode = rand(1000,9999);
+        // $user = $this->userRepo->findDataPhone($nomor);
+        // $this->userRepo->updateOTP($nomor, $kode);
+        // $this->notifService->kirimNotifWa($user->phone_code.ltrim($user->phone_number, '0'), $this->formatPesanAksesWa($kode));
         $this->successSendOTP($nomor);
 
-        return response()->json(['response' => 'ok']);;
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'OTP sent successfully',
+        ]);
+    }
+
+    public function akses_nomor_kirim_otp_sesi_waktu_mulai($nomor)
+    {
+        // Get current time
+        $currentTime = Carbon::now()->timestamp;
+
+        // Set session
+        Session::put($nomor.'startTime', $currentTime);
+        Session::put($nomor.'remainingTime', 60);
+
+        return response()->json([
+            'startTime'     => Session::get($nomor.'startTime'),
+            'remainingTime' => Session::get($nomor.'remainingTime')
+        ]);
+    }
+
+    public function akses_nomor_kirim_otp_sesi_waktu_batas($nomor)
+    {
+        // Get remaining time from session
+        $startTime = Session::get($nomor.'startTime', 0);
+        $remainingTime = Session::get($nomor.'remainingTime', 0);
+
+        // Calculate remaining time
+        $elapsedTime = time() - $startTime;
+        $remainingTime = max(0, $remainingTime - $elapsedTime);
+
+        return response()->json(['remainingTime' => $remainingTime]);
     }
 
     public function akses_login(AuthPhoneRequest $request)

@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import vue from "@vitejs/plugin-vue";
+import VueDevTools from 'vite-plugin-vue-devtools';
 
 export default defineConfig({
     plugins: [
@@ -17,6 +18,7 @@ export default defineConfig({
                 },
             },
         }),
+        VueDevTools(),
     ],
     ssr: {
         noExternal: ["vue", "@protonemedia/laravel-splade"]

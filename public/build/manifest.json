@@ -69,12 +69,12 @@
     "src": "node_modules/flatpickr/dist/esm/index.js"
   },
   "resources/js/app.css": {
-    "file": "assets/app-e75ab009.css",
+    "file": "assets/app-61b4cdfb.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "css": [
-      "assets/app-e75ab009.css"
+      "assets/app-61b4cdfb.css"
     ],
     "dynamicImports": [
       "node_modules/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.esm.js",
@@ -92,7 +92,7 @@
       "_nprogress-e771348b.js",
       "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js"
     ],
-    "file": "assets/app-10b19c76.js",
+    "file": "assets/app-08afeb85.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
