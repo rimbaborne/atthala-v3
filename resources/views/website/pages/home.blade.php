@@ -1,7 +1,6 @@
 @extends('website.layouts.web')
 
 @section('content')
-
     <section class="bg-white py-20 bg-[url('/hero-illustration.svg')]">
         <div class="relative">
             <div aria-hidden="true" class="absolute inset-0 float grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
@@ -28,7 +27,6 @@
             </div>
         </div>
     </section>
-
 @endsection
 {{-- <section class="bg-white dark:bg-gray-900">
     <div class="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
