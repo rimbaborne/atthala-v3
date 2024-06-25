@@ -24,22 +24,22 @@ class WhatsappService implements NotificationService
 
         // try {
             #1 Send Seen
-            $requestApi->post($url.'/api/sendSeen', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+        $data = [
+            "session" => $sessionApi,
+            "chatId" => $nomorhp . '@c.us',
+        ];
 
-            #2 Start Typing
-            $requestApi->post($url.'/api/startTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+        $requestApi->post($url . '/api/sendSeen', $data);
 
-            sleep(1); // jeda seolah olah ngetik
+        $requestApi->post($url . '/api/startTyping', $data);
 
-            #3 Stop Typing
-            $requestApi->post($url.'/api/stopTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+        sleep(1);
 
-            #4 Send Message
-            $requestApi->post($url.'/api/sendText', [
-                "session" => $sessionApi,
-                "chatId"  => $nomorhp.'@c.us',
-                "text"    => $isipesan,
-            ]);
+        $requestApi->post($url . '/api/stopTyping', $data);
+
+        $requestApi->post($url . '/api/sendText', array_merge($data, [
+            "text" => $isipesan,
+        ]));
         // } catch (Throwable $th) {
         //     throw $th;
         // }
