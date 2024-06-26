@@ -1,4 +1,4 @@
-<p align="center"><a href="https://arrahmahbalikpapan.or.id" target="_blank"><img src="https://web.arrahmahbalikpapan.or.id/wp-content/uploads/2022/08/cropped-logo-1.png" width="400" alt="Atthala"></a></p>
+<p align="center"><a href="https://arrahmahbalikpapan.or.id" target="_blank"><img src="https://arrahmahbalikpapan.or.id/assets/img/logo-arrahmah.png" width="400" alt="Atthala"></a></p>
 
 ## Tentang
 
