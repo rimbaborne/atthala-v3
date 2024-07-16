@@ -13,31 +13,31 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => 'ketua-divisi-tahsin']);
+        Role::create(['name' => 'ketua-divisi-pendidikan']);
+        Role::create(['name' => 'ketua-divisi-dkm']);
+        Role::create(['name' => 'ketua-divisi-keuangan']);
+        Role::create(['name' => 'ketua-divisi-fundraising']);
+
         Role::create(['name' => 'admin-tahsin']);
         Role::create(['name' => 'ketua-unit-tahsin']); // kepsek / mudir
         Role::create(['name' => 'penguji-tahsin']);
         Role::create(['name' => 'pengajar-tahsin']);  // atau musyrif
 
-        Role::create(['name' => 'ketua-divisi-rtq']);
         Role::create(['name' => 'admin-rtq']);
         Role::create(['name' => 'ketua-unit-rtq']); // kepsek / mudir
         Role::create(['name' => 'penguji-rtq']);
         Role::create(['name' => 'pengajar-rtq']);  // atau musyrif
 
-        Role::create(['name' => 'ketua-divisi-tla']);
         Role::create(['name' => 'admin-tla']);
         Role::create(['name' => 'ketua-unit-tla']); // kepsek / mudir
         Role::create(['name' => 'penguji-tla']);
         Role::create(['name' => 'pengajar-tla']);  // atau musyrif
 
-        Role::create(['name' => 'ketua-divisi-rq']);
         Role::create(['name' => 'admin-rq']);
         Role::create(['name' => 'ketua-unit-rq']); // kepsek / mudir
         Role::create(['name' => 'penguji-rq']);
         Role::create(['name' => 'pengajar-rq']);  // atau musyrif
 
-        Role::create(['name' => 'ketua-divisi-tahla']);
         Role::create(['name' => 'admin-tahla']);
         Role::create(['name' => 'ketua-unit-tahla']); // kepsek / mudir
         Role::create(['name' => 'penguji-tahla']);

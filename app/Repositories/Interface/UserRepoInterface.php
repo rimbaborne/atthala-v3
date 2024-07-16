@@ -14,4 +14,6 @@ interface UserRepoInterface {
     public function storeDataValidasi(array $data);
     public function updateOTP($nomor, $kode);
 
+    public function findRoleData($id);
+
 }

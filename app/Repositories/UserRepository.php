@@ -27,6 +27,11 @@ class UserRepository implements UserRepoInterface {
         return $this->model->find($id);
     }
 
+    public function findRoleData($id)
+    {
+        return $this->model->find($id);
+    }
+
     public function storeData(array $data)
     {
         return $this->model->create([

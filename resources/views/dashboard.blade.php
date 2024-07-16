@@ -27,24 +27,14 @@
     <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
-                <x-partials.list-item>
-                    <x-slot:title>Peserta Tahsin</x-slot>
-                    <x-slot:link>#</x-slot>
-                </x-partials.list-item><x-partials.list-item>
-                    <x-slot:title>Peserta Tahsin</x-slot>
-                    <x-slot:link>#</x-slot>
-                </x-partials.list-item><x-partials.list-item>
-                    <x-slot:title>Peserta Tahsin</x-slot>
-                    <x-slot:link>#</x-slot>
-                </x-partials.list-item><x-partials.list-item>
-                    <x-slot:title>Peserta Tahsin</x-slot>
-                    <x-slot:link>#</x-slot>
-                </x-partials.list-item><x-partials.list-item>
-                    <x-slot:title>Peserta Tahsin</x-slot>
-                    <x-slot:link>#</x-slot>
-                </x-partials.list-item>
+                @foreach ($user->getRoleNames() as $role)
+                    <x-partials.list-item>
+                        <x-slot:title>{{ $role }}</x-slot>
+                        <x-slot:link>#</x-slot>
+                    </x-partials.list-item>
+                @endforeach
             </div>
-            <div class="max-w-screen-xl mb-10">
+            <div class="max-w-screen-xl mt-10">
                 <div class="mb-5">
                     <x-partials.list-item>
                         <x-slot:title>Super Admin</x-slot>
@@ -52,46 +42,7 @@
                     </x-partials.list-item>
                 </div>
             </div>
-            <h3 class="text-2xl pb-4 font-bold">Divisi Pendidikan</h3>
-            <div class="p-4">
-                <ol class="relative border-s border-gray-200 dark:border-gray-700">
-                    <li class="mb-2 ms-6">
-                        <x-partials.list-item>
-                            <x-slot:title>Admin Tahsin</x-slot>
-                            <x-slot:link>#</x-slot>
-                        </x-partials.list-item>
-                    </li>
-                    <li class="mb-2 ms-6">
-                        <x-partials.list-item>
-                            <x-slot:title>Pengajar Tahsin</x-slot>
-                            <x-slot:link>#</x-slot>
-                        </x-partials.list-item>
-                    </li>
-                    <li class="mb-2 ms-6">
-                        <x-partials.list-item>
-                            <x-slot:title>Peserta Tahsin</x-slot>
-                            <x-slot:link>#</x-slot>
-                        </x-partials.list-item>
-                    </li>
-                </ol>
-            </div>
-            <h3 class="text-2xl pb-4 font-bold">Divisi Keuangan</h3>
-            <div class="p-4">
-                <ol class="relative border-s border-gray-200 dark:border-gray-700">
-                    <li class="mb-2 ms-6">
-                        <x-partials.list-item>
-                            <x-slot:title>Kasir</x-slot>
-                            <x-slot:link>#</x-slot>
-                        </x-partials.list-item>
-                    </li>
-                    <li class="mb-2 ms-6">
-                        <x-partials.list-item>
-                            <x-slot:title>Head Finance</x-slot>
-                            <x-slot:link>#</x-slot>
-                        </x-partials.list-item>
-                    </li>
-                </ol>
-            </div>
+
         </div>
     </div>
 

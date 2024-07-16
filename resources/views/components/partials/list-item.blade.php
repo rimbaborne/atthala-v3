@@ -1,7 +1,7 @@
 <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-lg">
     <div class="flex-row items-center justify-between p-4 space-y-3 flex sm:space-y-0 sm:space-x-2">
         <div class="text-center sm:text-left">
-            <h5 class="mr-3 font-semibold dark:text-white">{{ $title }}</h5>
+            <h5 class="mr 3 font-semibold dark:text white uppercase">{{ str_replace('-', ' ', $title)}}</h5>
             {{-- <p class="text-gray-500 dark:text-gray-400">{{ $description }}</p> --}}
         </div>
         <Link href="{{ $link }}"
