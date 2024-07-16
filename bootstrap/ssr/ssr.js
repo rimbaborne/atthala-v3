@@ -12,10 +12,14 @@ var require_ssr = __commonJS({
   "ssr.js"(exports, module) {
     var vue = { exports: {} };
     var vue_cjs_prod = {};
+    /**
+    * vue v3.4.30
+    * (c) 2018-present Yuxi (Evan) You and Vue contributors
+    * @license MIT
+    **/
     var hasRequiredVue_cjs_prod;
     function requireVue_cjs_prod() {
-      if (hasRequiredVue_cjs_prod)
-        return vue_cjs_prod;
+      if (hasRequiredVue_cjs_prod) return vue_cjs_prod;
       hasRequiredVue_cjs_prod = 1;
       (function(exports2) {
         Object.defineProperty(exports2, "__esModule", { value: true });
@@ -79,17 +83,20 @@ var require_ssr = __commonJS({
         runtimeDom.registerRuntimeCompiler(compileToFunction);
         exports2.compile = compileToFunction;
         Object.keys(runtimeDom).forEach(function(k) {
-          if (k !== "default" && !Object.prototype.hasOwnProperty.call(exports2, k))
-            exports2[k] = runtimeDom[k];
+          if (k !== "default" && !Object.prototype.hasOwnProperty.call(exports2, k)) exports2[k] = runtimeDom[k];
         });
       })(vue_cjs_prod);
       return vue_cjs_prod;
     }
     var vue_cjs = {};
+    /**
+    * vue v3.4.30
+    * (c) 2018-present Yuxi (Evan) You and Vue contributors
+    * @license MIT
+    **/
     var hasRequiredVue_cjs;
     function requireVue_cjs() {
-      if (hasRequiredVue_cjs)
-        return vue_cjs;
+      if (hasRequiredVue_cjs) return vue_cjs;
       hasRequiredVue_cjs = 1;
       (function(exports2) {
         Object.defineProperty(exports2, "__esModule", { value: true });
@@ -167,8 +174,7 @@ ${codeFrame}` : message);
         runtimeDom.registerRuntimeCompiler(compileToFunction);
         exports2.compile = compileToFunction;
         Object.keys(runtimeDom).forEach(function(k) {
-          if (k !== "default" && !Object.prototype.hasOwnProperty.call(exports2, k))
-            exports2[k] = runtimeDom[k];
+          if (k !== "default" && !Object.prototype.hasOwnProperty.call(exports2, k)) exports2[k] = runtimeDom[k];
         });
       })(vue_cjs);
       return vue_cjs;
@@ -187,7 +193,7 @@ ${codeFrame}` : message);
     function Ns(e) {
       return function(t, r, n) {
         for (var i = -1, s = Object(t), a = n(t), o = a.length; o--; ) {
-          var l = a[e ? o : ++i];
+          var l = a[++i];
           if (r(s[l], l, s) === false)
             break;
         }
@@ -233,7 +239,7 @@ ${codeFrame}` : message);
     function En(e) {
       return Le(e) && Be(e) == na;
     }
-    var ci = Object.prototype, ia = ci.hasOwnProperty, sa = ci.propertyIsEnumerable, aa = En(function() {
+    var ci = Object.prototype, ia = ci.hasOwnProperty, sa = ci.propertyIsEnumerable, aa = En(/* @__PURE__ */ function() {
       return arguments;
     }()) ? En : function(e) {
       return Le(e) && ia.call(e, "callee") && !sa.call(e, "callee");
@@ -280,7 +286,7 @@ ${codeFrame}` : message);
     function za(e, t) {
       var r = M(e), n = !r && di(e), i = !r && !n && yr(e), s = !r && !n && !i && hi(e), a = r || n || i || s, o = a ? Us(e.length, String) : [], l = o.length;
       for (var u in e)
-        (t || Wa.call(e, u)) && !(a && // Safari 9 has enumerable `arguments.length` in strict mode.
+        Wa.call(e, u) && !(a && // Safari 9 has enumerable `arguments.length` in strict mode.
         (u == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
         i && (u == "offset" || u == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
         s && (u == "buffer" || u == "byteLength" || u == "byteOffset") || // Skip index properties.
@@ -334,7 +340,7 @@ ${codeFrame}` : message);
           return r;
         if (!Ut(r))
           return e(r, n);
-        for (var i = r.length, s = t ? i : -1, a = Object(r); (t ? s-- : ++s < i) && n(a[s], s, a) !== false; )
+        for (var i = r.length, s = -1, a = Object(r); ++s < i && n(a[s], s, a) !== false; )
           ;
         return r;
       };
@@ -738,28 +744,28 @@ ${codeFrame}` : message);
       },
       emits: ["close"],
       setup(e, { emit: t }) {
-        const r = e, n = vueExports.ref(null);
-        function i() {
-          const o = document.createElement("html");
-          o.innerHTML = r.html, o.querySelectorAll("a").forEach((u) => u.setAttribute("target", "_top")), document.body.style.overflow = "hidden";
-          const l = n.value;
-          if (!l.contentWindow)
+        const r = e, n = t, i = vueExports.ref(null);
+        function s() {
+          const l = document.createElement("html");
+          l.innerHTML = r.html, l.querySelectorAll("a").forEach((c) => c.setAttribute("target", "_top")), document.body.style.overflow = "hidden";
+          const u = i.value;
+          if (!u.contentWindow)
             throw new Error("iframe not yet ready.");
-          l.contentWindow.document.open(), l.contentWindow.document.write(o.outerHTML), l.contentWindow.document.close(), document.addEventListener("keydown", s);
+          u.contentWindow.document.open(), u.contentWindow.document.write(l.outerHTML), u.contentWindow.document.close(), document.addEventListener("keydown", a);
         }
-        function s(o) {
-          o.keyCode === 27 && a();
+        function a(l) {
+          l.keyCode === 27 && o();
         }
-        function a() {
-          document.body.style.overflow = "visible", document.removeEventListener("keydown", s), t("close");
+        function o() {
+          document.body.style.overflow = "visible", document.removeEventListener("keydown", a), n("close");
         }
-        return vueExports.onMounted(() => i()), (o, l) => (vueExports.openBlock(), vueExports.createElementBlock("div", {
+        return vueExports.onMounted(() => s()), (l, u) => (vueExports.openBlock(), vueExports.createElementBlock("div", {
           style: { position: "fixed", top: "0px", right: "0px", bottom: "0px", left: "0px", "z-index": "200000", "box-sizing": "border-box", height: "100vh", width: "100vw", "background-color": "rgb(0 0 0 / 0.75)", padding: "2rem" },
-          onClick: a
+          onClick: o
         }, [
           vueExports.createElementVNode("iframe", {
             ref_key: "iframeElement",
-            ref: n,
+            ref: i,
             class: "bg-white w-full h-full"
           }, null, 512)
         ]));
@@ -2316,7 +2322,7 @@ ${codeFrame}` : message);
           return e;
         if (i != a) {
           var c = o[l];
-          u = n ? n(c, l, o) : void 0, u === void 0 && (u = J(c) ? c : Rr(t[i + 1]) ? [] : {});
+          u = void 0, u === void 0 && (u = J(c) ? c : Rr(t[i + 1]) ? [] : {});
         }
         Nu(o, l, u), o = o[l];
       }
@@ -3994,24 +4000,23 @@ ${codeFrame}` : message);
     }
     var hf = 1, mf = 2;
     function vf(e, t, r, n) {
-      var i = r.length, s = i, a = !n;
+      var i = r.length, s = i;
       if (e == null)
         return !s;
       for (e = Object(e); i--; ) {
         var o = r[i];
-        if (a && o[2] ? o[1] !== e[o[0]] : !(o[0] in e))
+        if (o[2] ? o[1] !== e[o[0]] : !(o[0] in e))
           return false;
       }
       for (; ++i < s; ) {
         o = r[i];
         var l = o[0], u = e[l], c = o[1];
-        if (a && o[2]) {
+        if (o[2]) {
           if (u === void 0 && !(l in e))
             return false;
         } else {
           var v = new Se();
-          if (n)
-            var g = n(u, c, l, e, t, v);
+          var g;
           if (!(g === void 0 ? ir(c, u, hf | mf, n, v) : g))
             return false;
         }
@@ -4082,7 +4087,7 @@ ${codeFrame}` : message);
       };
     }
     function If(e, t, r, n) {
-      for (var i = e.length, s = r + (n ? 1 : -1); n ? s-- : ++s < i; )
+      for (var i = e.length, s = r + -1; ++s < i; )
         if (t(e[s], s, e))
           return s;
       return -1;
@@ -4255,7 +4260,7 @@ ${codeFrame}` : message);
          * This determines the order of all files, existing and new, and sets it on the form.
          */
         setOrder() {
-          if (!this.multiple || !this.handlesExistingFiles || !this.filepondInstance)
+          if (!this.multiple || !this.filepondInstance)
             return;
           const t = this.filepondInstance.getFiles().filter((n) => !n.getMetadata("identifier")), r = this.filepondInstance.getFiles().map((n) => {
             const i = n.getMetadata("identifier");
@@ -4456,7 +4461,7 @@ ${codeFrame}` : message);
       }), r;
     }
     function bs(e, t, r) {
-      return e === e && (r !== void 0 && (e = e <= r ? e : r), t !== void 0 && (e = e >= t ? e : t)), e;
+      return e === e && (r !== void 0 && (e = e <= r ? e : r), e = e >= t ? e : t), e;
     }
     function et(e, t, r) {
       return e = Qr(e), r = r == null ? 0 : bs(dn(r), 0, e.length), t = Qt(t), e.slice(r, r + t.length) == t;
@@ -5000,7 +5005,7 @@ ${codeFrame}` : message);
         passthrough: r.passthrough
       }, null, 8, ["html", "passthrough"])) : r.show ? vueExports.renderSlot(e.$slots, "default", { key: 1 }) : vueExports.createCommentVNode("", true);
     }
-    const Qf = /* @__PURE__ */ _e(Kf, [["render", Jf]]), Yf = ["href", "onClick"], Zf = {
+    const Qf = /* @__PURE__ */ _e(Kf, [["render", Jf]]), Yf = ["href"], Zf = {
       __name: "Link",
       props: {
         href: {
@@ -5090,48 +5095,48 @@ ${codeFrame}` : message);
         }
       },
       setup(e) {
-        const t = e, r = vueExports.inject("stack"), n = vueExports.ref(null);
+        const t = vueExports.inject("stack"), r = vueExports.ref(null), n = e;
         function i() {
-          if (n.value = null, !t.confirm)
+          if (r.value = null, !n.confirm)
             return s();
           p.confirm(
-            gs(t.confirm) ? "" : t.confirm,
-            t.confirmText,
-            t.confirmButton,
-            t.cancelButton,
-            !!t.requirePassword,
-            t.requirePasswordOnce,
-            !!t.confirmDanger
+            gs(n.confirm) ? "" : n.confirm,
+            n.confirmText,
+            n.confirmButton,
+            n.cancelButton,
+            !!n.requirePassword,
+            n.requirePasswordOnce,
+            !!n.confirmDanger
           ).then((a) => {
-            if (!t.requirePassword) {
+            if (!n.requirePassword) {
               s();
               return;
             }
-            a && (n.value = a), s();
+            a && (r.value = a), s();
           }).catch(() => {
           });
         }
         function s() {
-          if (t.away)
-            return window.location = t.href;
-          const o = r > 0 && t.keepModal;
-          if (t.modal && !o)
-            return p.modal(t.href);
-          if (t.slideover && !o)
-            return p.slideover(t.href);
-          if (et(t.href, "#")) {
-            if (p.openPreloadedModal(t.href.substring(1)))
+          if (n.away)
+            return window.location = n.href;
+          const o = t > 0 && n.keepModal;
+          if (n.modal && !o)
+            return p.modal(n.href);
+          if (n.slideover && !o)
+            return p.slideover(n.href);
+          if (et(n.href, "#")) {
+            if (p.openPreloadedModal(n.href.substring(1)))
               return;
-            console.log("No preloaded modal found for " + t.href);
+            console.log("No preloaded modal found for " + n.href);
           }
-          let l = t.method.trim().toUpperCase();
+          let l = n.method.trim().toUpperCase();
           const u = {
-            ...t.headers
+            ...n.headers
           };
-          if (o && (u["X-Splade-Modal"] = p.stackType(r), u["X-Splade-Modal-Target"] = r), t.preserveScroll && (u["X-Splade-Preserve-Scroll"] = true), l === "GET")
-            return t.replace ? p.replace(t.href, u) : p.visit(t.href, u);
-          const c = t.data instanceof FormData ? t.data : pn(t.data);
-          l !== "POST" && (c.append("_method", l), l = "POST"), n.value && (c.append(se(t.requirePassword) && t.requirePassword ? t.requirePassword : "password", n.value), n.value = null), p.request(t.href, l, c, u, t.replace);
+          if (o && (u["X-Splade-Modal"] = p.stackType(t), u["X-Splade-Modal-Target"] = t), n.preserveScroll && (u["X-Splade-Preserve-Scroll"] = true), l === "GET")
+            return n.replace ? p.replace(n.href, u) : p.visit(n.href, u);
+          const c = n.data instanceof FormData ? n.data : pn(n.data);
+          l !== "POST" && (c.append("_method", l), l = "POST"), r.value && (c.append(se(n.requirePassword) && n.requirePassword ? n.requirePassword : "password", r.value), r.value = null), p.request(n.href, l, c, u, n.replace);
         }
         return (a, o) => (vueExports.openBlock(), vueExports.createElementBlock("a", {
           href: e.href,
@@ -6391,7 +6396,7 @@ ${codeFrame}` : message);
           }), Cr.init(t.progress_bar);
         }
         t.suppress_compile_errors && (e.config.compilerOptions.onError = (n) => {
-          import("./assets/CompilerErrorMessages-6b34f14b-6b34f14b.js").then((i) => {
+          import("./assets/CompilerErrorMessages-6b34f14b-CgNmLHXQ.js").then((i) => {
             console.error({
               message: i.default[n.code] || "Unknown compiler error",
               lineNumber: n.lineNumber,
