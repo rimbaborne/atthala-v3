@@ -26,6 +26,24 @@
 
     <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
+                <x-partials.list-item>
+                    <x-slot:title>Peserta Tahsin</x-slot>
+                    <x-slot:link>#</x-slot>
+                </x-partials.list-item><x-partials.list-item>
+                    <x-slot:title>Peserta Tahsin</x-slot>
+                    <x-slot:link>#</x-slot>
+                </x-partials.list-item><x-partials.list-item>
+                    <x-slot:title>Peserta Tahsin</x-slot>
+                    <x-slot:link>#</x-slot>
+                </x-partials.list-item><x-partials.list-item>
+                    <x-slot:title>Peserta Tahsin</x-slot>
+                    <x-slot:link>#</x-slot>
+                </x-partials.list-item><x-partials.list-item>
+                    <x-slot:title>Peserta Tahsin</x-slot>
+                    <x-slot:link>#</x-slot>
+                </x-partials.list-item>
+            </div>
             <div class="max-w-screen-xl mb-10">
                 <div class="mb-5">
                     <x-partials.list-item>

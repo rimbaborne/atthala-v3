@@ -13,11 +13,14 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
+        Permission::create(['name' => 'pendidikan']);
+        Permission::create(['name' => 'keuangan']);
+        Permission::create(['name' => 'dkm']);
         Permission::create(['name' => 'tahsin']);
         Permission::create(['name' => 'rtq']);
         Permission::create(['name' => 'tla']);
         Permission::create(['name' => 'rq']);
-        Permission::create(['name' => 'tahsintla']);
+        Permission::create(['name' => 'tahla']);
         Permission::create(['name' => 'ekonomi']);
         Permission::create(['name' => 'kasir']);
         Permission::create(['name' => 'cms']);
