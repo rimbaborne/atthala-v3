@@ -26,23 +26,16 @@
 
     <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <h1 class="text-2xl font-bold mb-4">Akses</h1>
+            <div class="border-b border-gray-300 my-4"></div>
             <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
                 @foreach ($user->getRoleNames() as $role)
                     <x-partials.list-item>
                         <x-slot:title>{{ $role }}</x-slot>
-                        <x-slot:link>#</x-slot>
+                        <x-slot:link>@include('components.role.redirect-dashboard')</x-slot>
                     </x-partials.list-item>
                 @endforeach
             </div>
-            <div class="max-w-screen-xl mt-10">
-                <div class="mb-5">
-                    <x-partials.list-item>
-                        <x-slot:title>Super Admin</x-slot>
-                        <x-slot:link>{{ route('superadmin.index') }}</x-slot>
-                    </x-partials.list-item>
-                </div>
-            </div>
-
         </div>
     </div>
 

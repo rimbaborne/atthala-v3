@@ -49,6 +49,18 @@ Route::middleware('splade')->group(function () {
         Route::group(['prefix' => 'super-admin'], function () {
             require __DIR__.'/sub/super-admin.php';
         });
+
+        Route::group(['prefix' => 'dashboard'], function () {
+            require __DIR__.'/sub/ketua-divisi.php';
+            require __DIR__.'/sub/ketua-unit.php';
+            require __DIR__.'/sub/admin.php';
+            require __DIR__.'/sub/pengajar.php';
+            require __DIR__.'/sub/penguji.php';
+            require __DIR__.'/sub/peserta.php';
+            require __DIR__.'/sub/kasir.php';
+            require __DIR__.'/sub/keuangan.php';
+            require __DIR__.'/sub/pimpinan.php';
+        });
     });
 
     Route::get('/phpmyinfo', function () {

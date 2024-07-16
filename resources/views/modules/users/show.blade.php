@@ -17,7 +17,7 @@
                             <x-splade-input type="email" name="email"  v-model="form.email" :label="__('Email')" disabled/>
                             <x-splade-group name="role" label="Status Akses User" class="pt-3">
                                 <div class="border p-3 rounded-lg">
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4 ">
                                         @foreach ($roles as $role_)
                                             @if (strpos($role_->name, 'tahla') === false && strpos($role_->name, 'tahsin') === false && strpos($role_->name, 'rtq') === false && strpos($role_->name, 'tla') === false && strpos($role_->name, 'rq') === false)
                                                     <x-splade-checkbox name="role[]" value="{{ $role_->id }}" v-model="form.role" label="{{ $role_->name }}"/>
@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="border border-b my-4"></div>
                                     <h3 class="text-sm font-bold p-2">TAHSIN</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                                         @foreach ($roles as $role_)
                                             @if (strpos($role_->name, 'tahsin') !== false)
                                                     <x-splade-checkbox name="role[]" value="{{ $role_->id }}" v-model="form.role" label="{{ $role_->name }}"/>
@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="border border-b my-4"></div>
                                     <h3 class="text-sm font-bold p-2">RTQ</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4 ">
                                         @foreach ($roles as $role_)
                                             @if (strpos($role_->name, 'rtq') !== false)
                                                     <x-splade-checkbox name="role[]" value="{{ $role_->id }}" v-model="form.role" label="{{ $role_->name }}"/>
@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="border border-b my-4"></div>
                                     <h3 class="text-sm font-bold p-2">TLA</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4 ">
                                         @foreach ($roles as $role_)
                                             @if (strpos($role_->name, 'tla') !== false)
                                                     <x-splade-checkbox name="role[]" value="{{ $role_->id }}" v-model="form.role" label="{{ $role_->name }}"/>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="border border-b my-4"></div>
                                     <h3 class="text-sm font-bold p-2">TAHSIN TLA</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4 ">
                                         @foreach ($roles as $role_)
                                             @if (strpos($role_->name, 'tahla') !== false)
                                                     <x-splade-checkbox name="role[]" value="{{ $role_->id }}" v-model="form.role" label="{{ $role_->name }}"/>
