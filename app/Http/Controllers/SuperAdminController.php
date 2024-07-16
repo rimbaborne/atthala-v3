@@ -59,6 +59,8 @@ class SuperAdminController extends Controller
     public function users_show($id) {
         $roles = $this->roleRepo->getData();
         $user  = $this->userRepo->findData($id);
+
+        // user has role
         foreach($roles as $role_d) {
             if($user->roles->contains($role_d->id)) {
                 $role[] = $role_d->id;
