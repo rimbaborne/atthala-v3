@@ -17,8 +17,13 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'rtq']);
         Permission::create(['name' => 'tla']);
         Permission::create(['name' => 'rq']);
-        Permission::create(['name' => 'tahsin-tla']);
+        Permission::create(['name' => 'tahsintla']);
         Permission::create(['name' => 'ekonomi']);
         Permission::create(['name' => 'kasir']);
+        Permission::create(['name' => 'cms']);
+        Permission::create(['name' => 'create']);
+        Permission::create(['name' => 'read']);
+        Permission::create(['name' => 'update']);
+        Permission::create(['name' => 'delete']);
     }
 }

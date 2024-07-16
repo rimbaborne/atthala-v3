@@ -41,7 +41,7 @@ class UnitSeeder extends Seeder
         Unit::create([
                 'id'        => 5,
                 'nama'      => 'Tahsin Lil Athfal',
-                'slug'      => 'tahsin-tla',
+                'slug'      => 'tahsintla',
                 'divisi_id' => 1,
             ]);
         Unit::create([

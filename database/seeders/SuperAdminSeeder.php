@@ -24,7 +24,7 @@ class SuperAdminSeeder extends Seeder
                 'phone_code'           => '62',
                 'phone_number'         => '08125144744',
                 'code_access'          => '5555',
-                'code_access_max_date' => Carbon::now()->addMonths(6),
+                'code_access_max_date' => Carbon::now()->addHour(),
                 'password'             => bcrypt('5555'),
             ],
         );
