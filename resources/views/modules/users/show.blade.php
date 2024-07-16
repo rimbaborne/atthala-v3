@@ -1,21 +1,25 @@
 <x-layouts.main>
     <x-layouts.card>
-
-            <x-splade-form :default="$user" action="{{ route('superadmin.users.update', ['id' => $user->id]) }}" method="PUT" onkeydown="return event.key != 'Enter';">
+            <x-splade-form  action="{{ route('superadmin.users.update', ['id' => $user->id]) }}"
+                            :default="[
+                                'name' => $user->name,
+                                'email' => $user->email,
+                                'role' => $role
+                            ]"
+                            method="PUT" onkeydown="return event.key != 'Enter';">
                 <div class="relative">
                     <x-forms.header>
                         Data User
                     </x-forms.header>
                     <div class="grid lg:grid-cols-2">
                         <x-forms.body>
-                            <x-splade-input type="text" name="name" :label="__('Name')" required autofocus />
-                            <x-splade-input type="email" name="email" :label="__('Email')" disabled/>
-                            <x-splade-select name="role" value="{{ $user->has_roles->role_id ?? 0}}" label="Role" choices>
-                                <option value="0">---</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <x-splade-input type="text" name="name"  v-model="form.name" :label="__('Name')" required autofocus />
+                            <x-splade-input type="email" name="email"  v-model="form.email" :label="__('Email')" disabled/>
+                            <x-splade-group name="role" label="Status User" class="pt-3" >
+                                @foreach ($roles as $role_)
+                                    <x-splade-checkbox name="role[]" value="{{ $role_->id }}" v-model="form.role" label="{{ $role_->name }}"/>
                                 @endforeach
-                            </x-splade-select>
+                            </x-splade-group>
                         </x-forms.body>
                         <x-forms.body>
                             <div class="grid justify-items-end">

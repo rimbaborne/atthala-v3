@@ -5,6 +5,7 @@ import "./bootstrap";
 
 import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 import { createApp } from "vue/dist/vue.esm-bundler.js";
+import CarouselSlider from "./components/CarouselSlider.vue";
 import Photo from "./components/Photo.vue";
 import SendOTP from "./components/SendOTP.vue";
 import SliderDashboard from "./components/SliderDashboard.vue";
@@ -23,6 +24,7 @@ createApp({
             SendOTP,
             Photo,
             SliderDashboard,
+            CarouselSlider
         },
     })
 

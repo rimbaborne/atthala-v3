@@ -59,7 +59,12 @@ class SuperAdminController extends Controller
     public function users_show($id) {
         $roles = $this->roleRepo->getData();
         $user  = $this->userRepo->findData($id);
-        return view('modules.users.show', compact('user', 'roles'));
+        foreach($roles as $role_d) {
+            if($user->roles->contains($role_d->id)) {
+                $role[] = $role_d->id;
+            }
+        }
+        return view('modules.users.show', compact('user', 'roles', 'role'));
     }
 
     public function users_create() {
@@ -76,6 +81,7 @@ class SuperAdminController extends Controller
     }
 
     public function users_update($id, UserRequest $request) {
+        // dd($request->all());
         $data   = $request->validate($request->rulesUpdate());
         $user   = $this->userRepo->updateData($id, $data);
         if (!$user) { throw DataException::errorUpdate(); }

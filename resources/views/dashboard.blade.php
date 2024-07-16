@@ -9,6 +9,23 @@
 
     <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="flow-root pb-6">
+                <div class="mx-auto">
+                    @php
+                    $slides = [
+                    ['url' => 'https://images.pexels.com/photos/4346403/pexels-photo-4346403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'link' => '#'],
+                    ['url' => 'https://images.pexels.com/photos/2895295/pexels-photo-2895295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'link' => '#'],
+                    ['url' => 'https://images.pexels.com/photos/337904/pexels-photo-337904.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'link' => '#']
+                    ];
+                    @endphp
+                    <CarouselSlider :initial-slides="{{ json_encode($slides) }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-10">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="max-w-screen-xl mb-10">
                 <div class="mb-5">
                     <x-partials.list-item>

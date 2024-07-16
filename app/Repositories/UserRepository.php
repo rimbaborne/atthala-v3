@@ -42,7 +42,10 @@ class UserRepository implements UserRepoInterface {
         $record->update([
             'name'     => Arr::get($data,'name'),
         ]);
-        if (Arr::get($data, 'role') != 0) {
+        if (is_array(Arr::get($data, 'role'))) {
+            $roles = Role::whereIn('id', Arr::get($data, 'role'))->get();
+            $record->syncRoles($roles);
+        } else if (Arr::get($data, 'role') != 0) {
             $role = Role::find(Arr::get($data,'role'));
             $record->assignRole($role->name);
         }

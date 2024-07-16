@@ -59,10 +59,6 @@ class Users extends AbstractTable
             ->column('name')
             ->column('email')
             ->column(
-                label:'Role',
-                key: 'has_roles.role.name',
-            )
-            ->column(
                 label:'Dibuat',
                 key: 'data',
                 as: function (User $user) {
