@@ -9,7 +9,7 @@
                 Klik tombol dibawah ini untuk mengirim ulang kode.
             </div> -->
             <div class="my-4 pt-4">
-                <a class="rounded-lg text-sm px-4 py-2 mt-5 outline outline-offset-2 outline-1 outline-primary-800 text-primary-700 hover:text-primary-900" href="#" @click.prevent="confirmSendOTP">
+                <a class="rounded-lg text-sm px-4 py-2 mt-5 text-primary-700 hover:text-primary-900" href="#" @click.prevent="confirmSendOTP">
                     Kirim Ulang Kode OTP
                 </a>
             </div>
