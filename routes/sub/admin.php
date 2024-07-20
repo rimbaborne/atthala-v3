@@ -1,58 +1,96 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PengajarController;
+use App\Http\Controllers\Admin\PesertaController;
+use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\Admin\NotifikasiController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PeriodeController;
+use App\Http\Controllers\Admin\JadwalController;
+use App\Http\Controllers\Admin\PengaturanController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
-
-Route::group(['prefix' => 'admin'], function () {
+Route::prefix('/{unit}')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/periode', [AdminController::class, 'index'])->name('admin.periode.index');
-    Route::post('/periode', [AdminController::class, 'store'])->name('admin.periode.store');
-    Route::get('/periode/{id}', [AdminController::class, 'show'])->name('admin.periode.show');
-    Route::put('/periode/{id}', [AdminController::class, 'update'])->name('admin.periode.update');
-    Route::delete('/periode/{id}', [AdminController::class, 'destroy'])->name('admin.periode.destroy');
 
-    Route::get('/jadwal', [AdminController::class, 'index'])->name('admin.jadwal.index');
-    Route::post('/jadwal', [AdminController::class, 'store'])->name('admin.jadwal.store');
-    Route::get('/jadwal/{id}', [AdminController::class, 'show'])->name('admin.jadwal.show');
-    Route::put('/jadwal/{id}', [AdminController::class, 'update'])->name('admin.jadwal.update');
-    Route::delete('/jadwal/{id}', [AdminController::class, 'destroy'])->name('admin.jadwal.destroy');
+    Route::resource('/periode', PeriodeController::class, [
+        'names' => [
+            'index' => 'admin.periode.index',
+            'store' => 'admin.periode.store',
+            'show' => 'admin.periode.show',
+            'update' => 'admin.periode.update',
+            'destroy' => 'admin.periode.destroy',
+        ]
+    ]);
 
-    Route::get('/pengajar', [AdminController::class, 'index'])->name('admin.pengajar.index');
-    Route::post('/pengajar', [AdminController::class, 'store'])->name('admin.pengajar.store');
-    Route::get('/pengajar/{id}', [AdminController::class, 'show'])->name('admin.pengajar.show');
-    Route::put('/pengajar/{id}', [AdminController::class, 'update'])->name('admin.pengajar.update');
-    Route::delete('/pengajar/{id}', [AdminController::class, 'destroy'])->name('admin.pengajar.destroy');
+    Route::resource('/jadwal', JadwalController::class, [
+        'names' => [
+            'index' => 'admin.jadwal.index',
+            'store' => 'admin.jadwal.store',
+            'show' => 'admin.jadwal.show',
+            'update' => 'admin.jadwal.update',
+            'destroy' => 'admin.jadwal.destroy',
+        ]
+    ]);
 
-    Route::get('/peserta', [AdminController::class, 'index'])->name('admin.peserta.index');
-    Route::post('/peserta', [AdminController::class, 'store'])->name('admin.peserta.store');
-    Route::get('/peserta/{id}', [AdminController::class, 'show'])->name('admin.peserta.show');
-    Route::put('/peserta/{id}', [AdminController::class, 'update'])->name('admin.peserta.update');
-    Route::delete('/peserta/{id}', [AdminController::class, 'destroy'])->name('admin.peserta.destroy');
+    Route::resource('/pengajar', PengajarController::class, [
+        'names' => [
+            'index' => 'admin.pengajar.index',
+            'store' => 'admin.pengajar.store',
+            'show' => 'admin.pengajar.show',
+            'update' => 'admin.pengajar.update',
+            'destroy' => 'admin.pengajar.destroy',
+        ]
+    ]);
 
-    Route::get('/transaksi', [AdminController::class, 'index'])->name('admin.transaksi.index');
-    Route::post('/transaksi', [AdminController::class, 'store'])->name('admin.transaksi.store');
-    Route::get('/transaksi/{id}', [AdminController::class, 'show'])->name('admin.transaksi.show');
-    Route::put('/transaksi/{id}', [AdminController::class, 'update'])->name('admin.transaksi.update');
-    Route::delete('/transaksi/{id}', [AdminController::class, 'destroy'])->name('admin.transaksi.destroy');
+    Route::resource('/peserta', PesertaController::class, [
+        'names' => [
+            'index' => 'admin.peserta.index',
+            'store' => 'admin.peserta.store',
+            'show' => 'admin.peserta.show',
+            'update' => 'admin.peserta.update',
+            'destroy' => 'admin.peserta.destroy',
+        ]
+    ]);
 
-    Route::get('/pengaturan', [AdminController::class, 'index'])->name('admin.pengaturan.index');
-    Route::post('/pengaturan', [AdminController::class, 'store'])->name('admin.pengaturan.store');
-    Route::get('/pengaturan/{id}', [AdminController::class, 'show'])->name('admin.pengaturan.show');
-    Route::put('/pengaturan/{id}', [AdminController::class, 'update'])->name('admin.pengaturan.update');
-    Route::delete('/pengaturan/{id}', [AdminController::class, 'destroy'])->name('admin.pengaturan.destroy');
+    Route::resource('/transaksi', TransaksiController::class, [
+        'names' => [
+            'index' => 'admin.transaksi.index',
+            'store' => 'admin.transaksi.store',
+            'show' => 'admin.transaksi.show',
+            'update' => 'admin.transaksi.update',
+            'destroy' => 'admin.transaksi.destroy',
+        ]
+    ]);
 
-    Route::get('/notifikasi', [AdminController::class, 'index'])->name('admin.notifikasi.index');
-    Route::post('/notifikasi', [AdminController::class, 'store'])->name('admin.notifikasi.store');
-    Route::get('/notifikasi/{id}', [AdminController::class, 'show'])->name('admin.notifikasi.show');
-    Route::put('/notifikasi/{id}', [AdminController::class, 'update'])->name('admin.notifikasi.update');
-    Route::delete('/notifikasi/{id}', [AdminController::class, 'destroy'])->name('admin.notifikasi.destroy');
+    Route::resource('/pengaturan', PengaturanController::class, [
+        'names' => [
+            'index' => 'admin.pengaturan.index',
+            'store' => 'admin.pengaturan.store',
+            'show' => 'admin.pengaturan.show',
+            'update' => 'admin.pengaturan.update',
+            'destroy' => 'admin.pengaturan.destroy',
+        ]
+    ]);
 
-    Route::get('/user', [AdminController::class, 'index'])->name('admin.user.index');
-    Route::post('/user', [AdminController::class, 'store'])->name('admin.user.store');
-    Route::get('/user/{id}', [AdminController::class, 'show'])->name('admin.user.show');
-    Route::put('/user/{id}', [AdminController::class, 'update'])->name('admin.user.update');
-    Route::delete('/user/{id}', [AdminController::class, 'destroy'])->name('admin.user.destroy');
+    Route::resource('/notifikasi', NotifikasiController::class, [
+        'names' => [
+            'index' => 'admin.notifikasi.index',
+            'store' => 'admin.notifikasi.store',
+            'show' => 'admin.notifikasi.show',
+            'update' => 'admin.notifikasi.update',
+            'destroy' => 'admin.notifikasi.destroy',
+        ]
+    ]);
+
+    Route::resource('/user', UserController::class, [
+        'names' => [
+            'index' => 'admin.user.index',
+            'store' => 'admin.user.store',
+            'show' => 'admin.user.show',
+            'update' => 'admin.user.update',
+            'destroy' => 'admin.user.destroy',
+        ]
+    ]);
 });
