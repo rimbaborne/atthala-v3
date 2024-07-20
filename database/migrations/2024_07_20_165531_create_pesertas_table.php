@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('jadwal_id')->constrained('jadwals');
             $table->string('nis_peserta')->unique();
             $table->string('slug')->unique();
             $table->string('notelp');

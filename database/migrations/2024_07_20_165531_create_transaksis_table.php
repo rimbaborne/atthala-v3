@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
-            $table->foreignId('pembayaran_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->uuid('uuid');
+            $table->foreignId('periode_id')->constrained('periodes');
+            $table->foreignId('peserta_id')->constrained('pesertas');
+            $table->foreignId('user_id')->constrained('users');
             $table->tinyInteger('status')->default(0); // 0 UNPAID - 1 PAID - 2 EXPIRED
             $table->integer('nominal_total');
-            $table->foreignId('payment_gateway_id')->constrained();
+            $table->foreignId('payment_gateway_id')->constrained('payment_gateways');
             $table->timestamps();
         });
     }

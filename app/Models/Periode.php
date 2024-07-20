@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Tables\Units;
 
 class Periode extends Model
 {
@@ -29,6 +30,12 @@ class Periode extends Model
     public function biaya()
     {
         return $this->hasMany(Biaya::class);
+    }
+
+
+    public function unit()
+    {
+        return $this->hasOne(Units::class, 'id', 'unit_id');
     }
 
     public function pengajar()

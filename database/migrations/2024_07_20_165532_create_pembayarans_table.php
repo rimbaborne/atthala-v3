@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // DETAIL ITEM TRANSAKSI BERDASARKAN HITUNGAN BIAYA YANG TERCANTUM (SPP, GEDUNG, DLL)
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('periode_id')->constrained('periodes');
             $table->foreignId('transaksi_id')->constrained('transaksis');
             $table->foreignId('biaya_id')->constrained('biayas');
             $table->timestamps();

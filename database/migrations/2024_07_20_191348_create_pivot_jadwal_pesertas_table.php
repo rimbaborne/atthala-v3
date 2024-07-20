@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengaturans', function (Blueprint $table) {
+        Schema::create('pivot_jadwal_pesertas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('unit_id')->constrained();
-            $table->string('nama');
-            $table->string('nama_penyesuaian')->nullable();
+            $table->foreignId('jadwal_id')->constrained('jadwals');
+            $table->foreignId('peserta_id')->constrained('pesertas');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengaturans');
+        Schema::dropIfExists('pivot_jadwal_pesertas');
     }
 };
