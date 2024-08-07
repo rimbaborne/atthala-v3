@@ -9,6 +9,7 @@ import CarouselSlider from "./components/CarouselSlider.vue";
 import Photo from "./components/Photo.vue";
 import SendOTP from "./components/SendOTP.vue";
 import SliderDashboard from "./components/SliderDashboard.vue";
+import RecordVoice from "./components/RecordVoice.vue";
 
 const el = document.getElementById("app");
 
@@ -24,7 +25,8 @@ createApp({
             SendOTP,
             Photo,
             SliderDashboard,
-            CarouselSlider
+            CarouselSlider,
+            RecordVoice
         },
     })
 
