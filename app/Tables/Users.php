@@ -55,6 +55,10 @@ class Users extends AbstractTable
         $table->withGlobalSearch(columns:['name', 'email'])
 
             ->rowLink(fn (User $user) => route('superadmin.users.show', $user))
+            ->selectFilter('Kota', [
+                'en' => 'Balikpapan',
+                'nl' => 'Luar Balikpapan',
+            ])
             ->export()
             ->column('name')
             ->column('email')

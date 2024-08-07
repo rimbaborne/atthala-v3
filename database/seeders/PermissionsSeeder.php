@@ -28,5 +28,9 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'read']);
         Permission::create(['name' => 'update']);
         Permission::create(['name' => 'delete']);
+        Permission::create(['name' => 'admin']);
+        Permission::create(['name' => 'ketua-unit']);
+        Permission::create(['name' => 'penguji']);
+        Permission::create(['name' => 'pengajar']);
     }
 }

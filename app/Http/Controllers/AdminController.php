@@ -10,7 +10,7 @@ class AdminController extends Controller
         $this->middleware('role:admin');
     }
 
-    public function index() {
+    public function index($unit) {
         return view('dashboard.admin.index');
     }
 }

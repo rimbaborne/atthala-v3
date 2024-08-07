@@ -2,10 +2,10 @@
     <div class="max-w-lg mx-auto bg-white p-4 rounded shadow">
         <h1 class="text-lg font-medium mb-4">Rekaman Tilawah Quran Surah Fussilat Ayat 44-48</h1>
         <div v-if="!isUploadSuccessful" class="mb-6 text-center">
-            <a v-if="!isRecording" href="#" @click.prevent="startRecording" class="bg-blue-500 text-white px-4 py-4 rounded-full hover:bg-blue-600 cursor-pointer">
-                Rekam <i class="fas fa-microphone"></i>
+            <a v-if="!isRecording" href="#" @click.prevent="startRecording" class="text-red-700 border border-red-700 px-4 py-4 font-semibold rounded-full hover:bg-red-700 hover:text-white cursor-pointer">
+                REKAM <i class="fas fa-microphone"></i>
             </a>
-            <a v-if="isRecording" href="#" @click.prevent="stopRecording" class="bg-red-500 text-white px-4 py-4 rounded-full hover:bg-red-600 cursor-pointer">Stop</a>
+            <a v-if="isRecording" href="#" @click.prevent="stopRecording" class="bg-red-500 text-white px-4 py-4 rounded-full hover:bg-red-600 cursor-pointer">STOP</a>
         </div>
         <div v-else class="text-center mb-4">
             <i class="fas fa-check-circle text-green-500 text-4xl"></i>

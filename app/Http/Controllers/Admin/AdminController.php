@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // public function __construct() {
+    //     $this->middleware('permission:admin');
+    // }
+
     public function index($unit)
     {
-        // Logika untuk menampilkan data
+        return view('dashboard.admin.index');
+
     }
 }
