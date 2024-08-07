@@ -64,8 +64,19 @@ class WebController extends Controller
 
     public function lttq_tahsin()
     {
+        return view('website.pages.lttq.tahsin.index');
+    }
+
+    public function lttq_tahsin_pendaftaran()
+    {
+        return view('website.pages.lttq.tahsin.pendaftaran');
+    }
+
+    public function lttq_tahsin_pendaftaran_store()
+    {
         return view('website.pages.lttq.tahsin');
     }
+
 
     public function lttq_rq()
     {
