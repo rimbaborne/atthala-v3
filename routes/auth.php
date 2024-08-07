@@ -28,10 +28,12 @@ Route::middleware('guest')->group(function () {
 // V2 - Phone NUmber
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    // Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::redirect('register', 'akses');
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    // Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::redirect('login', 'akses');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('akses', [AuthPhoneController::class, 'akses'])->name('akses');

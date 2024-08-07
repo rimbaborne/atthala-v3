@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\PengaturanController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('/{unit}')->group(function () {
+Route::prefix('/admin/{unit}')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
     Route::resource('/periode', PeriodeController::class, [
@@ -93,4 +93,8 @@ Route::prefix('/{unit}')->group(function () {
             'destroy' => 'admin.user.destroy',
         ]
     ]);
+
+    Route::get('/pembayaran/', function () {
+        return view('dashboard.admin.pembayaran');
+    })->name('dashboard.admin.pembayaran');
 });

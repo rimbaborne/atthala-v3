@@ -5,6 +5,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/rekam', function (){
+    return view('rekam');
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +45,14 @@ Route::middleware('splade')->group(function () {
     Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/data', function(){
+            return view('dashboard.peserta.data');
+        }
+        )->name('data');
+        Route::get('/riwayat-pembayaran', function(){
+            return view('dashboard.peserta.riwayat-pembayaran');
+        }
+        )->name('riwayat-pembayaran');
 
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
