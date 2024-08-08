@@ -24,18 +24,20 @@
                 cancel-button="Belum"
                 method="POST">
                 <x-splade-input id="name" type="text" name="name" :label="__('Nama Peserta')" required autofocus />
-                <x-splade-select name="jenis_peserta" :label="__('Gender')" required >
+                <x-splade-select name="jenis_peserta" :label="__('Jenis Peserta')" required >
                     <option value="ikhwan" selected>Ikhwan / Laki-laki</option>
                     <option value="akhwat">Akhwat / Perempuan</option>
                 </x-splade-select>
 
                 <x-splade-input name="tanggal_lahir" :label="__('Tanggal Lahir')" date required />
+                <x-splade-input name="published_at" date />
+                <input type="text" class="border border-gray-300 shadow-sm block w-full focus:border-sky-300 focus:ring focus:ring-sky-200 focus:ring-opacity-50 disabled:cursor-not-allowed rounded-md">
                 <x-splade-input id="tempat" type="text" name="tempat" :label="__('Kota Domisili')" required />
                 <x-splade-input id="alamat" type="text" name="alamat" :label="__('Alamat Tinggal')" required />
                 <x-splade-input id="pekerjaan" type="text" name="pekerjaan" :label="__('Pekerjaan')" required />
 
-                <x-splade-select name="pembelajaran" :label="__('Pembelajaran')" required >
-                    <option value="offline" selected>Offline</option>
+                <x-splade-select name="pembelajaran" option-value="__('offline')" :label="__('Pembelajaran')" required >
+                    <option value="offline">Offline</option>
                     <option value="online">Online</option>
                 </x-splade-select>
 

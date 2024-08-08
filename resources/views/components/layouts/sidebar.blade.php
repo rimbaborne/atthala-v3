@@ -1,3 +1,5 @@
+@props(['unit'])
+
 <x-splade-script>
     const sidebar = document.getElementById('sidebar');
 
@@ -30,13 +32,13 @@
                     <x-layouts.sidebar.super-admin />
                 @endif
                 @if (Request::is('dashboard/admin*'))
-                    <x-layouts.sidebar.admin />
+                    <x-layouts.sidebar.admin :unit="$unit"/>
                 @endif
                 @if (Request::is('dashboard/pengajar*'))
-                    <x-layouts.sidebar.pengajar />
+                    <x-layouts.sidebar.pengajar :unit="$unit"/>
                 @endif
                 @if (Request::is('dashboard/ketua*'))
-                    <x-layouts.sidebar.ketua-unit />
+                    <x-layouts.sidebar.ketua-unit :unit="$unit"/>
                 @endif
                 {{-- @role('ketua-divisi-pendidikan')
                     <x-layouts.sidebar.ketua-divisi-pendidikan />

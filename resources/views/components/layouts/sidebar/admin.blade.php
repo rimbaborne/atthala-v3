@@ -1,3 +1,5 @@
+@props(['unit'])
+
 <ul class="pb-2 space-y-2">
     <li>
         <Link href="/dashboard"
@@ -22,7 +24,7 @@
         </Link>
     </li>
     <li>
-        <x-link-item :href="route('superadmin.divisi.index')" :active="request()->routeIs('superadmin.divisi.index')">
+        <x-link-item :href="route('admin.periode.index', ['unit' => $unit])" :active="request()->routeIs('admin.periode.index', ['unit' => $unit])">
             @svg('carbon-data-unstructured', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Periode</span>
         </x-link-item>
