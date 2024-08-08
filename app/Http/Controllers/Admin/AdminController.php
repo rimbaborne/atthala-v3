@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function index($unit)
     {
-        return view('dashboard.admin.index');
+        return view('dashboard.admin.index', compact('unit'));
 
     }
 }

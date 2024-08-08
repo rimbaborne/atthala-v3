@@ -9,7 +9,7 @@ class PeriodeController extends Controller
 {
     public function index($unit)
     {
-        // Logika untuk menampilkan data
+        return view('modules.periode.index', compact('unit'));
     }
 
     public function store(Request $request, $unit)
