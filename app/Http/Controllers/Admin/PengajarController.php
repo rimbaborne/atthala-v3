@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Tables\Pengajars;
 
 class PengajarController extends Controller
 {
     public function index($unit)
     {
-        // Logika untuk menampilkan data
+        $pengajar = Pengajars::class;
+        return view('modules.pengajar.index', compact('unit', 'pengajar'));
     }
 
     public function store(Request $request, $unit)
