@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Tables\Pesertas;
 
 class PesertaController extends Controller
 {
     public function index($unit)
     {
-        // Logika untuk menampilkan data
+        $peserta = Pesertas::class;
+        return view('modules.peserta.index', compact('unit', 'peserta'));
     }
 
     public function store(Request $request, $unit)

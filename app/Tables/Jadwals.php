@@ -56,7 +56,7 @@ class Jadwals extends AbstractTable
             // ->withGlobalSearch()
 
             // ->bulkAction()
-            // ->export()
+            ->export()
             ;
     }
 }

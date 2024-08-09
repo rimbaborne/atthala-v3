@@ -2,12 +2,12 @@
 
 namespace App\Tables;
 
-use App\Models\Pengajar;
+use App\Models\Peserta;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
-class Pengajars extends AbstractTable
+class Pesertas extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -36,7 +36,7 @@ class Pengajars extends AbstractTable
      */
     public function for()
     {
-        return Pengajar::query();
+        return Peserta::query();
     }
 
     /**

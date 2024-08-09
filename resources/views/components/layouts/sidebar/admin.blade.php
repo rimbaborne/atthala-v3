@@ -42,7 +42,7 @@
 
     </li>
     <li>
-        <x-link-item :href="route('superadmin.coa.index')" :active="request()->routeIs('superadmin.coa.index')">
+        <x-link-item :href="route('admin.peserta.index', ['unit' => $unit])" :active="request()->routeIs('admin.peserta.index', ['unit' => $unit])">
             @svg('carbon-user-multiple', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Peserta</span>
         </x-link-item>

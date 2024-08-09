@@ -57,7 +57,7 @@ class Periode extends AbstractTable
             // ->withGlobalSearch()
 
             // ->bulkAction()
-            // ->export()
+            ->export()
             ;
     }
 }
