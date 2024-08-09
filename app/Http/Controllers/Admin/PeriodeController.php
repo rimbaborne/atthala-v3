@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Periode;
+use App\Tables\Periode;
 
 class PeriodeController extends Controller
 {
