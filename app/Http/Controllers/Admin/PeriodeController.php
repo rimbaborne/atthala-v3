@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Periode;
 
 class PeriodeController extends Controller
 {
     public function index($unit)
     {
-        return view('modules.periode.index', compact('unit'));
+        $periode = Periode::class;
+        return view('modules.periode.index', compact('unit', 'periode'));
     }
 
     public function store(Request $request, $unit)
