@@ -487,7 +487,7 @@
                 </div>
 
                 <div class="flex items-center justify-center">
-                    <button type="submit" class="bg-primary-700 text-white py-2.5 px-5 rounded-lg">Proses Pendaftaran <i class="pl-2 fas fa-chevron-right"></i></button>
+                    {{-- <button type="submit" class="bg-primary-700 text-white py-2.5 px-5 rounded-lg">Daftar dan Lanjutkan Pembayaran <i class="pl-2 fas fa-chevron-right"></i></button> --}}
                     {{-- <x-splade-submit class="bg-primary-700 text-white" :label="__('Proses Pendaftaran')" /> --}}
                 </div>
             </x-splade-form>
