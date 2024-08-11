@@ -47,7 +47,7 @@
             <span class="ml-3">Peserta</span>
         </x-link-item>
     </li>
-    <li>
+    {{-- <li>
         <x-link-item :href="route('superadmin.coa.index')" :active="request()->routeIs('superadmin.coa.index')">
             @svg('carbon-chart-custom', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Absensi</span>
@@ -64,9 +64,9 @@
             @svg('carbon-settings-services', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Pengaturan</span>
         </x-link-item>
-    </li>
+    </li> --}}
     <li>
-        <x-link-item :href="route('superadmin.users.index')" :active="request()->routeIs('superadmin.users.index')">
+        <x-link-item :href="route('admin.user.index', ['unit' => $unit])" :active="request()->routeIs('admin.user.index', ['unit' => $unit])">
             @svg('carbon-user-profile-alt', 'text-gray-600 h-6 w-6')
             <span class="ml-3">User Akun</span>
         </x-link-item>

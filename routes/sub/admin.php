@@ -90,6 +90,8 @@ Route::prefix('/admin/{unit}')->group(function () {
             'store' => 'admin.user.store',
             'show' => 'admin.user.show',
             'update' => 'admin.user.update',
+            'password' => 'admin.user.password',
+            'password_update' => 'admin.user.password.update',
             'destroy' => 'admin.user.destroy',
         ]
     ]);
