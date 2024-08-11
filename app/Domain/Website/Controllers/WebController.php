@@ -4,6 +4,7 @@ namespace App\Domain\Website\Controllers;
 
 use App\Http\Controllers\Controller;
 use ProtoneMedia\Splade\Facades\SEO;
+use Illuminate\Support\Facades\Storage;
 
 class WebController extends Controller
 {
@@ -69,7 +70,21 @@ class WebController extends Controller
 
     public function lttq_tahsin_pendaftaran()
     {
-        return view('website.pages.lttq.tahsin.pendaftaran');
+        $page_title = 'LTTQ Arrahmah Balikpapan';
+        SEO::title($page_title)
+            ->description($this->description)
+            ->keywords($this->keywords)
+            ->openGraphType('WebPage')
+            ->openGraphSiteName($page_title)
+            ->openGraphTitle($page_title)
+            ->openGraphUrl('arrahmahbalikpapan.or.id')
+            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
+            ;
+
+        $json = Storage::disk('public')->get('/data/daerah-indonesia.json');
+        $dataindo = json_decode($json, true);
+
+        return view('website.pages.lttq.tahsin.pendaftaran', compact('dataindo'));
     }
 
     public function lttq_tahsin_pendaftaran_store()

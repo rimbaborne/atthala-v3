@@ -1,6 +1,5 @@
 <template>
-    <div class="max-w-lg my-8 mx-auto bg-white p-4 rounded shadow">
-        <h1 class="text-lg font-medium mb-4">Rekaman Tilawah Quran Surah Fussilat Ayat 44-48</h1>
+
         <div v-if="!isUploadSuccessful" class="mb-6 text-center">
             <a v-if="!isRecording" href="#" @click.prevent="startRecording" class="text-red-700 border border-red-700 px-4 py-4 font-semibold rounded-full hover:bg-red-700 hover:text-white cursor-pointer">
                 REKAM <i class="fas fa-microphone"></i>
@@ -23,7 +22,6 @@
                 </a>
             </form>
         </div>
-    </div>
 </template>
 
 <script>
