@@ -69,12 +69,6 @@
     "src": "node_modules/filepond-plugin-image-validate-size/dist/filepond-plugin-image-validate-size.esm.js",
     "isDynamicEntry": true
   },
-  "node_modules/filepond/dist/filepond.esm.js": {
-    "file": "assets/filepond.esm-BKI_Kz2Z.js",
-    "name": "filepond.esm",
-    "src": "node_modules/filepond/dist/filepond.esm.js",
-    "isDynamicEntry": true
-  },
   "node_modules/flatpickr/dist/esm/index.js": {
     "file": "assets/index-BZ7OSNzo.js",
     "name": "index",
@@ -82,7 +76,7 @@
     "isDynamicEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-EBby23yM.js",
+    "file": "assets/app-zufdthYx.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -92,7 +86,6 @@
       "node_modules/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js",
       "node_modules/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.esm.js",
       "node_modules/filepond-plugin-image-validate-size/dist/filepond-plugin-image-validate-size.esm.js",
-      "node_modules/filepond/dist/filepond.esm.js",
       "node_modules/flatpickr/dist/esm/index.js",
       "_jodit.min-BrnkaEm1.js",
       "_choices-F57102UX.js",
@@ -103,7 +96,7 @@
       "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js"
     ],
     "css": [
-      "assets/app-DYOiWH0z.css"
+      "assets/app-Cvrivtr9.css"
     ]
   }
 }
