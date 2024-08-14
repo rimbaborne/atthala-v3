@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamp('waktu_end');
             $table->string('tahun_ajaran');
             $table->string('angkatan');
-            $table->json('form_biodata_daftar');
+            $table->json('form_biodata_daftar')->nullable();
+            $table->json('format_pembayaran')->nullable();
             $table->boolean('aktifkan_pendaftaran')->default(1);
             $table->date('tanggal_tagihan')->nullable();
             $table->timestamps();

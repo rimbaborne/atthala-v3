@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Carbon;
+use App\Models\Periode;
 
 
 class SuperAdminSeeder extends Seeder
@@ -30,5 +31,25 @@ class SuperAdminSeeder extends Seeder
         );
 
         $user->assignRole('super-admin');
+
+        $periode = Periode::create(
+            [
+                'unit_id'              => 1,
+                'nama'                 => 'Angkatan 25',
+                'slug'                 => 'angkatan-25',
+                'waktu_start'          => '2024-08-01 00:00:00',
+                'waktu_end'            => '2024-12-01 23:59:59',
+                'tahun_ajaran'         => 'Angkatan 25',
+                'angkatan'             => 25,
+                'form_biodata_daftar'  => json_encode([]),
+                'format_pembayaran'    => json_encode([
+                                                'SPP BULAN 1' => '',
+                                                'SPP BULAN 2' => '',
+                                                'SPP BULAN 3' => '',
+                                                'SPP BULAN 4' => '',
+                                            ]),
+                'aktifkan_pendaftaran' => 1,
+            ],
+        );
     }
 }

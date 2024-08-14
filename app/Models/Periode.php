@@ -19,6 +19,7 @@ class Periode extends Model
         'tahun_ajaran',
         'angkatan',
         'form_biodata_daftar',
+        'format_pembayaran',
         'aktifkan_pendaftaran',
         'tanggal_tagihan'
     ];

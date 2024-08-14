@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('user_id')->constrained();
             $table->string('nis_peserta')->unique();
             $table->string('slug')->unique();
