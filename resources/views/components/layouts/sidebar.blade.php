@@ -32,7 +32,7 @@
                     <x-layouts.sidebar.super-admin />
                 @endif
                 @if (Request::is('dashboard/admin*'))
-                    <x-layouts.sidebar.admin :unit="$unit"/>
+                    <x-layouts.sidebar.admin :unit="$unit ?? null"/>
                 @endif
                 @if (Request::is('dashboard/pengajar*'))
                     <x-layouts.sidebar.pengajar :unit="$unit"/>

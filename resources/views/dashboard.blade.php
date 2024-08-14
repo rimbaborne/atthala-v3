@@ -37,7 +37,7 @@
 
 
 
-    <div class="pt-10">
+    {{-- <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             <div class="bg-white rounded-lg p-4">
                 <div class="flex items-center justify-between mb-4">
@@ -184,7 +184,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
       <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">

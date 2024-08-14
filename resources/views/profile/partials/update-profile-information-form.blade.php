@@ -1,17 +1,16 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            {{ __('Informasi Akun') }}
         </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
     </header>
+    <h1 class="text-lg font-semibold">
+        {{ $user->phone_number }}
+    </h1>
 
     <x-splade-form method="patch" :action="route('profile.update')" :default="$user" class="mt-6 space-y-6" preserve-scroll>
-        <x-splade-input id="name" name="name" type="text" :label="__('Name')" required autofocus autocomplete="name" />
-        <x-splade-input id="email" name="email" type="email" :label="__('Email')" required autocomplete="email" />
+        <x-splade-input id="name" name="name" type="text" :label="__('Nama')" autofocus autocomplete="name" />
+        <x-splade-input id="email" name="email" type="email" :label="__('Email')" autocomplete="email" />
 
         @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
             <div>
@@ -32,11 +31,11 @@
         @endif
 
         <div class="flex items-center gap-4">
-            <x-splade-submit :label="__('Save')" />
+            <x-splade-submit :label="__('Simpan')" />
 
             @if (session('status') === 'profile-updated')
                 <p class="text-sm text-gray-600">
-                    {{ __('Saved.') }}
+                    {{ __('Tersimpan.') }}
                 </p>
             @endif
         </div>
