@@ -365,25 +365,54 @@
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
                 <div class="max-w-lg my-8 mx-auto bg-white p-4 rounded shadow">
-                    <h1 class="text-lg font-medium mb-4">Rekaman Tilawah Quran Surah Fussilat Ayat 44-48</h1>
-                    <div class="grid md:flex justify-center gap-2 mb-4">
-                        <a class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-white"
-                            onclick="document.getElementById('file-upload').style.display = 'none'; document.getElementById('record-tab').style.display = 'block';">
-                            Rekam Sekarang <i class="fa-solid fa-microphone"></i>
-                        </a>
-                        <span class="text-center md:pt-2">atau</span>
-                        <a class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-white"
-                            onclick="document.getElementById('file-upload').style.display = 'block'; document.getElementById('record-tab').style.display = 'none';">
-                            Upload File Rekaman <i class="fa-solid fa-file-upload"></i>
-                        </a>
-                    </div>
+                    <h1 class="text-lg font-semibold">Rekaman Tilawah Quran Surah Fussilat Ayat 44-48</h1>
+                    <p class="mb-4">Silahkan pilih :</p>
+
+                    <ul class="grid w-full gap-2 md:grid-cols-2 mb-4">
+                        <li>
+                            <input type="radio" id="rekaman-sekarang" name="rekaman" value="rekaman-sekarang" class="hidden peer" required
+                                    onclick="document.getElementById('file-upload').style.display = 'none'; document.getElementById('record-tab').style.display = 'block';">
+                            <label for="rekaman-sekarang" class="inline-flex items-center justify-between w-full p-3 text-gray-700 bg-white border border-gray-400 rounded-lg cursor-pointer peer-checked:text-white peer-checked:bg-gray-600 hover:text-gray-900 hover:bg-gray-400"
+                            >
+                                <div class="block">
+                                    <div class="w-full">Rekam Sekarang</div>
+                                </div>
+                                <i class="fa-solid fa-microphone"></i>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="rekaman-upload" name="rekaman" value="rekaman-upload" class="hidden peer"
+                                    onclick="document.getElementById('file-upload').style.display = 'block'; document.getElementById('record-tab').style.display = 'none';">
+                            <label for="rekaman-upload" class="inline-flex items-center justify-between w-full p-3 text-gray-700 bg-white border border-gray-400 rounded-lg cursor-pointer peer-checked:text-white peer-checked:bg-gray-600 hover:text-gray-900 hover:bg-gray-400">
+                                <div class="block">
+                                    <div class="w-full">Upload File Rekaman</div>
+                                </div>
+                                <i class="fa-solid fa-file-upload"></i>
+                            </label>
+                        </li>
+                    </ul>
                     <div id="record-tab" style="display: none;">
                         <div class="py-4">
                             <RecordVoice></RecordVoice>
                         </div>
+                        <div class="border rounded-lg p-2 bg-stone-50" style="height: 300px; overflow: auto;">
+                            <div style="height: 500px;">
+                                <link rel="preconnect" href="https://fonts.googleapis.com">
+                                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                                <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+                                @foreach($ayat as $key => $item)
+                                    <div class="border-b py-2">
+                                        <p class="text-3xl text-center tracking-wide align-[4px] leading-loose" dir="rtl" style="font-family: 'Scheherazade New', serif;">{{ $item }}</p> <x-carbon-circle-solid class="h-4 w-4 bg-gray-200" /><!-- Menampilkan teks Arabic dalam format Uthmani -->
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                     <div id="file-upload" style="display: none;">
-                        <x-splade-file class="my-4" name="bukti-tf" :label="__('Upload Bukti Transfer')" filepond preview required />
+                        {{-- <x-splade-file class="my-4" name="bukti-tf" :label="__('Upload Rekaman')" filepond preview/> --}}
+                        <p class="text-xs">Maksimal Ukuran File 20MB</p>
+                        <AudioUpload upload-url="{{ route('website.lttq.tahsin.pendaftaran.store.rekaman.file') }}"></AudioUpload>
                     </div>
                 </div>
 

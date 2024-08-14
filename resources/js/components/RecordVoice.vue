@@ -1,30 +1,40 @@
 <template>
-
+    <div>
         <div v-if="!isUploadSuccessful" class="mb-6 text-center">
             <a v-if="!isRecording" href="#" @click.prevent="startRecording" class="text-red-700 border border-red-700 px-4 py-4 font-semibold rounded-full hover:bg-red-700 hover:text-white cursor-pointer">
-                REKAM <i class="fas fa-microphone"></i>
+                KLIK REKAM <i class="fas fa-microphone"></i>
             </a>
-            <a v-if="isRecording" href="#" @click.prevent="stopRecording" class="bg-red-500 text-white px-4 py-4 rounded-full hover:bg-red-600 cursor-pointer">STOP</a>
+            <a v-if="isRecording" href="#" @click.prevent="stopRecording" class="bg-red-500 text-white px-4 py-4 rounded-full hover:bg-red-600 cursor-pointer">
+                STOP
+            </a>
         </div>
-        <div v-else class="text-center mb-4">
-            <i class="fas fa-check-circle text-green-500 text-4xl"></i>
-            <p class="text-green-500 text-xl mt-2">Rekaman Berhasil</p>
-        </div>
+
         <div v-if="isRecording" class="text-center mb-4">
             <i class="fas fa-microphone recording text-4xl"></i>
         </div>
-        <div v-if="!beforeRecording">
-            <audio v-if="!isUploadSuccessful && !isRecording" ref="audioPlayback" controls class="w-full mb-4"></audio>
-            <form v-if="!isUploadSuccessful && !isRecording" @submit.prevent="uploadAudio" class="flex flex-col">
+
+        <div v-if="!beforeRecording && !isUploadSuccessful">
+            <audio ref="audioPlayback" controls class="w-full mb-4"></audio>
+            <form @submit.prevent="uploadAudio" class="flex flex-col">
                 <input type="hidden" v-model="audioData">
+                <input type="hidden" name="_token" :value="csrfToken">
                 <a href="#" @click.prevent="uploadAudio" class="border border-green-500 text-green-500 px-4 py-2 rounded-xl hover:bg-green-600 hover:text-white cursor-pointer flex justify-between">
                     <span>Rekaman Selesai</span> <i class="fas fa-upload pt-1"></i>
                 </a>
             </form>
         </div>
+
+        <div v-if="isUploadSuccessful" class="text-center mb-4">
+            <i class="fas fa-check-circle text-green-500 text-4xl"></i>
+            <p class="text-green-500 text-xl mt-2">Rekaman Berhasil</p>
+            <audio ref="audioPlayback" controls class="w-full mt-4"></audio>
+        </div>
+    </div>
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid';
+
 export default {
     data() {
         return {
@@ -34,6 +44,7 @@ export default {
             mediaRecorder: null,
             audioChunks: [],
             audioData: '',
+            csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // Ambil token CSRF dari meta tag
         };
     },
     methods: {
@@ -50,15 +61,12 @@ export default {
                 const audioUrl = URL.createObjectURL(audioBlob);
                 this.$refs.audioPlayback.src = audioUrl;
 
-                const arrayBuffer = await audioBlob.arrayBuffer();
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                const formData = new FormData();
+                const fileName = uuidv4() + '.wav'; // Gunakan UUID untuk nama file
+                formData.append('audio', audioBlob, fileName);
+                formData.append('_token', this.csrfToken); // Tambahkan token CSRF ke form data
+                this.audioData = formData;
 
-                const reader = new FileReader();
-                reader.readAsDataURL(audioBlob);
-                reader.onloadend = () => {
-                    this.audioData = reader.result;
-                };
                 this.audioChunks = [];
             };
 
@@ -72,16 +80,19 @@ export default {
         },
         async uploadAudio() {
             try {
-                const response = await axios.post('/upload-audio', {
-                    audio: this.audioData,
+                console.log('Mengirim data:', this.audioData); // Log data yang akan dikirim
+                const response = await axios.post('/lttq/tahsin/pendaftaran/store/rekaman', this.audioData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
                 });
                 console.log(response.data);
                 this.isUploadSuccessful = true;
                 this.isRecording = false;
             } catch (error) {
-                console.error('Error uploading audio:', error);
+                console.error('Error uploading audio:', error.response || error.message);
             }
-        },
+        }
     },
 };
 </script>

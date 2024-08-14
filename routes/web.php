@@ -4,11 +4,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
+use App\Domain\Website\Controllers\WebController;
 
 Route::get('/rekam', function (){
     return view('rekam');
 
 });
+
+Route::get("/lttq/tahsin/pendaftaran/rekaman", [WebController::class, "lttq_tahsin_pendaftaran_rekaman"])->name("website.lttq.tahsin.pendaftaran.rekaman");
+
 
 /*
 |--------------------------------------------------------------------------

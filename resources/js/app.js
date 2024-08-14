@@ -5,11 +5,12 @@ import "./bootstrap";
 
 import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 import { createApp } from "vue/dist/vue.esm-bundler.js";
+import AudioUpload from "./components/AudioUpload.vue";
 import CarouselSlider from "./components/CarouselSlider.vue";
 import Photo from "./components/Photo.vue";
+import RecordVoice from "./components/RecordVoice.vue";
 import SendOTP from "./components/SendOTP.vue";
 import SliderDashboard from "./components/SliderDashboard.vue";
-import RecordVoice from "./components/RecordVoice.vue";
 
 const el = document.getElementById("app");
 
@@ -26,7 +27,8 @@ createApp({
             Photo,
             SliderDashboard,
             CarouselSlider,
-            RecordVoice
+            RecordVoice,
+            AudioUpload
         },
     })
 
