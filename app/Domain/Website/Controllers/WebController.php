@@ -11,6 +11,8 @@ use App\Http\Requests\PendaftaranTahsinRequest;
 use ProtoneMedia\Splade\Facades\Toast;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Image\Image;
+use App\Models\Periode;
 
 class WebController extends Controller
 {
@@ -126,25 +128,70 @@ class WebController extends Controller
             "۞ إِلَيْهِ يُرَدُّ عِلْمُ ٱلسَّاعَةِ ۚ وَمَا تَخْرُجُ مِن ثَمَرَٰتٍۢ مِّنْ أَكْمَامِهَا وَمَا تَحْمِلُ مِنْ أُنثَىٰ وَلَا تَضَعُ إِلَّا بِعِلْمِهِۦ ۚ وَيَوْمَ يُنَادِيهِمْ أَيْنَ شُرَكَآءِى قَالُوٓا۟ ءَاذَنَّٰكَ مَا مِنَّا مِن شَهِيدٍۢ",
             "وَضَلَّ عَنْهُم مَّا كَانُوا۟ يَدْعُونَ مِن قَبْلُ ۖ وَظَنُّوا۟ مَا لَهُم مِّن مَّحِيصٍۢ"
         ];
-        return view('website.pages.lttq.tahsin.pendaftaran', compact('dataindo', 'ayat'));
+
+        $periode = Periode::where('aktifkan_pendaftaran',1)->first();
+        if ($periode) {
+            return view('website.pages.lttq.tahsin.pendaftaran', compact('dataindo', 'ayat', 'periode'));
+        } else {
+            return view('website.pages.lttq.tahsin.pendaftaran-tutup');
+        }
     }
 
     public function lttq_tahsin_pendaftaran_store(PendaftaranTahsinRequest $request)
     {
         $data = $request->validated();
+
+        $periode = Periode::where('aktifkan_pendaftaran',1)->first();
+        if ($periode) {
+
+        }
         return view('website.pages.lttq.tahsin');
     }
 
-    public function lttq_tahsin_pendaftaran_rekaman(Request $request)
+    public function lttq_tahsin_pendaftaran_store_ktp(Request $request)
     {
-        return view('website.pages.lttq.tahsin.rekaman');
-    }
+        // FIX SETELAH PROSES MELELAHKAN
+        $request->validate([
+            'ktp' => 'required|image|mimes:jpeg,png,jpg,svg|max:5012', // maksimal 20MB
+        ]);
 
+        // Tentukan folder path dengan hierarki tahun/bulan/tanggal
+        $year  = now()->format('Y');
+        $month = now()->format('m');
+        $day   = now()->format('d');
+        $folderPath = "$year/$month/$day";
+
+        // Generate nama file unik
+        $fileName = session('pendaftaran.tahsin.uuid') . '.' . $request->file('ktp')->getClientOriginalExtension();
+
+        $filePath = $request->file('ktp')->storeAs($folderPath, $fileName, 'public');
+
+        // Simpan file di storage
+        try {
+
+            // Kembalikan response sukses
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil di-upload.',
+                'file_path' => Storage::url($filePath),
+            ]);
+        } catch (\Exception $e) {
+
+            // Kembalikan response gagal
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Upload',
+                'error' => $e->getMessage(),
+                'path' => $filePath,
+            ], 500);
+        }
+        // return view('website.pages.lttq.tahsin');
+    }
     public function lttq_tahsin_pendaftaran_store_rekaman(Request $request)
     {
         // FIX SETELAH PROSES MELELAHKAN
         $request->validate([
-            'audio' => 'required|file|max:30480', // maksimal 20MB
+            'audio' => 'required|file|max:20480', // maksimal 20MB
         ]);
 
         // Decode base64 audio data
@@ -153,9 +200,9 @@ class WebController extends Controller
         $audioData = base64_decode($audioData);
 
         // Tentukan folder path dengan hierarki tahun/bulan/tanggal
-        $year = now()->format('Y');
+        $year  = now()->format('Y');
         $month = now()->format('m');
-        $day = now()->format('d');
+        $day   = now()->format('d');
         $folderPath = "$year/$month/$day";
 
         // Generate nama file unik
@@ -163,7 +210,7 @@ class WebController extends Controller
 
         // Simpan file di storage
         try {
-            $filePath = $request->file('audio')->storeAs($folderPath, $fileName, 'local');
+            $filePath = $request->file('audio')->storeAs($folderPath, $fileName, 'public');
 
             Toast::title('Rekaman Berhasil Tersimpan !')
                     ->autoDismiss(15);
@@ -191,7 +238,7 @@ class WebController extends Controller
     {
         // FIX SETELAH PROSES MELELAHKAN
         $request->validate([
-            'audio' => 'required|file|max:30480', // maksimal 20MB
+            'audio' => 'required|file|max:20480', // maksimal 20MB
         ]);
 
         // Decode base64 audio data
@@ -200,9 +247,9 @@ class WebController extends Controller
         $audioData = base64_decode($audioData);
 
         // Tentukan folder path dengan hierarki tahun/bulan/tanggal
-        $year = now()->format('Y');
+        $year  = now()->format('Y');
         $month = now()->format('m');
-        $day = now()->format('d');
+        $day   = now()->format('d');
         $folderPath = "$year/$month/$day";
 
         // Generate nama file unik
@@ -210,7 +257,7 @@ class WebController extends Controller
 
         // Simpan file di storage
         try {
-            $filePath = $request->file('audio')->storeAs($folderPath, $fileName, 'local');
+            $filePath = $request->file('audio')->storeAs($folderPath, $fileName, 'public');
 
             Toast::title('Rekaman Berhasil Tersimpan !')
                     ->autoDismiss(15);
@@ -234,8 +281,6 @@ class WebController extends Controller
         }
         // return view('website.pages.lttq.tahsin');
     }
-
-
     public function lttq_rq()
     {
         return view('website.pages.lttq.rq');

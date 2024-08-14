@@ -16,7 +16,7 @@
                 </a>
             </div>
             <h1 class="text-2xl font-bold text-center">Pendaftaran Tahsin</h1>
-            <p class="text-center font-normal text-md pb-2">Angkatan 25</p>
+            <p class="text-center font-normal text-md pb-2">Angkatan {{ $periode->angkatan }}</p>
             <x-splade-form action="#"
                 confirm-text="Apakah data yang anda masukkan sudah benar ?"
                 confirm="Konfirmasi"
@@ -355,7 +355,10 @@
                     <option value="Lainnya">Lainnya</option>
                 </x-splade-select>
 
-                <x-splade-file class="my-4" name="ktp" :label="__('Upload KTP Peserta')" :js-filepond-options="'labelIdle:`OKe`'" filepond preview required />
+                <div class="my-4">
+                    <span class="block mb-1 text-gray-700 font-sans"> Upload KTP Peserta <span aria-hidden="true" class="text-red-600" title="This field is required">*</span></span>
+                    <KtpUpload upload-url="{{ route('website.lttq.tahsin.pendaftaran.store.ktp') }}"></KtpUpload>
+                </div>
 
                 <x-splade-select name="pembelajaran" :label="__('Pembelajaran')" required >
                     <option value="1">Offline / Hadir di lokasi</option>

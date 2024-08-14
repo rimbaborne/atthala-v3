@@ -7,6 +7,7 @@ import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 import { createApp } from "vue/dist/vue.esm-bundler.js";
 import AudioUpload from "./components/AudioUpload.vue";
 import CarouselSlider from "./components/CarouselSlider.vue";
+import KtpUpload from "./components/KtpUpload.vue";
 import Photo from "./components/Photo.vue";
 import RecordVoice from "./components/RecordVoice.vue";
 import SendOTP from "./components/SendOTP.vue";
@@ -28,7 +29,8 @@ createApp({
             SliderDashboard,
             CarouselSlider,
             RecordVoice,
-            AudioUpload
+            AudioUpload,
+            KtpUpload
         },
     })
 

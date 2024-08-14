@@ -8,6 +8,7 @@ Route::get("/lttq", [WebController::class, "lttq"])->name("website.lttq");
 Route::get("/lttq/tahsin", [WebController::class, "lttq_tahsin"])->name("website.lttq.tahsin");
 Route::get("/lttq/tahsin/pendaftaran", [WebController::class, "lttq_tahsin_pendaftaran"])->name("website.lttq.tahsin.pendaftaran");
 Route::post("/lttq/tahsin/pendaftaran/store", [WebController::class, "lttq_tahsin_pendaftaran_store"])->name("website.lttq.tahsin.pendaftaran.store");
+Route::post("/lttq/tahsin/pendaftaran/store/ktp", [WebController::class, "lttq_tahsin_pendaftaran_store_ktp"])->name("website.lttq.tahsin.pendaftaran.store.ktp");
 Route::post("/lttq/tahsin/pendaftaran/store/rekaman", [WebController::class, "lttq_tahsin_pendaftaran_store_rekaman"])->name("website.lttq.tahsin.pendaftaran.store.rekaman");
 Route::post("/lttq/tahsin/pendaftaran/store/rekaman/file", [WebController::class, "lttq_tahsin_pendaftaran_store_rekaman_file"])->name("website.lttq.tahsin.pendaftaran.store.rekaman.file");
 Route::get("/lttq/rq", [WebController::class, "lttq_rq"])->name("website.lttq.rq");
