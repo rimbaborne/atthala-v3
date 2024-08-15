@@ -14,16 +14,18 @@ return new class extends Migration
         Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->foreignId('periode_id')->constrained('periodes');
             $table->foreignId('user_id')->constrained();
-            $table->string('nis_peserta')->unique();
-            $table->string('slug')->unique();
-            $table->string('notelp');
-            $table->json('biodata');
+            $table->string('nis_peserta')->unique()->nullable();
+            $table->string('slug')->unique()->nullable();
+            $table->string('phone_number')->nullable();
+            $table->json('biodata')->nullable();
+            $table->json('data_pembayaran')->nullable();
             $table->string('foto')->nullable();
             $table->tinyInteger('status_penerimaan')->default(1); // 1 UMUM 2 BEASISWA 3 ANAK KARYAWAN
             $table->boolean('status_aktif')->default(1);
             $table->date('tanggal_lahir')->nullable();
-            $table->enum('gender', ['L', 'P']);
+            $table->enum('jenis_peserta', ['ikhwan', 'akhwat']);
             $table->timestamps();
         });
     }

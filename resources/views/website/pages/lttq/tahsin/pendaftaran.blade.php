@@ -17,12 +17,13 @@
             </div>
             <h1 class="text-2xl font-bold text-center">Pendaftaran Tahsin</h1>
             <p class="text-center font-normal text-md pb-2">Angkatan {{ $periode->angkatan }}</p>
-            <x-splade-form action="#"
+            <x-splade-form action="{{ route('website.lttq.tahsin.pendaftaran.store') }}"
                 confirm-text="Apakah data yang anda masukkan sudah benar ?"
                 confirm="Konfirmasi"
                 confirm-button="Benar"
                 cancel-button="Belum"
                 method="POST">
+                @csrf
                 <div class="flex items-center mt-2">
                     <x-splade-select name="phone_code" :label="__('Nomor HP Whatsapp')" value="62" class="py-0 w-60 text-sm block" choices
                         required>
@@ -328,8 +329,7 @@
                         </x-splade-select>
                     </div>
                 </div>
-                {{-- <input type="text" class="border border-gray-300 shadow-sm block w-full focus:border-sky-300 focus:ring focus:ring-sky-200 focus:ring-opacity-50 disabled:cursor-not-allowed rounded-md"> --}}
-                <x-splade-select name="kota_domisili" :label="__('Kota Domisili')" required choices>
+                <x-splade-select name="kota_domisili" :label="__('Kota Domisili')" choices>
                     <option value="" selected>Balikpapan</option>
                     <option value="1">-- Luar Kota Balikpapan --</option>
                     @foreach($dataindo as $provinsi)
@@ -413,9 +413,8 @@
                         </div>
                     </div>
                     <div id="file-upload" style="display: none;">
-                        {{-- <x-splade-file class="my-4" name="bukti-tf" :label="__('Upload Rekaman')" filepond preview/> --}}
                         <p class="text-xs">Maksimal Ukuran File 20MB</p>
-                        <AudioUpload upload-url="{{ route('website.lttq.tahsin.pendaftaran.store.rekaman.file') }}"></AudioUpload>
+                        <AudioUpload upload-url="{{ route('website.lttq.tahsin.pendaftaran.store.rekaman') }}"></AudioUpload>
                     </div>
                 </div>
 
@@ -425,20 +424,18 @@
                         $total = 0;
                     @endphp
                     @foreach ([
-                        ['name' => 'cek-pendaftaran', 'label' => 'Pendaftaran', 'value' => '100000', 'disabled' => false, 'checked' => false, 'required' => true],
-                        ['name' => 'cek-spp1', 'label' => 'SPP BULAN I', 'value' => '100000', 'disabled' => false, 'checked' => false, 'required' => true],
-                        ['name' => 'cek-spp2', 'label' => 'SPP BULAN II', 'value' => '100000', 'disabled' => false, 'checked' => false, 'required' => true],
-                        ['name' => 'cek-spp3', 'label' => 'SPP BULAN III', 'value' => '100000', 'disabled' => false, 'checked' => false, 'required' => false],
-                        ['name' => 'cek-spp4', 'label' => 'SPP BULAN IV', 'value' => '100000', 'disabled' => false, 'checked' => false, 'required' => false],
-                        // ['name' => 'cek-modul', 'label' => 'Modul Per Level', 'value' => '35000', 'disabled' => false, 'checked' => true, 'required' => false],
-                        // ['name' => 'cek-prestasi', 'label' => 'Buku Perstasi', 'value' => '25000', 'disabled' => false, 'checked' => false, 'required' => false],
-                        // ['name' => 'cek-mushaf', 'label' => 'Mushaf Rasm Utsmani', 'value' => '115000', 'disabled' => false, 'checked' => false, 'required' => false],
+                        ['name' => 'pendaftaran', 'label' => 'PENDAFTARAN', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => true],
+                        ['name' => 'spp1', 'label' => 'SPP BULAN I', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => true],
+                        ['name' => 'spp2', 'label' => 'SPP BULAN II', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => true],
+                        ['name' => 'spp3', 'label' => 'SPP BULAN III', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => false],
+                        ['name' => 'spp4', 'label' => 'SPP BULAN IV', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => false],
                     ] as $data)
                         <div class="space-y-2">
                             <dl class="flex items-center justify-between gap-4">
                                 <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
                                     <input type="checkbox" data="checkbox" class="w-5 h-5 {{ $data['disabled'] ? 'text-blue-300' : 'text-blue-600' }}  bg-gray-100 border-gray-300 rounded focus:ring-blue-500 " name="{{ $data['name'] }}"
-                                        value="{{ $data['value'] }}"
+                                        v-model="form.pembayaran{{ $data['name'] }}"
+                                        value="{{ $data['name'] }}"
                                         id="{{ strtolower($data['name']) }}"
                                         {{ $data['checked'] ? 'checked' : '' }}
                                         {{ $data['disabled'] ? 'disabled' : '' }}
@@ -456,12 +453,12 @@
                             </dl>
                         </div>
                     @endforeach
-                    <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                    {{-- <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                         <dt class="text-base font-bold text-gray-900 dark:text-white">Sub Total</dt>
                         <dd id="sub-total" class="text-base font-bold text-gray-900 dark:text-white">Rp 0</dd>
-                    </dl>
+                    </dl> --}}
                 </div>
-                <x-splade-script>
+                {{-- <x-splade-script>
                     document.addEventListener("DOMContentLoaded", function() {
                         let total = 0;
                         function calculateTotal() {
@@ -476,9 +473,7 @@
                         });
                         calculateTotal();
                     });
-                </x-splade-script>
-
-                {{-- <x-splade-file class="my-4" name="bukti-tf" :label="__('Upload Bukti Transfer')" filepond preview required /> --}}
+                </x-splade-script> --}}
 
                 <div class="my-8 bg-stone-100 p-4 rounded-lg font-semibold">
                     <p class="text-sm text-gray-500 mb-2">
@@ -519,7 +514,7 @@
                 </div>
 
                 <div class="flex items-center justify-center">
-                    {{-- <button type="submit" class="bg-primary-700 text-white py-2.5 px-5 rounded-lg">Daftar dan Lanjutkan Pembayaran <i class="pl-2 fas fa-chevron-right"></i></button> --}}
+                    <button type="submit" class="bg-primary-700 text-medium text-white py-2.5 px-5 rounded-lg flex items-center justify-between">Daftar dan Lanjutkan Pembayaran <x-carbon-chevron-right class="h-8 w-8 pl-2" /></button>
                     {{-- <x-splade-submit class="bg-primary-700 text-white" :label="__('Proses Pendaftaran')" /> --}}
                 </div>
             </x-splade-form>

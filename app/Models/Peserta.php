@@ -10,23 +10,26 @@ class Peserta extends Model
     use HasFactory;
 
     protected $fillable = [
+        'periode_id',
         'user_id',
         'uuid',
         'jadwal_id',
         'nis_peserta',
         'slug',
-        'notelp',
+        'phone_number',
         'biodata',
+        'data_pembayaran',
         'foto',
         'status_penerimaan',
         'status_aktif',
         'tanggal_lahir',
-        'gender'
+        'jenis_peserta'
     ];
 
-    protected $casts = [
-        'biodata' => 'array',
-    ];
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class);
+    }
 
     public function user()
     {

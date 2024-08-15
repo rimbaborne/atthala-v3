@@ -13,6 +13,10 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Image\Image;
 use App\Models\Periode;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Transaksi;
+use App\Models\Peserta;
+use App\Models\User;
 
 class WebController extends Controller
 {
@@ -137,15 +141,92 @@ class WebController extends Controller
         }
     }
 
-    public function lttq_tahsin_pendaftaran_store(PendaftaranTahsinRequest $request)
+    public function lttq_tahsin_pendaftaran_store(Request $request)
     {
-        $data = $request->validated();
-
         $periode = Periode::where('aktifkan_pendaftaran',1)->first();
         if ($periode) {
+            // $request->validated();
 
+            $data_format = [];
+            $total = 0;
+            foreach(json_decode($periode->format_pembayaran, true) as $item){
+                $label = 'pembayaran'.$item['name'];
+                $data_format[] = [
+                    $item['name'] => $request->get($label) ?? 0,
+                ];
+                if($request->get($label) == 1){
+                    $total += $item['value'] ?? 0;
+                }
+            }
+
+            $uuid    = session()->get('pendaftaran.tahsin.uuid');
+            $ktp     = session()->get('pendaftaran.tahsin.ktp');
+            if (!$ktp) {
+                Toast::title('Anda Belum Upload KTP !')
+                    ->warning()
+                    ->autoDismiss(10);
+                return redirect()->back();
+            }
+
+            $rekaman = session()->get('pendaftaran.tahsin.rekaman');
+            if (!$rekaman) {
+                Toast::title('Anda Belum Merekam / Upload Tilawah Quran !')
+                    ->warning()
+                    ->autoDismiss(10);
+                return redirect()->back();
+            }
+
+            // Menghapus karakter '0' dan '62' di awal nomor telepon yang dimasukkan
+            $phone_number = ltrim($request->input('phone_number'), '0');
+            $phone_number = ltrim($phone_number, '62');
+
+            $user = User::where('phone_number', $request->input('phone_number'))
+                        ->orWhere('phone_code', $request->input('phone_code') ?? '62')
+                        ->first();
+
+            if (!$user) {
+                $user = User::create([
+                    'phone_code'   => $request->input('phone_code') ?? '62',
+                    'phone_number' => $request->input('phone_number'),
+                ]);
+            }
+
+            $biodata[] = [
+                'kota_domisili' => $request->input('kota_domisili') ?? 'Kota Balikpapan',
+                'alamat'        => $request->input('alamat'),
+                'pekerjaan'     => $request->input('pekerjaan'),
+                'pembelajaran'  => $request->input('pembelajaran'),
+                'ktp'           => $ktp,
+                'rekaman'       => $rekaman,
+            ];
+
+            $peserta = Peserta::create([
+                'periode_id'      => $periode->id,
+                'user_id'         => $user->id,
+                'uuid'            => $uuid,
+                'phone_number'    => $user->phone_code.ltrim($user->phone_number, '0'),
+                'name'            => $request->input('name'),
+                'jenis_peserta'   => $request->input('jenis_peserta'),
+                'tanggal_lahir'   => $request->input('tahun') . '-' . $request->input('bulan') . '-' . $request->input('tanggal'),
+                'biodata'         => json_encode($biodata),
+                'data_pembayaran' => json_encode($data_format),
+
+            ]);
+
+            $uuid_transaksi = Str::uuid();
+            Transaksi::create([
+                'uuid'          => $uuid_transaksi,
+                'periode_id'    => $periode->id,
+                'peserta_id'    => $peserta->id,
+                'user_id'       => $user->id,
+                'nominal_total' => $total,
+                'payment_gateway_id' => null,
+            ]);
+
+            return redirect()->route('website.lttq.invoice', ['uuid' => $uuid_transaksi]);
+        } else {
+            return redirect()->route('website.lttq.tahsin.pendaftaran-gagal');
         }
-        return view('website.pages.lttq.tahsin');
     }
 
     public function lttq_tahsin_pendaftaran_store_ktp(Request $request)
@@ -164,10 +245,10 @@ class WebController extends Controller
         // Generate nama file unik
         $fileName = session('pendaftaran.tahsin.uuid') . '.' . $request->file('ktp')->getClientOriginalExtension();
 
-        $filePath = $request->file('ktp')->storeAs($folderPath, $fileName, 'public');
-
         // Simpan file di storage
         try {
+            $filePath = $request->file('ktp')->storeAs($folderPath, $fileName, 'public');
+            session()->put('pendaftaran.tahsin.ktp', $filePath);
 
             // Kembalikan response sukses
             return response()->json([
@@ -182,11 +263,11 @@ class WebController extends Controller
                 'success' => false,
                 'message' => 'Gagal Upload',
                 'error' => $e->getMessage(),
-                'path' => $filePath,
             ], 500);
         }
         // return view('website.pages.lttq.tahsin');
     }
+
     public function lttq_tahsin_pendaftaran_store_rekaman(Request $request)
     {
         // FIX SETELAH PROSES MELELAHKAN
@@ -211,6 +292,7 @@ class WebController extends Controller
         // Simpan file di storage
         try {
             $filePath = $request->file('audio')->storeAs($folderPath, $fileName, 'public');
+            session()->put('pendaftaran.tahsin.rekaman', $filePath);
 
             Toast::title('Rekaman Berhasil Tersimpan !')
                     ->autoDismiss(15);
@@ -234,53 +316,23 @@ class WebController extends Controller
         }
         // return view('website.pages.lttq.tahsin');
     }
-    public function lttq_tahsin_pendaftaran_store_rekaman_file(Request $request)
+
+    public function lttq_tahsin_pendaftaran_berhasil(Request $request)
     {
-        // FIX SETELAH PROSES MELELAHKAN
-        $request->validate([
-            'audio' => 'required|file|max:20480', // maksimal 20MB
-        ]);
-
-        // Decode base64 audio data
-        $audioData = $request->input('audio');
-        $audioData = str_replace('data:audio/wav;base64,', '', $audioData);
-        $audioData = base64_decode($audioData);
-
-        // Tentukan folder path dengan hierarki tahun/bulan/tanggal
-        $year  = now()->format('Y');
-        $month = now()->format('m');
-        $day   = now()->format('d');
-        $folderPath = "$year/$month/$day";
-
-        // Generate nama file unik
-        $fileName = session('pendaftaran.tahsin.uuid') . '.' . $request->file('audio')->getClientOriginalExtension();
-
-        // Simpan file di storage
-        try {
-            $filePath = $request->file('audio')->storeAs($folderPath, $fileName, 'public');
-
-            Toast::title('Rekaman Berhasil Tersimpan !')
-                    ->autoDismiss(15);
-            // Kembalikan response sukses
-            return response()->json([
-                'success' => true,
-                'message' => 'Rekaman berhasil di-upload.',
-                'file_path' => Storage::url($filePath),
-            ]);
-        } catch (\Exception $e) {
-            Toast::title('Maaf, Terjadi Kesalahan !')
-                    ->message('Rekaman Gagal Terupload. Jika terus berulang. Mohon Kirim Rekaman Ke Admin Via Whatsapp.')
-                    ->warning()
-                    ->autoDismiss(15);
-            // Kembalikan response gagal
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal meng-upload rekaman.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-        // return view('website.pages.lttq.tahsin');
+        return view('website.pages.lttq.tahsin.pendaftaran-berhasil');
     }
+
+    public function lttq_tahsin_pendaftaran_gagal(Request $request)
+    {
+        return view('website.pages.lttq.tahsin.pendaftaran-gagal');
+    }
+
+    public function lttq_invoice(Request $request, $uuid)
+    {
+        $data = Transaksi::where('uuid', $uuid)->first();
+        return view('website.pages.lttq.invoice', compact('uuid'));
+    }
+
     public function lttq_rq()
     {
         return view('website.pages.lttq.rq');

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('periode_id')->constrained('periodes');
             $table->foreignId('peserta_id')->constrained('pesertas');
             $table->foreignId('user_id')->constrained('users');
-            $table->tinyInteger('status')->default(0); // 0 UNPAID - 1 PAID - 2 EXPIRED
+            $table->tinyInteger('status')->default(1); // 1 UNPAID - 2 PAID - 3 EXPIRED
             $table->integer('nominal_total');
-            $table->foreignId('payment_gateway_id')->constrained('payment_gateways');
+            $table->foreignId('payment_gateway_id')->nullable()->constrained('payment_gateways')->nullable();
             $table->timestamps();
         });
     }

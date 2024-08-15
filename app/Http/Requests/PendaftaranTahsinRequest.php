@@ -31,10 +31,8 @@ class PendaftaranTahsinRequest extends FormRequest
             'kota_domisili' => 'required|string|max:255',
             'alamat'        => 'required|string|max:255',
             'pekerjaan'     => 'required|string|max:255',
-            'ktp'           => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'pembelajaran'  => 'required|in:1,2,3',
-            'bukti-tf'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'checkbox.*'    => 'required|boolean'
+            'pembelajaran'  => 'required',
+            'pembayaran*'   => 'required|boolean'
         ];
     }
 }

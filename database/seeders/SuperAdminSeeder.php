@@ -43,10 +43,27 @@ class SuperAdminSeeder extends Seeder
                 'angkatan'             => 25,
                 'form_biodata_daftar'  => json_encode([]),
                 'format_pembayaran'    => json_encode([
-                                                'SPP BULAN 1' => '',
-                                                'SPP BULAN 2' => '',
-                                                'SPP BULAN 3' => '',
-                                                'SPP BULAN 4' => '',
+                                                ['name' => 'pendaftaran', 'label' => 'PENDAFTARAN', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => true],
+                                                ['name' => 'spp1', 'label' => 'SPP BULAN I', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => true],
+                                                ['name' => 'spp2', 'label' => 'SPP BULAN II', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => true],
+                                                ['name' => 'spp3', 'label' => 'SPP BULAN III', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => false],
+                                                ['name' => 'spp4', 'label' => 'SPP BULAN IV', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => false],
+                                            ]),
+                'notifikasi'    => json_encode([
+                                                    'pendaftaran' => 'Assalamualaikum Warrohmarullah Wabarokatuh
+
+Terima kasih telah mendaftarkan diri sebagai *Calon Peserta Tahsin Baru di angkatan 25*.
+
+Anda akan kami hubungi kembali secara otomatis melalui pesan WhatsApp setelah hasil bacaan Al Qur\'an dikoreksi oleh tim penguji kami beserta konfirmasi transfer pembayaran.
+
+Syukron, Jazaakumullah Khoiron Katsiron,
+Wassalamualaikum warahmatullahi wabarakatuh.
+
+Salam,
+Panitia Pendaftaran Baru
+Tahsin Ar Rahmah Balikpapan',
+                                                    'penempatan-level' => '',
+                                                    'pembayaran-spp' => ''
                                             ]),
                 'aktifkan_pendaftaran' => 1,
             ],
