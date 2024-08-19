@@ -8,6 +8,11 @@
         </p>
     </div>
 
+    <x-splade-script>
+        window.addEventListener("DOMContentLoaded", function() {
+            window.location.reload();
+        });
+    </x-splade-script>
     <div class=" flex justify-center items-center p-4 bg-gray-100">
         <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white shadow-md rounded-lg">
             <div class="space-y-2 flex items-center justify-center gap-6 md:space-y-0">

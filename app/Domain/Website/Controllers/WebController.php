@@ -43,7 +43,7 @@ class WebController extends Controller
 
         try {
             #1 Send Seen
-            $requestApi->post($url.'/api/sendSeen', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+            // $requestApi->post($url.'/api/sendSeen', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
 
             #2 Start Typing
             $requestApi->post($url.'/api/startTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
@@ -228,9 +228,7 @@ class WebController extends Controller
             $phone_number = ltrim($request->input('phone_number'), '0');
             $phone_number = ltrim($phone_number, '62');
 
-            $user = User::where('phone_number', $request->input('phone_number'))
-                        ->orWhere('phone_code', $request->input('phone_code') ?? '62')
-                        ->first();
+            $user = User::where('phone_number', $request->input('phone_number'))->first();
 
             if (!$user) {
                 $user = User::create([
