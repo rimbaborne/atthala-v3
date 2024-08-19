@@ -6,7 +6,7 @@
                     <h1 class="text-2xl font-bold mb-4">Peserta</h1>
                     <Link href="/dashboard/daftar-program" class="py-2.5 px-5 text-primary-800 border border-primary-800 rounded-lg">Daftar Program</Link>
                 </div>
-                <div class="relative overflow-x-auto">
+                {{-- <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead>
                             <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -49,7 +49,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
