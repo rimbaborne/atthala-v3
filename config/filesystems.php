@@ -38,8 +38,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('/home/u8866203/repositories/atthala-3/storage/app/public'),
-            // 'root' => storage_path('app/public'),
+            'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
