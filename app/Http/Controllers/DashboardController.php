@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\Interface\UserRepoInterface;
 use App\Repositories\Interface\RoleRepoInterface;
+use App\Models\Peserta;
 
 
 
@@ -28,7 +29,46 @@ class DashboardController extends Controller
         $roles = $this->roleRepo->getData();
         $user  = $this->userRepo->findData($user->id);
 
-        return view('dashboard', compact('user'));
+        $data_peserta = Peserta::where('user_id',auth()->user()->id)->paginate(10);
+
+        return view('dashboard', compact('user', 'data_peserta'));
     }
+
+    public function peserta($uuid) {
+
+        $peserta = Peserta::where('uuid', $uuid)->first();
+
+        if (!$peserta) { abort(404); }
+
+        $user = auth()->user();
+        $roles = $this->roleRepo->getData();
+        $user  = $this->userRepo->findData($user->id);
+
+        return view('dashboard.peserta.peserta', compact('user', 'peserta', 'uuid'));
+    }
+
+    public function peserta_data() {
+
+        $data_peserta = Peserta::where('user_id',auth()->user()->id)->paginate(10);
+
+        $user = auth()->user();
+        $roles = $this->roleRepo->getData();
+        $user  = $this->userRepo->findData($user->id);
+
+        return view('dashboard.peserta.data', compact('user', 'data_peserta'));
+    }
+
+    public function peserta_riwayat_pembayaran() {
+
+        $data_peserta = Peserta::where('user_id',auth()->user()->id)->paginate(10);
+
+
+        $user = auth()->user();
+        $roles = $this->roleRepo->getData();
+        $user  = $this->userRepo->findData($user->id);
+
+        return view('dashboard.peserta.riwayat-pembayaran', compact('user', 'data_peserta'));
+    }
+
 
 }

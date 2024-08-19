@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transaksi;
 use App\Models\Peserta;
 use App\Models\User;
-
+use App\Models\PaymentGateway;
+use Throwable;
+use App\Models\Kelas;
 class WebController extends Controller
 {
     public $description, $keywords, $sitename;
@@ -26,6 +28,40 @@ class WebController extends Controller
         $this->description = 'Yayasan Arrahmah Balikpapan. Pusat Belajar Tahsin Tahfizh Di Kota Balikpapan. Belajar Mengaji Al-Quran Secara Terstruktur.';
         $this->keywords = 'Belajar Ngaji, Tahsin, Tahfizh, Balikpapan';
         $this->sitename = 'Pendidikan Al-quran Kota Balikpapan';
+    }
+
+    public function notifwa($nomorhp, $isipesan)
+    {
+        $apikey     = env('WAHA_API_KEY');
+        $url        = env('WAHA_API_URL');
+        $sessionApi = env('WAHA_API_SESSION');
+        $requestApi = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Accept'       => 'application/json',
+            'X-Api-Key'    => $apikey,
+        ]);
+
+        try {
+            #1 Send Seen
+            $requestApi->post($url.'/api/sendSeen', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+
+            #2 Start Typing
+            $requestApi->post($url.'/api/startTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+
+            sleep(1); // jeda seolah olah ngetik
+
+            #3 Stop Typing
+            $requestApi->post($url.'/api/stopTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+
+            #4 Send Message
+            $requestApi->post($url.'/api/sendText', [
+                "session" => $sessionApi,
+                "chatId"  => $nomorhp.'@c.us',
+                "text"    => $isipesan,
+            ]);
+        } catch (Throwable $th) {
+            throw $th;
+        }
     }
     public function home()
     {
@@ -143,11 +179,13 @@ class WebController extends Controller
 
     public function lttq_tahsin_pendaftaran_store(Request $request)
     {
+
         $periode = Periode::where('aktifkan_pendaftaran',1)->first();
         if ($periode) {
             // $request->validated();
 
             $data_format = [];
+            $data_payment = [];
             $total = 0;
             foreach(json_decode($periode->format_pembayaran, true) as $item){
                 $label = 'pembayaran'.$item['name'];
@@ -157,6 +195,16 @@ class WebController extends Controller
                 if($request->get($label) == 1){
                     $total += $item['value'] ?? 0;
                 }
+
+                if($request->get($label) == 1){
+                    $data_payment['list'][] =
+                        [
+                            'name' => $item['label'],
+                            'nominal' => $item['value'],
+                        ]
+                    ;
+                }
+
             }
 
             $uuid    = session()->get('pendaftaran.tahsin.uuid');
@@ -192,7 +240,7 @@ class WebController extends Controller
             }
 
             $biodata[] = [
-                'kota_domisili' => $request->input('kota_domisili') ?? 'Kota Balikpapan',
+                'kota_domisili' => $request->input('kota_domisili') == null ? 'Kota Balikpapan' : $request->input('kota_domisili'),
                 'alamat'        => $request->input('alamat'),
                 'pekerjaan'     => $request->input('pekerjaan'),
                 'pembelajaran'  => $request->input('pembelajaran'),
@@ -200,28 +248,58 @@ class WebController extends Controller
                 'rekaman'       => $rekaman,
             ];
 
-            $peserta = Peserta::create([
-                'periode_id'      => $periode->id,
-                'user_id'         => $user->id,
-                'uuid'            => $uuid,
-                'phone_number'    => $user->phone_code.ltrim($user->phone_number, '0'),
-                'name'            => $request->input('name'),
-                'jenis_peserta'   => $request->input('jenis_peserta'),
-                'tanggal_lahir'   => $request->input('tahun') . '-' . $request->input('bulan') . '-' . $request->input('tanggal'),
-                'biodata'         => json_encode($biodata),
-                'data_pembayaran' => json_encode($data_format),
+            $nomor_wa = $user->phone_code.ltrim($user->phone_number, '0');
 
-            ]);
+            $peserta = Peserta::where('uuid', $uuid)->first();
+            $peserta_kelas = Kelas::where('uuid', $uuid)->first();
 
-            $uuid_transaksi = Str::uuid();
-            Transaksi::create([
-                'uuid'          => $uuid_transaksi,
-                'periode_id'    => $periode->id,
-                'peserta_id'    => $peserta->id,
-                'user_id'       => $user->id,
-                'nominal_total' => $total,
-                'payment_gateway_id' => null,
-            ]);
+            if(!$peserta) {
+                $peserta = Peserta::create([
+                    'periode_id'      => $periode->id,
+                    'user_id'         => $user->id,
+                    'uuid'            => $uuid,
+                    'phone_number'    => $nomor_wa,
+                    'nama'            => $request->input('name'),
+                    'jenis_peserta'   => $request->input('jenis_peserta'),
+                    'tanggal_lahir'   => $request->input('tahun') . '-' . $request->input('bulan') . '-' . $request->input('tanggal'),
+                    'biodata'         => json_encode($biodata),
+                    // 'data_pembayaran' => json_encode($data_format),
+                ]);
+
+                $peserta_kelas = Kelas::create([
+                    'periode_id'      => $periode->id,
+                    'peserta_id'      => $peserta->id,
+                    'uuid'            => $uuid,
+                    'data_pembayaran' => json_encode($data_format),
+                    'data_absensi'    => $periode->format_absensi,
+                ]);
+
+                $data_payment['kode_unik'] = [
+                                    'name'    => 'KODE UNIK',
+                                    'nominal' => (int)($request->input('bulan').$request->input('tanggal')),
+                                    'keterangan' => 'BBTT - Bulan Tanggal Lahir'
+                                    ];
+
+                // KARENA DATA BARU JADI DIBUAT TRANSAKSI BARU
+                $uuid_transaksi = Str::uuid();
+                Transaksi::create([
+                    'uuid'                     => $uuid_transaksi,
+                    'periode_id'               => $periode->id,
+                    'peserta_id'               => $peserta_kelas->id,
+                    'user_id'                  => $user->id,
+                    'nominal_total'            => $total,
+                    'nominal_total_pembayaran' => $total + (int)($request->input('bulan').$request->input('tanggal')),
+                    'data_pembayaran'          => json_encode($data_payment),
+                    'payment_gateway_id'       => null,
+                ]);
+            } else {
+                // KARENA DATA BARU TRANSAKSI BARU CUMA SATU
+                $transaksi =Transaksi::where('peserta_id', $peserta_kelas->id)->latest()->first();
+                $uuid_transaksi = $transaksi->uuid;
+            }
+
+            $notif_wa = json_decode($periode->notifikasi, true);
+            $this->notifwa($nomor_wa, $notif_wa[0]['pendaftaran']);
 
             return redirect()->route('website.lttq.invoice', ['uuid' => $uuid_transaksi]);
         } else {
@@ -330,7 +408,82 @@ class WebController extends Controller
     public function lttq_invoice(Request $request, $uuid)
     {
         $data = Transaksi::where('uuid', $uuid)->first();
-        return view('website.pages.lttq.invoice', compact('uuid'));
+        if($data) {
+            // dd(json_decode($data->payment_gateway->data));
+            return view('website.pages.lttq.invoice', compact('uuid', 'data'));
+        } else {
+            abort(404);
+        }
+    }
+
+    public function lttq_invoice_store(Request $request, $uuid)
+    {
+        $buktitransfer     = session()->get('invoice.buktitransfer');
+        if (!$buktitransfer) {
+            Toast::title('Anda Belum Upload Bukti Transfer !')
+                ->warning()
+                ->autoDismiss(10);
+        } else {
+            $transaksi = Transaksi::where('uuid', $uuid)->first();
+            if($transaksi){
+
+                $bukti_transfer = $transaksi->data_pembayaran;
+                $bukti_transfer_array = json_decode($bukti_transfer, true);
+                $bukti_transfer_array['bukti_transfer'] = [ 'file' => $buktitransfer ];
+
+                $transaksi->update([
+                    'data_pembayaran' => json_encode($bukti_transfer_array),
+                    'status' => 2,
+                ]);
+                Toast::title('Upload Bukti Transfer Berhasil !')
+                ->autoDismiss(10);
+            } else {
+            Toast::title('Terjadi Kesalahan. Kontak Admin !')
+                ->warning()
+                ->autoDismiss(10);
+            }
+        }
+        return redirect()->back();
+        // return view('website.pages.lttq.tahsin');
+    }
+
+    public function lttq_invoice_store_bukti_transfer(Request $request, $uuid)
+    {
+        // FIX SETELAH PROSES MELELAHKAN
+        $request->validate([
+            'buktitransfer' => 'required|image|mimes:jpeg,png,jpg,svg|max:5012', // maksimal 20MB
+        ]);
+
+        // Tentukan folder path dengan hierarki tahun/bulan/tanggal
+        $year  = now()->format('Y');
+        $month = now()->format('m');
+        $day   = now()->format('d');
+        $folderPath = "$year/$month/$day";
+
+        // Generate nama file unik
+        $fileName = $uuid . '.' . $request->file('buktitransfer')->getClientOriginalExtension();
+
+        // Simpan file di storage
+        try {
+            $filePath = $request->file('buktitransfer')->storeAs($folderPath, $fileName, 'public');
+            session()->put('invoice.buktitransfer', $filePath);
+
+            // Kembalikan response sukses
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil di-upload.',
+                'file_path' => Storage::url($filePath),
+            ]);
+        } catch (\Exception $e) {
+
+            // Kembalikan response gagal
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Upload',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+        // return view('website.pages.lttq.tahsin');
     }
 
     public function lttq_rq()

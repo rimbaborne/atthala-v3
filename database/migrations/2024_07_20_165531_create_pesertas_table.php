@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('nis_peserta')->unique()->nullable();
             $table->string('slug')->unique()->nullable();
+            $table->string('nama');
             $table->string('phone_number')->nullable();
             $table->json('biodata')->nullable();
             $table->json('data_pembayaran')->nullable();

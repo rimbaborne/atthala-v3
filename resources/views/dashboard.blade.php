@@ -151,9 +151,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="pt-10">
+    {{-- <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             <div class="bg-white rounded-lg p-8">
                 <div class="grid grid-cols-3 gap-4">
@@ -186,43 +186,45 @@
         </div>
     </div> --}}
 
-      <div class="pt-10">
+    <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             <div class="bg-white rounded-lg p-8">
                 <div class="flex items-center justify-between mb-4">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Peserta Terdaftar</h5>
                 </div>
-                <div class="flow-root">
-                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                        <li class="py-3 sm:py-4">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <x-carbon-user-avatar-filled-alt class="w-10 h-10 text-primary-700"/>
+                @foreach ($data_peserta as $peserta)
+                    <div class="flow-root">
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <li class="py-3 sm:py-4">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <x-carbon-user-avatar-filled-alt class="w-10 h-10 text-primary-700"/>
+                                    </div>
+                                    <div class="flex-1 min-w-0 ms-4">
+                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                            {{ $peserta->nama }}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            {{ $peserta->periode->unit->nama }} {{ $peserta->periode->nama }}
+                                        </p>
+                                    </div>
+                                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        <Link href="{{ route('dashboard.peserta', ['uuid' => $peserta->uuid ]) }}"
+                                            class="text-sm font-semibold border rounded-lg py-2.5 px-5 border-primary-700 text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
+                                        Pilih
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div class="flex-1 min-w-0 ms-4">
-                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                        Prasetyo
-                                    </p>
-                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                        Tahsin Angkatan 25
-                                    </p>
-                                </div>
-                                <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    <Link href="#"
-                                        class="text-sm font-semibold border rounded-lg py-2.5 px-5 border-primary-700 text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
-                                    Pilih
-                                    </Link>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                            </li>
+                        </ul>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
 
 
-      <div class="pt-10 pb-10">
+    <div class="pt-10 pb-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h1 class="text-2xl font-bold mb-4">Akses</h1>
             <div class="border-b border-gray-300 my-4"></div>

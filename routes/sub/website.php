@@ -18,6 +18,8 @@ Route::get("/lttq/rtq-putra", [WebController::class, "lttq_rtq_putra"])->name("w
 Route::get("/lttq/rtq-putri", [WebController::class, "lttq_rtq_putri"])->name("website.lttq.rtq-putri");
 
 Route::get("/lttq/invoice/{uuid}", [WebController::class, "lttq_invoice"])->name("website.lttq.invoice");
+Route::post("/lttq/invoice/{uuid}/store", [WebController::class, "lttq_invoice_store"])->name("website.lttq.invoice.store");
+Route::post("/lttq/invoice/{uuid}/store/bukti-transfer", [WebController::class, "lttq_invoice_store_bukti_transfer"])->name("website.lttq.invoice.store.buktitransfer");
 
 
 Route::get("/kontak", [WebController::class, "kontak"])->name("website.kontak");

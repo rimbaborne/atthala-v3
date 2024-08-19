@@ -47,66 +47,6 @@
                                     </Link>
                                 </td>
                             </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Eko
-                                </th>
-                                <td class="px-6 py-4">
-                                    <span class="text-green-500">
-                                        Selesai
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    Tahsin
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#"
-                                        class="text-sm font-semibold text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
-                                        Pilih
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Marianto
-                                </th>
-                                <td class="px-6 py-4">
-                                    <span class="text-red-500">
-                                    Cuti
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    Tahsin
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#"
-                                        class="text-sm font-semibold text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
-                                        Pilih
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Adam Indrawan
-                                </th>
-                                <td class="px-6 py-4">
-                                    <span class="text-blue-500">
-                                    Aktif
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    Tahfizd Lil Atfhal
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#"
-                                        class="text-sm font-semibold text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
-                                        Pilih
-                                    </a>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

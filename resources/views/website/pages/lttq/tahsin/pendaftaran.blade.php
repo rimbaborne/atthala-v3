@@ -22,7 +22,13 @@
                 confirm="Konfirmasi"
                 confirm-button="Benar"
                 cancel-button="Belum"
-                method="POST">
+                method="POST"
+                :default="[
+                                'jenis_peserta' => 'ikhwan',
+                                'pembelajaran' => 1,
+                                'kota_domisili' => 'Kota Balikpapan'
+                            ]"
+                >
                 @csrf
                 <div class="flex items-center mt-2">
                     <x-splade-select name="phone_code" :label="__('Nomor HP Whatsapp')" value="62" class="py-0 w-60 text-sm block" choices
@@ -330,8 +336,6 @@
                     </div>
                 </div>
                 <x-splade-select name="kota_domisili" :label="__('Kota Domisili')" choices>
-                    <option value="" selected>Balikpapan</option>
-                    <option value="1">-- Luar Kota Balikpapan --</option>
                     @foreach($dataindo as $provinsi)
                         @foreach($provinsi['kota'] as $kota)
                             <option value="{{ $kota }}">{{ $kota }}</option>

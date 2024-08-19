@@ -16,6 +16,7 @@ class Peserta extends Model
         'jadwal_id',
         'nis_peserta',
         'slug',
+        'nama',
         'phone_number',
         'biodata',
         'data_pembayaran',
@@ -39,5 +40,10 @@ class Peserta extends Model
     public function jadwal()
     {
         return $this->belongsTo(Jadwal::class);
+    }
+
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class, 'peserta_id', 'id');
     }
 }

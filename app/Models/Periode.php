@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Tables\Units;
+use App\Models\Modules\Unit;
 
 class Periode extends Model
 {
@@ -20,6 +20,9 @@ class Periode extends Model
         'angkatan',
         'form_biodata_daftar',
         'format_pembayaran',
+        'format_absensi',
+        'format_nilai',
+        'format_rapot',
         'aktifkan_pendaftaran',
         'tanggal_tagihan'
     ];
@@ -36,7 +39,7 @@ class Periode extends Model
 
     public function unit()
     {
-        return $this->hasOne(Units::class, 'id', 'unit_id');
+        return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
 
     public function pengajar()

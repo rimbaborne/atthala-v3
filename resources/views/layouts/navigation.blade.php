@@ -16,10 +16,10 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('data')" :active="request()->routeIs('data')">
+                        <x-nav-link :href="route('dashboard.peserta.data')" :active="request()->routeIs('dashboard.peserta.data')">
                             {{ __('Data') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('riwayat-pembayaran')" :active="request()->routeIs('riwayat-pembayaran')">
+                        <x-nav-link :href="route('dashboard.peserta.riwayatpembayaran')" :active="request()->routeIs('dashboard.peserta.riwayatpembayaran')">
                             {{ __('Riwayat Pembayaran') }}
                         </x-nav-link>
                     </div>

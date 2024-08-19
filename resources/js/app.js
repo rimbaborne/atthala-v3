@@ -6,6 +6,7 @@ import "./bootstrap";
 import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 import { createApp } from "vue/dist/vue.esm-bundler.js";
 import AudioUpload from "./components/AudioUpload.vue";
+import BuktiTransferUpload from "./components/BuktiTransferUpload.vue";
 import CarouselSlider from "./components/CarouselSlider.vue";
 import KtpUpload from "./components/KtpUpload.vue";
 import Photo from "./components/Photo.vue";
@@ -22,7 +23,7 @@ createApp({
         "max_keep_alive": 10,
         "transform_anchors": false,
         "progress_bar": true,
-        // 'suppress_compile_errors': true,
+        'suppress_compile_errors': true,
         "components": {
             SendOTP,
             Photo,
@@ -30,7 +31,8 @@ createApp({
             CarouselSlider,
             RecordVoice,
             AudioUpload,
-            KtpUpload
+            KtpUpload,
+            BuktiTransferUpload
         },
     })
 

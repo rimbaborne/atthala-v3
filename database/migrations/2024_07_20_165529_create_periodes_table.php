@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('angkatan');
             $table->json('form_biodata_daftar')->nullable();
             $table->json('format_pembayaran')->nullable();
+            $table->json('format_absensi')->nullable();
+            $table->json('format_rapot')->nullable();
+            $table->json('format_nilai')->nullable();
             $table->json('notifikasi')->nullable();
             $table->boolean('aktifkan_pendaftaran')->default(1);
             $table->date('tanggal_tagihan')->nullable();
