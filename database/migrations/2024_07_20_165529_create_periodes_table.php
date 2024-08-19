@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('unit_id')->constrained();
             $table->string('nama');
             $table->string('slug')->unique();
-            $table->timestamp('waktu_start');
-            $table->timestamp('waktu_end');
+            $table->timestamp('waktu_start')->nullable();
+            $table->timestamp('waktu_end')->nullable();
             $table->string('tahun_ajaran');
             $table->string('angkatan');
             $table->json('form_biodata_daftar')->nullable();
