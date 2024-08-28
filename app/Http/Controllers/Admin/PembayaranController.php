@@ -4,18 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Tables\Pesertas;
-use App\Models\Modules\Unit;
+use App\Tables\PembayaranTahsin;
 
-class PesertaController extends Controller
+class PembayaranController extends Controller
 {
     public function index($unit)
     {
-        $data_unit = Unit::where('slug',$unit)->first();
-        if (!$data_unit) { abort(404); }
-        $unit_id['id'] = $data_unit->id;
-        $peserta = new Pesertas($unit_id);
-        return view('modules.peserta.index', compact('unit', 'peserta'));
+        $pembayaran = PembayaranTahsin::class;
+        return view('modules.pembayaran.index', compact('unit', 'pembayaran'));
     }
 
     public function store(Request $request, $unit)

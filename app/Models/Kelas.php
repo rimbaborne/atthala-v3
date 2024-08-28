@@ -50,5 +50,16 @@ class Kelas extends Model
     {
         return $this->hasMany(Periode::class, 'peserta_id', 'id');
     }
+
+    public function data()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
+    public function datapebambayaran1() {  return $this->belongsTo(Kelas::class, 'id'); }
+    public function datapebambayaran2() {  return $this->belongsTo(Kelas::class, 'id'); }
+    public function datapebambayaran3() {  return $this->belongsTo(Kelas::class, 'id'); }
+    public function datapebambayaran4() {  return $this->belongsTo(Kelas::class, 'id'); }
+    public function datapebambayaran5() {  return $this->belongsTo(Kelas::class, 'id'); }
+    public function datapebambayaran6() {  return $this->belongsTo(Kelas::class, 'id'); }
 }
 

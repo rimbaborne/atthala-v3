@@ -36,7 +36,7 @@ class Periode extends AbstractTable
      */
     public function for()
     {
-        return Period::query();
+        return Period::class;
     }
 
     /**
@@ -48,9 +48,11 @@ class Periode extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->withGlobalSearch(columns: ['id'])
-            ->column('id', sortable: true)
-            ->column('created_at')
+            ->withGlobalSearch(columns: ['nama'])
+            ->column('nama')
+            ->column('tahun_ajaran')
+            ->column('waktu_start')
+            ->column('waktu_end')
 
             // ->searchInput()
             // ->selectFilter()
@@ -58,6 +60,7 @@ class Periode extends AbstractTable
 
             // ->bulkAction()
             ->export()
+            ->paginate(10)
             ;
     }
 }

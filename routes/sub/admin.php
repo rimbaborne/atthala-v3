@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PengajarController;
 use App\Http\Controllers\Admin\PesertaController;
 use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\NotifikasiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PeriodeController;
@@ -54,6 +55,16 @@ Route::prefix('/admin/{unit}')->group(function () {
         ]
     ]);
 
+    Route::resource('/pembayaran', PembayaranController::class, [
+        'names' => [
+            'index' => 'admin.pembayaran.index',
+            'store' => 'admin.pembayaran.store',
+            'show' => 'admin.pembayaran.show',
+            'update' => 'admin.pembayaran.update',
+            'destroy' => 'admin.pembayaran.destroy',
+        ]
+    ]);
+
     Route::resource('/transaksi', TransaksiController::class, [
         'names' => [
             'index' => 'admin.transaksi.index',
@@ -96,7 +107,7 @@ Route::prefix('/admin/{unit}')->group(function () {
         ]
     ]);
 
-    Route::get('/pembayaran/', function () {
-        return view('dashboard.admin.pembayaran');
-    })->name('dashboard.admin.pembayaran');
+    // Route::get('/pembayaran/', function () {
+    //     return view('dashboard.admin.pembayaran');
+    // })->name('dashboard.admin.pembayaran');
 });

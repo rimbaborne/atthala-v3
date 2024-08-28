@@ -1,10 +1,10 @@
 <x-app-layout>
     <div class="pt-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-            <div class="grid grid-cols-1 px-4 pt-6 md:grid-cols-3 md:gap-4 dark:bg-gray-900">
+            <div class="grid grid-cols-1 px-4 md:grid-cols-3 md:gap-4 dark:bg-gray-900">
                 <!-- Right Content -->
                 <div class="col-span-full sm:col-auto">
-                    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg  2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                         <div class="items-center flex space-x-4">
                             <x-carbon-user-avatar-filled-alt class="w-20 h-20 text-primary-700"/>
                             <div>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-span-2">
-                    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg  2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                         <h3 class="mb-4 text-xl font-semibold dark:text-white">Biodata</h3>
                         <ul class="grid grid-cols-6 gap-2  dark:divide-gray-700">
                             <li class="col-span-3 py-2">
@@ -106,8 +106,8 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-span-full">
-                    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                <div class="col-span-full">
+                    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg  2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                         <div class="flow-root">
                             <h3 class="text-xl mb-4 font-semibold dark:text-white">{{ $peserta->periode->unit->nama }} {{ $peserta->periode->nama }}</h3>
 
@@ -149,7 +149,7 @@
                                         @php
                                             $absensi = json_decode($kelas->data_absensi, true);
                                         @endphp
-                                            {!! $absensi !!}
+                                            {{-- {!! $absensi !!} --}}
                                         @endforeach
                                         @foreach ($dataPembayaran as $nama => $nilai)
                                         <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
@@ -278,7 +278,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>

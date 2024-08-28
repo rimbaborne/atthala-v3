@@ -21,8 +21,8 @@ return new class extends Migration
             $table->json('data_pembayaran')->nullable();
             $table->json('data_absensi')->nullable();
             $table->json('data_nilai')->nullable();
-            $table->tinyInteger('status_aktif')->default(1); // 1 umum, 2 beasiswa laziz, 3 karyawan, 4 anak karyawan
-            $table->string('status_penerimaan')->nullable();
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->string('status_penerimaan')->nullable(); // 1 umum, 2 beasiswa laziz, 3 karyawan, 4 anak karyawan
             $table->timestamps();
         });
     }
