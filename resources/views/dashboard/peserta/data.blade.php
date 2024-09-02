@@ -4,7 +4,7 @@
             <div class="bg-white rounded-lg p-4">
                 <div class="flex items-center justify-between mb-4">
                     <h1 class="text-2xl font-bold mb-4">Peserta</h1>
-                    <Link href="/dashboard/daftar-program" class="py-2.5 px-5 text-primary-800 border border-primary-800 rounded-lg">Daftar Program</Link>
+                    {{-- <Link href="/dashboard/daftar-program" class="py-2.5 px-5 text-primary-800 border border-primary-800 rounded-lg">Daftar Program</Link> --}}
                 </div>
                 {{-- <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
