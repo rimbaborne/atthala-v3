@@ -106,7 +106,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-full">
+                {{-- <div class="col-span-full">
                     <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg  2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                         <div class="flow-root">
                             <h3 class="text-xl mb-4 font-semibold dark:text-white">{{ $peserta->periode->unit->nama }} {{ $peserta->periode->nama }}</h3>
@@ -149,7 +149,7 @@
                                         @php
                                             $absensi = json_decode($kelas->data_absensi, true);
                                         @endphp
-                                            {{-- {!! $absensi !!} --}}
+                                            {!! $absensi !!}
                                         @endforeach
                                         @foreach ($dataPembayaran as $nama => $nilai)
                                         <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
@@ -278,7 +278,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
