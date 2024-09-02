@@ -55,6 +55,16 @@ class Kelas extends Model
     {
         return $this->belongsTo(Kelas::class, 'id');
     }
+
+    public function data_a()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
+
+    public function data_b()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
     public function datapebambayaran1() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran2() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran3() {  return $this->belongsTo(Kelas::class, 'id'); }

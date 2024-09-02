@@ -8,28 +8,28 @@
             </Link>
         </div>
         <div  class="overflow-x-auto mx-auto relative w-full">
-            <x-splade-table :for="$pembayaran">
+            {{-- <x-splade-table :for="$pembayaran">
                 <x-slot name="head">
                     <thead>
                         <tr>
-                            {{-- @foreach($pembayaran->columns() as $column) --}}
+                            @foreach($pembayaran->columns() as $column)
                             <th>NIS</th>
-                                {{-- <th>{{ $column->label }}</th>
-                            @endforeach --}}
+                                <th>{{ $column->label }}</th>
+                            @endforeach
                         </tr>
                     </thead>
                 </x-slot>
 
                 <x-slot name="body">
                     <tbody>
-                        {{-- @foreach($pembayaran->resource as $item) --}}
+                        @foreach($pembayaran->resource as $item)
                             <tr>
                                 <td>{{ ($pembayaran) }}</td>
                             </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </tbody>
                 </x-slot>
-            </x-splade-table>
+            </x-splade-table> --}}
         </div>
     </x-layouts.card>
 </x-layouts.main>

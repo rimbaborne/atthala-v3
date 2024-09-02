@@ -59,6 +59,8 @@ class Pesertas extends AbstractTable
      * @param \ProtoneMedia\Splade\SpladeTable $table
      * @return void
      */
+    // FIXME Relevansi Data Peserta
+    // TODO Ganti Metode Tabel, kesalahan di manipulasi data kolom integer
     public function configure(SpladeTable $table)
     {
         $table
@@ -83,7 +85,6 @@ class Pesertas extends AbstractTable
             ->column(
                 key: 'status_penerimaan',
                 label: 'Penerimaan',
-                as: fn (Kelas $kelas = null) => $kelas ? $kelas->status_penerimaan : 'Umum'
             )
             ->column(
                 key: 'peserta.jenis_peserta',
@@ -91,17 +92,28 @@ class Pesertas extends AbstractTable
             )
 
             ->column(
+                key: 'data_a',
+                label: 'Level Daftar',
+                as: function (Kelas $kelas) {
+                        if ($kelas) {
+                            $nilai_ = $kelas ? json_decode($kelas->data_nilai, true) : '';
+                            if (isset($nilai_[0]['level_hasil_penguji'])) {
+                                $nilai  = $nilai_[0]['level_hasil_penguji'];
+                            } else {
+                                $nilai  = '';
+                            }
+                            return $nilai;
+                        }
+                    }
+            )
+            ->column(
                 key: 'data',
                 label: 'Level',
                 as: function (Kelas $kelas) {
-                    if ($kelas->jadwal) {
-                        return $kelas->jadwal->level;# code...
-                    } else {
-                        $nilai_ = $kelas ? json_decode($kelas->data_nilai, true) : '';
-                        $nilai  = $nilai_ ? $nilai_[0]['level_hasil_penguji'] : '';
-                        return $nilai;
+                        if ($kelas->jadwal) {
+                            return $kelas->jadwal->level;
+                        }
                     }
-                }
             )
             ->column(
                 key: 'jadwal.pengajar.user.name',
@@ -114,6 +126,21 @@ class Pesertas extends AbstractTable
             ->column(
                 key: 'periode.angkatan',
                 label: 'Angkatan',
+            )
+            ->column(
+                key: 'data_b',
+                label: 'Hasil Ujian',
+                as: function (Kelas $kelas) {
+                        if ($kelas) {
+                            $nilai_ = $kelas ? json_decode($kelas->data_nilai, true) : '';
+                            if (isset($nilai_[0]['level_hasil_ujian'])) {
+                                $nilai  = $nilai_[0]['level_hasil_ujian'];
+                            } else {
+                                $nilai  = '';
+                            }
+                            return $nilai;
+                        }
+                    }
             )
             ->column(
                 key: 'peserta.tanggal_lahir',

@@ -23,8 +23,10 @@ return new class extends Migration
             $table->json('biodata')->nullable();
             $table->json('data_pembayaran')->nullable();
             $table->string('foto')->nullable();
-            $table->tinyInteger('status_penerimaan')->default(1); // 1 UMUM 2 BEASISWA 3 ANAK KARYAWAN
-            $table->boolean('status_aktif')->default(1);
+            // $table->tinyInteger('status_penerimaan')->default(1);
+            // $table->boolean('status_aktif')->default(1);
+            $table->string('status_penerimaan')->default('umum'); // UMUM - BEASISWA - KARYAWAN - ANAK KARYAWAN
+            $table->string('status_aktif')->default('pending'); // Aktif - Pending - Lulus - Off - Cuti
             $table->date('tanggal_lahir')->nullable();
             $table->enum('jenis_peserta', ['ikhwan', 'akhwat']);
             $table->timestamps();

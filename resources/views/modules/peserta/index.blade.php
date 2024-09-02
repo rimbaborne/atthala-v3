@@ -7,8 +7,6 @@
                 @svg('carbon-add-filled', 'ml-2 text-white h-4 w-4')
             </Link>
         </div>
-        <div  class="overflow-x-auto mx-auto relative w-full">
-            <x-splade-table :for="$peserta" />
-        </div>
+        <x-splade-table :for="$peserta" />
     </x-layouts.card>
 </x-layouts.main>
