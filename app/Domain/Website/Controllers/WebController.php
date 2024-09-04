@@ -297,7 +297,7 @@ class WebController extends Controller
             }
 
             $notif_wa = json_decode($periode->notifikasi, true);
-            $this->notifwa($nomor_wa, $notif_wa[0]['pencondaftaran']);
+            $this->notifwa($nomor_wa, $notif_wa[0]['pendaftaran']);
 
             return redirect()->route('website.lttq.invoice', ['uuid' => $uuid_transaksi]);
         } else {
