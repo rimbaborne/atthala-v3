@@ -41,27 +41,27 @@ class WebController extends Controller
             'X-Api-Key'    => $apikey,
         ]);
 
-        try {
-            #1 Send Seen
-            // $requestApi->post($url.'/api/sendSeen', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+        // try {
+            // #1 Send Seen
+            // // $requestApi->post($url.'/api/sendSeen', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
 
-            #2 Start Typing
-            $requestApi->post($url.'/api/startTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+            // #2 Start Typing
+            // $requestApi->post($url.'/api/startTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
 
-            sleep(1); // jeda seolah olah ngetik
+            // sleep(1); // jeda seolah olah ngetik
 
-            #3 Stop Typing
-            $requestApi->post($url.'/api/stopTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
+            // #3 Stop Typing
+            // $requestApi->post($url.'/api/stopTyping', [ "session" => $sessionApi, "chatId"  => $nomorhp.'@c.us', ]);
 
             #4 Send Message
-            $requestApi->post($url.'/api/sendText', [
+            $requestApi->get($url.'/api/sendText', [
                 "session" => $sessionApi,
-                "chatId"  => $nomorhp.'@c.us',
+                "phone"  => $nomorhp.'@c.us',
                 "text"    => $isipesan,
             ]);
-        } catch (Throwable $th) {
-            throw $th;
-        }
+        // } catch (Throwable $th) {
+        //     // throw $th;
+        // }
     }
     public function home()
     {
@@ -566,5 +566,22 @@ class WebController extends Controller
             ;
 
         return view('website.pages.informasi.tag');
+    }
+
+
+    public function quranic_camp()
+    {
+        $page_title = 'Quranic Camp 2 | Yayasan Arrahmah';
+        SEO::title($page_title)
+            ->description('Kegiatan Berkemah bersama keluarga dan teman sekaligus mengkhatamkan 30 juz al-quran')
+            ->keywords('camping quran, camping balikpapan, mengaji balikpapan')
+            ->openGraphType('WebPage')
+            ->openGraphSiteName($page_title)
+            ->openGraphTitle($page_title)
+            ->openGraphUrl('arrahmahbalikpapan.or.id')
+            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
+            ;
+
+        return view('website.pages.kegiatan.quranic-camp');
     }
 }
