@@ -36,4 +36,15 @@ return new class extends Migration
     {
         Schema::dropIfExists('kelas');
     }
+
+    // update data status
+    // ALTER TABLE `pesertas` CHANGE `status_aktif` `status_aktif` VARCHAR(255) NULL DEFAULT 'pending';
+    // ALTER TABLE `pesertas` CHANGE `status_penerimaan` `status_penerimaan` VARCHAR(255) NULL DEFAULT 'umum';
+    // UPDATE pesertas SET status_penerimaan = 'umum';
+    // UPDATE pesertas SET status_aktif = 'pending';
+
+    // ALTER TABLE kelas CHANGE `status_aktif` `status_aktif` VARCHAR(255) NULL DEFAULT 'pending';
+    // ALTER TABLE kelas CHANGE `status_penerimaan` `status_penerimaan` VARCHAR(255) NULL DEFAULT 'umum';
+    // UPDATE kelas SET status_penerimaan = 'umum';
+    // UPDATE kelas SET status_aktif = 'pending';
 };

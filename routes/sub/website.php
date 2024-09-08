@@ -12,6 +12,7 @@ Route::post("/lttq/tahsin/pendaftaran/store/ktp", [WebController::class, "lttq_t
 Route::post("/lttq/tahsin/pendaftaran/store/rekaman", [WebController::class, "lttq_tahsin_pendaftaran_store_rekaman"])->name("website.lttq.tahsin.pendaftaran.store.rekaman");
 Route::get("/lttq/tahsin/pendaftaran/berhasil", [WebController::class, "lttq_tahsin_pendaftaran_berhasil"])->name("website.lttq.tahsin.pendaftaran.berhasil");
 Route::get("/lttq/tahsin/pendaftaran/gagal", [WebController::class, "lttq_tahsin_pendaftaran_gagal"])->name("website.lttq.tahsin.pendaftaran.gagal");
+
 Route::get("/lttq/rq", [WebController::class, "lttq_rq"])->name("website.lttq.rq");
 Route::get("/lttq/tla", [WebController::class, "lttq_tla"])->name("website.lttq.tla");
 Route::get("/lttq/rtq-putra", [WebController::class, "lttq_rtq_putra"])->name("website.lttq.rtq-putra");
@@ -28,5 +29,6 @@ Route::get("/informasi", [WebController::class, "informasi"])->name("website.inf
 Route::get("/informasi/{slug}", [WebController::class, "informasi_slug"])->name("website.informasi.slug");
 Route::get("/informasi/tag/{slug}", [WebController::class, "informasi_tag_slug"])->name("website.informasi.tag.slug");
 
+Route::get("/quranic-camp", [WebController::class, "quranic_camp"])->name("website.quranic-camp");
 
 
