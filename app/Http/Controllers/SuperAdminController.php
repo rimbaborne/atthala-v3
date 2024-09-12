@@ -234,6 +234,4 @@ class SuperAdminController extends Controller
 
         return view('modules.log-dml.index', compact('log_dml'));
     }
-
-
 }
