@@ -2,7 +2,8 @@
     <div class="text-center">
         <!-- Tombol link untuk mengirim OTP -->
         <div class="text-gray-600 text-sm pb-2">
-            Kode telah kami kirimkan melalui pesan Whatsapp Anda.
+            SIlahkan Klik tombol konfirmasi di bawah ini.
+            <!-- Kode telah kami kirimkan melalui pesan Whatsapp Anda. -->
         </div>
         <div v-if="!countdownStarted && showButton">
             <!-- <div class="text-gray-600 text-xs pt-2">
@@ -10,7 +11,8 @@
             </div> -->
             <div class="my-4 pt-4">
                 <a class="rounded-lg text-sm px-4 py-2 mt-5 text-primary-700 hover:text-primary-900" href="#" @click.prevent="confirmSendOTP">
-                    Kirim Ulang Kode OTP
+                     Kode OTP
+                    <!-- Kirim Ulang Kode OTP -->
                 </a>
             </div>
             <div v-if="buttonCountdownStarted" class="text-xs text-gray-500">{{ buttonCountdownText }}</div>

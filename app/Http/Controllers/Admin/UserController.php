@@ -13,7 +13,7 @@ use App\Traits\ToastTrait;
 use App\Contracts\NotificationService;
 use App\Http\Requests\UserRequest;
 use App\Contracts\LogService;
-
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -27,7 +27,7 @@ class UserController extends Controller
         LogService $log
     )
     {
-        $this->middleware('role:super-admin');
+        // $this->middleware('role:admin-tahsin|admin-rtq|admin-tla|admin-rq|admin-tahla');
 
         $this->userRepo       = $userRepo;
         $this->roleRepo       = $roleRepo;
@@ -36,25 +36,42 @@ class UserController extends Controller
     }
 
     public function index($unit) {
-        $users = $this->userRepo->getDataTable();
-        return view('modules.users.index', compact('users', 'unit'));
+        // $users = $this->userRepo->getDataTable($unit);
+
+        $users = User::where(function($query) {
+                        $query->where('name', 'LIKE', '%' . request('search') . '%')
+                            ->orWhere('email', 'LIKE', '%' . request('search') . '%');
+                    })
+                    ->orderBy('name')
+                    ->paginate(10);
+        dd($users);
+
+
+        return view('dashboard.admin.user.index', compact('users', 'unit'));
     }
 
-    public function show($id) {
-        $roles = $this->roleRepo->getData();
-        $user  = $this->userRepo->findData($id);
 
+    public function show($id, $unit) {
+        $roles = $this->roleRepo->getData();
+        $user  = User::find($id);
+
+        dd($unit);
         // user has role
-        foreach($roles as $role_d) {
-            if($user->roles->contains($role_d->id)) {
-                $role[] = $role_d->id;
-            }
-        }
-        return view('modules.users.show', compact('user', 'roles', 'role'));
+        // if ($user) {
+        //     foreach($roles as $role_d) {
+        //         if($user->roles->contains($role_d->id)) {
+        //             $role[] = $role_d->id;
+        //         }
+        //     }
+        // } else {
+        //     $role[] = [];
+        // }
+        $role = $user->roles->pluck('id')->toArray();
+        return view('dashboard.admin.user.show', compact('user', 'roles', 'role'));
     }
 
     public function create() {
-        return view('modules.users.create');
+        return view('dashboard.admin.user.create');
     }
 
     public function store(UserRequest $request) {
@@ -63,7 +80,7 @@ class UserController extends Controller
         if (!$user) { throw DataException::errorCreate(); }
         $this->log->create(null, $user);
         $this->successCreate($request->email);
-        return redirect()->route('superadmin.users.index');
+        return redirect()->route('admin.user.index');
     }
 
     public function update($id, UserRequest $request) {
@@ -72,11 +89,11 @@ class UserController extends Controller
         $user   = $this->userRepo->updateData($id, $data);
         if (!$user) { throw DataException::errorUpdate(); }
         $this->successUpdate($request->email);
-        return redirect()->route('superadmin.users.index');
+        return redirect()->route('admin.user.index');
     }
 
     public function password($id) {
-        return view('modules.users.password', compact('id'));
+        return view('dashboard.admin.user.password', compact('id'));
     }
 
     public function password_update($id, UserRequest $request) {
@@ -85,7 +102,7 @@ class UserController extends Controller
         $user   = $this->userRepo->updateDataPassword($id, $data);
         if (!$user) { throw DataException::errorUpdate(); }
         $this->successUpdate('Password '.$user_b->email);
-        return redirect()->route('superadmin.users.index');
+        return redirect()->route('admin.user.index');
     }
 
     public function destroy($unit, $id)

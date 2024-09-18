@@ -35,10 +35,13 @@
                     <x-layouts.sidebar.admin :unit="$unit ?? null"/>
                 @endif
                 @if (Request::is('dashboard/pengajar*'))
-                    <x-layouts.sidebar.pengajar :unit="$unit"/>
+                    <x-layouts.sidebar.pengajar :unit="$unit ?? null"/>
                 @endif
                 @if (Request::is('dashboard/ketua*'))
-                    <x-layouts.sidebar.ketua-unit :unit="$unit"/>
+                    <x-layouts.sidebar.ketua-unit :unit="$unit ?? null"/>
+                @endif
+                @if (Request::is('dashboard/penguji*'))
+                    <x-layouts.sidebar.penguji :unit="$unit ?? null"/>
                 @endif
                 {{-- @role('ketua-divisi-pendidikan')
                     <x-layouts.sidebar.ketua-divisi-pendidikan />

@@ -22,7 +22,7 @@ class WhatsappService implements NotificationService
 
         // SOP based on https://waha.devlike.pro/docs/overview/how-to-avoid-blocking/
 
-        // try {
+        try {
             #1 Send Seen
         $data = [
             "session" => $sessionApi,
@@ -31,22 +31,24 @@ class WhatsappService implements NotificationService
 
         // $requestApi->post($url . '/api/sendSeen', $data);
 
-        $requestApi->post($url . '/api/startTyping', $data);
+        // $requestApi->post($url . '/api/startTyping', $data);
 
-        sleep(3);
+        // sleep(3);
 
-        $requestApi->post($url . '/api/stopTyping', $data);
+        // $requestApi->post($url . '/api/stopTyping', $data);
 
         $requestApi->post($url . '/api/sendText', array_merge($data, [
             "text" => $isipesan,
         ]));
-        // } catch (Throwable $th) {
-        //     throw $th;
-        // }
         // $requestApi->get($url.'/api/sendText', [
-        //     "session" => $sessionApi,
-        //     "phone"  => $nomorhp.'@c.us',
-        //     "text"    => $isipesan,
-        // ]);
+            //     "session" => $sessionApi,
+            //     "phone"  => $nomorhp.'@c.us',
+            //     "text"    => $isipesan,
+            // ]);
+        } catch (Throwable $th) {
+            // throw $th;
+            // bypass error
+        }
     }
 }
+

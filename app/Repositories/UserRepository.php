@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Tables\Users;
+use App\Tables\Admin\Users as AdminUsers;
 use App\Models\User;
 use App\Repositories\Interface\UserRepoInterface;
 use Illuminate\Support\Arr;
@@ -17,8 +18,12 @@ class UserRepository implements UserRepoInterface {
         $this->model = $model;
     }
 
-    public function getDataTable()  {
-        $getData = Users::class;
+    public function getDataTable($unit = null)  {
+        if (auth()->user()->hasAnyRole(['admin-tahsin', 'admin-rtq', 'admin-tla', 'admin-rq', 'admin-tahla'])) {
+            $getData = new AdminUsers($unit);
+        } else {
+            $getData = Users::class;
+        }
         return $getData;
     }
 

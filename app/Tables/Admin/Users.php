@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tables;
+namespace App\Tables\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,6 +11,7 @@ use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Str;
+use App\Models\Modules\Unit;
 
 class Users extends AbstractTable
 {
@@ -19,10 +20,12 @@ class Users extends AbstractTable
      *
      * @return void
      */
-    public function __construct()
+    protected $namaunit;
+    public function __construct($unit = null)
     {
-        //...
+        $this->namaunit = $unit;
     }
+
 
     /**
      * Determine if the user is authorized to perform bulk actions and exports.
@@ -54,11 +57,7 @@ class Users extends AbstractTable
     {
         $table->withGlobalSearch(columns:['name', 'email','phone_number'])
 
-            ->rowLink(fn (User $user) => route('superadmin.users.show', $user))
-            ->selectFilter('Kota', [
-                'en' => 'Balikpapan',
-                'nl' => 'Luar Balikpapan',
-            ])
+            ->rowLink(fn (User $user) => route('admin.user.show', ['unit' => $this->namaunit, 'id' => $user->id], $user))
             ->export()
             ->column('phone_number')
             ->column('name')
