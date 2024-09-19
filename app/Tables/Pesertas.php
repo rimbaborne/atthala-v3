@@ -150,6 +150,37 @@ class Pesertas extends AbstractTable
                 key: 'created_at',
                 label: 'Daftar',
             )
+            ->column(
+                key: 'data_ktp',
+                label: 'ktp',
+                as: function (Kelas $kelas) {
+                    if ($kelas) {
+                        $nilai_ = $kelas ? json_decode($kelas->peserta->biodata, true) : '';
+                        if (isset($nilai_[0]['ktp'])) {
+                            $nilai  = $nilai_[0]['ktp'];
+                        } else {
+                            $nilai  = '';
+                        }
+                        return $nilai;
+                    }
+                }
+            )
+            ->column(
+                key: 'data_rekaman',
+                label: 'rekaman',
+                as: function (Kelas $kelas) {
+                    if ($kelas) {
+                        $nilai_ = $kelas ? json_decode($kelas->peserta->biodata, true) : '';
+                        if (isset($nilai_[0]['rekaman'])) {
+                            $nilai  = $nilai_[0]['rekaman'];
+                        } else {
+                            $nilai  = '';
+                        }
+                        return $nilai;
+                    }
+                }
+            )
+
 
 
             // ->searchInput()

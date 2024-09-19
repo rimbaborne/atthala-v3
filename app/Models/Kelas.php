@@ -65,11 +65,28 @@ class Kelas extends Model
     {
         return $this->belongsTo(Kelas::class, 'id');
     }
+
+    public function data_ktp()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
+
+    public function data_rekaman()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
+
     public function datapebambayaran1() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran2() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran3() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran4() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran5() {  return $this->belongsTo(Kelas::class, 'id'); }
     public function datapebambayaran6() {  return $this->belongsTo(Kelas::class, 'id'); }
+
+    public function peserta_a()
+    {
+        return $this->belongsTo(Peserta::class, 'peserta_id');
+    }
+
 }
 
