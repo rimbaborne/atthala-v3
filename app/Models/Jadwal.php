@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Modules\Level;
 
 class Jadwal extends Model
 {
@@ -18,6 +19,7 @@ class Jadwal extends Model
         'nama_jadwal',
         'level_id',
         'batasan_peserta',
+        'jenis_peserta',
         'banyak_peserta',
         'keterangan'
     ];
@@ -30,5 +32,10 @@ class Jadwal extends Model
     public function pengajar()
     {
         return $this->belongsTo(Pengajar::class);
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
     }
 }

@@ -19,11 +19,11 @@ class UserRepository implements UserRepoInterface {
     }
 
     public function getDataTable($unit = null)  {
-        if (auth()->user()->hasAnyRole(['admin-tahsin', 'admin-rtq', 'admin-tla', 'admin-rq', 'admin-tahla'])) {
-            $getData = new AdminUsers($unit);
-        } else {
+        // if (auth()->user()->hasAnyRole(['admin-tahsin', 'admin-rtq', 'admin-tla', 'admin-rq', 'admin-tahla'])) {
+        //     $getData = new AdminUsers($unit);
+        // } else {
             $getData = Users::class;
-        }
+        // }
         return $getData;
     }
 

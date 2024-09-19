@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tables\Penguji;
+namespace App\Tables\Admin;
 
-use App\Models\Jadwal;
+use App\Models\DataAdminJadwal;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
-class DataPengujiJadwal extends AbstractTable
+class DataAdminJadwal extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -36,7 +36,7 @@ class DataPengujiJadwal extends AbstractTable
      */
     public function for()
     {
-        return Jadwal::query();
+        return DataAdminJadwal::query();
     }
 
     /**
@@ -48,7 +48,7 @@ class DataPengujiJadwal extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->withGlobalSearch(columns: ['id', 'nama_jadwal'])
+            ->withGlobalSearch(columns: ['id'])
             ->column('id', sortable: true);
 
             // ->searchInput()

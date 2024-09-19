@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('nip_pengajar');
             $table->string('jadwal_belajar');
             $table->string('nama_jadwal');
+            $table->string('jenis_peserta')->nullable();
+            // ALTER TABLE `jadwals` ADD `jenis_peserta` VARCHAR(255) NULL DEFAULT NULL AFTER `banyak_peserta`;
             $table->foreignId('level_id')->constrained();
             $table->integer('batasan_peserta');
             $table->integer('banyak_peserta')->nullable();
