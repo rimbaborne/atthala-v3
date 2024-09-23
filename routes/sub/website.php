@@ -6,6 +6,11 @@ use App\Domain\Website\Controllers\WebController;
 Route::get("/", [WebController::class, "home"])->name("website.home");
 Route::get("/lttq", [WebController::class, "lttq"])->name("website.lttq");
 Route::get("/lttq/tahsin", [WebController::class, "lttq_tahsin"])->name("website.lttq.tahsin");
+
+Route::get("/lttq/tahsin/pendaftaran", function () {
+    return redirect("https://atthala.arrahmahbalikpapan.or.id/tahsin/pendaftaran", 302);
+});
+
 Route::get("/lttq/tahsin/pendaftaran", [WebController::class, "lttq_tahsin_pendaftaran"])->name("website.lttq.tahsin.pendaftaran");
 Route::post("/lttq/tahsin/pendaftaran/store", [WebController::class, "lttq_tahsin_pendaftaran_store"])->name("website.lttq.tahsin.pendaftaran.store");
 Route::post("/lttq/tahsin/pendaftaran/store/ktp", [WebController::class, "lttq_tahsin_pendaftaran_store_ktp"])->name("website.lttq.tahsin.pendaftaran.store.ktp");
