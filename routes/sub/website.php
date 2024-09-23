@@ -8,10 +8,10 @@ Route::get("/lttq", [WebController::class, "lttq"])->name("website.lttq");
 Route::get("/lttq/tahsin", [WebController::class, "lttq_tahsin"])->name("website.lttq.tahsin");
 
 Route::get("/lttq/tahsin/pendaftaran", function () {
-    return redirect("https://atthala.arrahmahbalikpapan.or.id/tahsin/pendaftaran", 302);
+    return redirect()->away("https://atthala.arrahmahbalikpapan.or.id/tahsin/pendaftaran");
 });
 
-Route::get("/lttq/tahsin/pendaftaran", [WebController::class, "lttq_tahsin_pendaftaran"])->name("website.lttq.tahsin.pendaftaran");
+// Route::get("/lttq/tahsin/pendaftaran", [WebController::class, "lttq_tahsin_pendaftaran"])->name("website.lttq.tahsin.pendaftaran");
 Route::post("/lttq/tahsin/pendaftaran/store", [WebController::class, "lttq_tahsin_pendaftaran_store"])->name("website.lttq.tahsin.pendaftaran.store");
 Route::post("/lttq/tahsin/pendaftaran/store/ktp", [WebController::class, "lttq_tahsin_pendaftaran_store_ktp"])->name("website.lttq.tahsin.pendaftaran.store.ktp");
 Route::post("/lttq/tahsin/pendaftaran/store/rekaman", [WebController::class, "lttq_tahsin_pendaftaran_store_rekaman"])->name("website.lttq.tahsin.pendaftaran.store.rekaman");
