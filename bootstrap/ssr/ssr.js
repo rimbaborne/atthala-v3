@@ -12,11 +12,6 @@ var require_ssr = __commonJS({
   "ssr.js"(exports, module) {
     var vue = { exports: {} };
     var vue_cjs_prod = {};
-    /**
-    * vue v3.4.30
-    * (c) 2018-present Yuxi (Evan) You and Vue contributors
-    * @license MIT
-    **/
     var hasRequiredVue_cjs_prod;
     function requireVue_cjs_prod() {
       if (hasRequiredVue_cjs_prod) return vue_cjs_prod;
@@ -89,11 +84,6 @@ var require_ssr = __commonJS({
       return vue_cjs_prod;
     }
     var vue_cjs = {};
-    /**
-    * vue v3.4.30
-    * (c) 2018-present Yuxi (Evan) You and Vue contributors
-    * @license MIT
-    **/
     var hasRequiredVue_cjs;
     function requireVue_cjs() {
       if (hasRequiredVue_cjs) return vue_cjs;
