@@ -41,7 +41,7 @@
                         <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-neutral-200">Invoice #
                         </h2>
                         <span class="mt-1 block text-gray-500 dark:text-neutral-500 uppercase">
-                            {{ \Carbon\Carbon::parse($data->created_at)->format('Ymd') }}-{{ substr($data->uuid, 0, 8) }}
+                            {{ \Carbon\Carbon::parse($data->created_at)->format('Ymd') }}-{{ $data->id}}
                         </span>
 
                         {{-- <address class="mt-4 not-italic text-gray-800 dark:text-neutral-200">

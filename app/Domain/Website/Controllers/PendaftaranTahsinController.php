@@ -3,24 +3,21 @@
 namespace App\Domain\Website\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\SEO;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
 use App\Http\Requests\PendaftaranTahsinRequest;
 use ProtoneMedia\Splade\Facades\Toast;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cache;
-use Spatie\Image\Image;
 use App\Models\Periode;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Transaksi;
 use App\Models\Peserta;
 use App\Models\User;
-use App\Models\PaymentGateway;
 use Throwable;
 use App\Models\Kelas;
-class WebController extends Controller
+
+class PendaftaranTahsinController extends Controller
 {
     public $description, $keywords, $sitename;
     public function __construct()
@@ -63,60 +60,8 @@ class WebController extends Controller
         //     // throw $th;
         // }
     }
-    public function home()
-    {
-        $page_title = 'Yayasan Arrahmah | Pendidikan Al-quran Kota Balikpapan';
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
 
-        return view('website.pages.home');
-    }
-
-    public function yayasan()
-    {
-        $page_title = 'Yayasan Arrahmah Balikpapan';
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.yayasan');
-    }
-
-    public function lttq()
-    {
-        $page_title = 'LTTQ Arrahmah Balikpapan';
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.lttq.index');
-    }
-
-    public function lttq_tahsin()
-    {
-        return view('website.pages.lttq.tahsin.index');
-    }
-
-    public function lttq_tahsin_pendaftaran()
+    public function tahsin_pendaftaran()
     {
         $page_title = 'LTTQ Arrahmah Balikpapan';
         SEO::title($page_title)
@@ -177,9 +122,8 @@ class WebController extends Controller
         }
     }
 
-    public function lttq_tahsin_pendaftaran_store(Request $request)
+    public function tahsin_pendaftaran_store(Request $request)
     {
-        // dd($request->all());
 
         $periode = Periode::where('aktifkan_pendaftaran',1)->first();
         if ($periode) {
@@ -225,22 +169,17 @@ class WebController extends Controller
                 return redirect()->back();
             }
 
+            // Menghapus karakter '0' dan '62' di awal nomor telepon yang dimasukkan
+            $phone_number = ltrim($request->input('phone_number'), '0');
+            $phone_number = ltrim($phone_number, '62');
 
-            if (auth()->check()) {
-                $user = User::where('phone_number', auth()->user()->phone_number )->first();
-            } else {
-                // Menghapus karakter '0' dan '62' di awal nomor telepon yang dimasukkan
-                // $phone_number = ltrim($request->input('phone_number'), '0');
-                // $phone_number = ltrim($phone_number, '62');
+            $user = User::where('phone_number', $request->input('phone_number'))->first();
 
-                $user = User::where('phone_number', $request->input('phone_number'))->first();
-
-                if (!$user) {
-                    $user = User::create([
-                        'phone_code'   => $request->input('phone_code') ?? '62',
-                        'phone_number' => $request->input('phone_number'),
-                    ]);
-                }
+            if (!$user) {
+                $user = User::create([
+                    'phone_code'   => $request->input('phone_code') ?? '62',
+                    'phone_number' => $request->input('phone_number'),
+                ]);
             }
 
             $biodata[] = [
@@ -311,7 +250,7 @@ class WebController extends Controller
         }
     }
 
-    public function lttq_tahsin_pendaftaran_store_ktp(Request $request)
+    public function tahsin_pendaftaran_store_ktp(Request $request)
     {
         // FIX SETELAH PROSES MELELAHKAN
         $request->validate([
@@ -350,7 +289,7 @@ class WebController extends Controller
         // return view('website.pages.lttq.tahsin');
     }
 
-    public function lttq_tahsin_pendaftaran_store_rekaman(Request $request)
+    public function tahsin_pendaftaran_store_rekaman(Request $request)
     {
         // FIX SETELAH PROSES MELELAHKAN
         $request->validate([
@@ -399,195 +338,13 @@ class WebController extends Controller
         // return view('website.pages.lttq.tahsin');
     }
 
-    public function lttq_tahsin_pendaftaran_berhasil(Request $request)
+    public function tahsin_pendaftaran_berhasil(Request $request)
     {
         return view('website.pages.lttq.tahsin.pendaftaran-berhasil');
     }
 
-    public function lttq_tahsin_pendaftaran_gagal(Request $request)
+    public function tahsin_pendaftaran_gagal(Request $request)
     {
         return view('website.pages.lttq.tahsin.pendaftaran-gagal');
-    }
-
-    public function lttq_invoice(Request $request, $uuid)
-    {
-        $data = Transaksi::where('uuid', $uuid)->first();
-        if($data) {
-            // dd(json_decode($data->payment_gateway->data));
-            return view('website.pages.lttq.invoice', compact('uuid', 'data'));
-        } else {
-            abort(404);
-        }
-    }
-
-    public function lttq_invoice_store(Request $request, $uuid)
-    {
-        $buktitransfer     = session()->get('invoice.buktitransfer');
-        if (!$buktitransfer) {
-            Toast::title('Anda Belum Upload Bukti Transfer !')
-                ->warning()
-                ->autoDismiss(10);
-        } else {
-            $transaksi = Transaksi::where('uuid', $uuid)->first();
-            if($transaksi){
-
-                $bukti_transfer = $transaksi->data_pembayaran;
-                $bukti_transfer_array = json_decode($bukti_transfer, true);
-                $bukti_transfer_array['bukti_transfer'] = [ 'file' => $buktitransfer ];
-
-                $transaksi->update([
-                    'data_pembayaran' => json_encode($bukti_transfer_array),
-                    'status' => 2,
-                ]);
-                Toast::title('Upload Bukti Transfer Berhasil !')
-                ->autoDismiss(10);
-            } else {
-            Toast::title('Terjadi Kesalahan. Kontak Admin !')
-                ->warning()
-                ->autoDismiss(10);
-            }
-        }
-        return redirect()->back();
-        // return view('website.pages.lttq.tahsin');
-    }
-
-    public function lttq_invoice_store_bukti_transfer(Request $request, $uuid)
-    {
-        // FIX SETELAH PROSES MELELAHKAN
-        $request->validate([
-            'buktitransfer' => 'required|image|mimes:jpeg,png,jpg,svg|max:5012', // maksimal 20MB
-        ]);
-
-        // Tentukan folder path dengan hierarki tahun/bulan/tanggal
-        $year  = now()->format('Y');
-        $month = now()->format('m');
-        $day   = now()->format('d');
-        $folderPath = "$year/$month/$day";
-
-        // Generate nama file unik
-        $fileName = $uuid . '.' . $request->file('buktitransfer')->getClientOriginalExtension();
-
-        // Simpan file di storage
-        try {
-            $filePath = $request->file('buktitransfer')->storeAs($folderPath, $fileName, 'public');
-            session()->put('invoice.buktitransfer', $filePath);
-
-            // Kembalikan response sukses
-            return response()->json([
-                'success' => true,
-                'message' => 'Berhasil di-upload.',
-                'file_path' => Storage::url($filePath),
-            ]);
-        } catch (\Exception $e) {
-
-            // Kembalikan response gagal
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal Upload',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-        // return view('website.pages.lttq.tahsin');
-    }
-
-    public function lttq_rq()
-    {
-        return view('website.pages.lttq.rq');
-    }
-
-    public function lttq_tla()
-    {
-        return view('website.pages.lttq.tla');
-    }
-
-    public function lttq_rtq_putra()
-    {
-        return view('website.pages.lttq.rtq-putra');
-    }
-
-    public function lttq_rtq_putri()
-    {
-        return view('website.pages.lttq.rtq-putri');
-    }
-
-    public function kontak()
-    {
-        $page_title = 'Kontak Yayasan Arrahmah';
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.kontak');
-    }
-
-    public function informasi()
-    {
-        $page_title = 'Informasi Yayasan Arrahmah';
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.informasi.index');
-    }
-
-    public function informasi_slug($slug)
-    {
-        $page_title = 'Informasi Yayasan Arrahmah';
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.informasi.konten');
-    }
-
-    public function informasi_tag_slug($slug)
-    {
-        $page_title = $slug;
-        SEO::title($page_title)
-            ->description($this->description)
-            ->keywords($this->keywords)
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.informasi.tag');
-    }
-
-
-    public function quranic_camp()
-    {
-        $page_title = 'Quranic Camp 2 | Yayasan Arrahmah';
-        SEO::title($page_title)
-            ->description('Kegiatan Berkemah bersama keluarga dan teman sekaligus mengkhatamkan 30 juz al-quran')
-            ->keywords('camping quran, camping balikpapan, mengaji balikpapan')
-            ->openGraphType('WebPage')
-            ->openGraphSiteName($page_title)
-            ->openGraphTitle($page_title)
-            ->openGraphUrl('arrahmahbalikpapan.or.id')
-            ->openGraphImage(asset('/assets/img/logo-arrahmah.png'))
-            ;
-
-        return view('website.pages.kegiatan.quranic-camp');
     }
 }

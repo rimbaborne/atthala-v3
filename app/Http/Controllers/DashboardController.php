@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Interface\UserRepoInterface;
 use App\Repositories\Interface\RoleRepoInterface;
 use App\Models\Peserta;
+use App\Models\Transaksi;
 
 
 
@@ -61,13 +62,13 @@ class DashboardController extends Controller
     public function peserta_riwayat_pembayaran() {
 
         $data_peserta = Peserta::where('user_id',auth()->user()->id)->paginate(10);
-
+        $data_transaksi = Transaksi::where('user_id',auth()->user()->id)->paginate(10);
 
         $user = auth()->user();
         $roles = $this->roleRepo->getData();
         $user  = $this->userRepo->findData($user->id);
 
-        return view('dashboard.peserta.riwayat-pembayaran', compact('user', 'data_peserta'));
+        return view('dashboard.peserta.riwayat-pembayaran', compact('user', 'data_peserta', 'data_transaksi'));
     }
 
 

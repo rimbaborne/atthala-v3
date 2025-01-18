@@ -1,4 +1,3 @@
-<<<<<<<<<<<<<<  ✨ Codeium Command 🌟 >>>>>>>>>>>>>>>>
 <template>
   <div>
     <file-pond
@@ -76,7 +75,3 @@ export default {
     padding-top: 30px;
   }
 </style>
-
-
-
-<<<<<<<  b7b82460-757d-43e5-95a6-4ed73ec175b1  >>>>>>>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tables;
+namespace App\Tables\Admin;
 
-use App\Models\Periode as Period;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
-class Periode extends AbstractTable
+class PeriodeTahsin extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -36,7 +36,8 @@ class Periode extends AbstractTable
      */
     public function for()
     {
-        return Period::class;
+        return Periode::where('unit_id', 1)->orderBy('created_at', 'desc');
+
     }
 
     /**
@@ -49,15 +50,23 @@ class Periode extends AbstractTable
     {
         $table
             ->withGlobalSearch(columns: ['nama'])
+            ->rowLink(fn (Periode $periode) => route('admin.periode.show', ['unit' => 'tahsin', 'periode' => $periode->id],$periode))
+            ->column('id', sortable: true)
             ->column('nama')
             ->column('tahun_ajaran')
-            ->column('waktu_start')
-            ->column('waktu_end')
+            ->column(
+                label:'Buka Pendaftaran',
+                key:'waktu_start'
+            )
+            ->column(
+                    label:'Tutup Pendaftaran',
+                    key:'waktu_end'
+                )
             ->column(
                 label:'Status Daftar',
                 key: 'status',
-                as: function (Period $periode) {
-                    return $periode->aktifkan_pendaftaran ? 'Aktif' : 'Tutup';
+                as: function (Periode $periode) {
+                    return $periode->aktifkan_pendaftaran ? 'AKTIF' : 'TUTUP';
                 }
             )
 
@@ -66,8 +75,9 @@ class Periode extends AbstractTable
             // ->withGlobalSearch()
 
             // ->bulkAction()
+            // ->export()
+
             ->export()
-            ->paginate(10)
-            ;
+            ->paginate(10);
     }
 }

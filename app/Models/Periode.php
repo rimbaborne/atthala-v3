@@ -23,6 +23,7 @@ class Periode extends Model
         'format_absensi',
         'format_nilai',
         'format_rapot',
+        'notifikasi',
         'aktifkan_pendaftaran',
         'tanggal_tagihan'
     ];
@@ -45,5 +46,10 @@ class Periode extends Model
     public function pengajar()
     {
         return $this->belongsToMany(Pengajar::class, 'pivot_periode_pengajar');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Periode::class, 'id');
     }
 }

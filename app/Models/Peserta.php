@@ -46,4 +46,10 @@ class Peserta extends Model
     {
         return $this->hasMany(Kelas::class, 'peserta_id', 'id');
     }
+
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'peserta_id', 'id');
+    }
 }

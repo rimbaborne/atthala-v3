@@ -106,7 +106,7 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-span-full">
+                <div class="col-span-full">
                     <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg  2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                         <div class="flow-root">
                             <h3 class="text-xl mb-4 font-semibold dark:text-white">{{ $peserta->periode->unit->nama }} {{ $peserta->periode->nama }}</h3>
@@ -116,109 +116,71 @@
                                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <thead>
                                         <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Januari
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Februari
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Maret
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                April
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Total
-                                            </th>
+                                            @for ($i = 1; $i <= 16; $i++)
+                                                <th scope="col"
+                                                    class="px-3 py-3 text-center font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                                    {{ $i }}
+                                                </th>
+                                            @endfor
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $dataPembayaran = [
-                                                "Budi Setiawan" => 4,
-                                            ];
-                                            $data_kelas = $peserta->kelas;
-                                        @endphp
-                                        @foreach ($data_kelas as $kelas)
-                                        @php
-                                            $absensi = json_decode($kelas->data_absensi, true);
-                                        @endphp
-                                            {!! $absensi !!}
-                                        @endforeach
-                                        @foreach ($dataPembayaran as $nama => $nilai)
-                                        <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
-                                            @for ($i = 0; $i < $nilai; $i++)
-                                                <td class="px-3 py-3">
-                                                    150.000
+                                        <tr>
+                                        @for ($i = 1; $i <= 16; $i++)
+                                                <td class="px-3 py-3 text-center">
+                                                    -
                                                 </td>
                                             @endfor
-                                            @for ($i = 0; $i < 4-$nilai; $i++)
-                                                <td class="px-3 py-3">
-                                                </td>
-                                            @endfor
-                                            <td class="px-3 py-3">
-                                                {{ number_format($nilai * 150000, 0, ',', '.') }}
-                                            </td>
                                         </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
 
-                            <h3 class="text-md py-2 text-gray-500 dark:text-white">SPP</h3>
+                            <h3 class="text-md py-2 text-gray-500 dark:text-white">Pembayaran</h3>
                             <div class="relative overflow-x-auto border rounded-md mb-4">
                                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <thead>
                                         <tr class="border-b border-gray-200 dark:border-gray-700">
                                             <th scope="col"
                                                 class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Januari
+                                                Jenis Pembayaran
                                             </th>
                                             <th scope="col"
                                                 class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Februari
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Maret
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                April
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Total
+                                                Status
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $dataPembayaran = [
-                                                "Budi Setiawan" => 4,
-                                            ];
-                                        @endphp
-                                        @foreach ($dataPembayaran as $nama => $nilai)
-                                        <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
-                                            @for ($i = 0; $i < $nilai; $i++)
-                                                <td class="px-3 py-3">
-                                                    150.000
+                                        @foreach ($peserta->kelas as $kelas)
+                                            @php
+                                                $dataPembayaran = json_decode($kelas->data_pembayaran, true);
+                                            @endphp
+                                            @foreach ($dataPembayaran as $item)
+                                            <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
+                                                <td class="px-3 py-3 uppercase">
+                                                    {{ ucfirst(array_key_first($item)) }}
                                                 </td>
-                                            @endfor
-                                            @for ($i = 0; $i < 4-$nilai; $i++)
-                                                <td class="px-3 py-3">
+                                                <td class="px-3 py-3 uppercase">
+                                                    @foreach ($peserta->transaksi as $transaksi_)
+                                                        @if (array_values($item)[0] == 1)
+                                                            @if ($transaksi_->status == 1)
+                                                                Menunggu Pembayaran
+                                                            @elseif ($transaksi_->status == 2)
+                                                                Menunggu Konfirmasi
+                                                            @elseif ($transaksi_->status == 3)
+                                                                Lunas
+                                                            @elseif ($transaksi_->status == 4)
+                                                                Kadaluarsa
+                                                            @endif
+                                                        @else
+                                                            BELUM LUNAS
+                                                        @endif
+                                                    @endforeach
+                                                    {{-- {{ array_values($item)[0] == 1 ? 'LUNAS' : 'BELUM LUNAS' }} --}}
                                                 </td>
-                                            @endfor
-                                            <td class="px-3 py-3">
-                                                {{ number_format($nilai * 150000, 0, ',', '.') }}
-                                            </td>
-                                        </tr>
+                                            </tr>
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -231,54 +193,46 @@
                                         <tr class="border-b border-gray-200 dark:border-gray-700">
                                             <th scope="col"
                                                 class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Januari
+                                                Pembayaran
                                             </th>
                                             <th scope="col"
                                                 class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Februari
+                                                Tanggal Bayar
                                             </th>
                                             <th scope="col"
                                                 class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Maret
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                April
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Total
+                                                Status
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $dataPembayaran = [
-                                                "Budi Setiawan" => 4,
-                                            ];
-                                        @endphp
-                                        @foreach ($dataPembayaran as $nama => $nilai)
-                                        <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
-                                            @for ($i = 0; $i < $nilai; $i++)
+                                        @foreach ($peserta->transaksi as $transaksi_)
+                                            <tr class="border-b text-sm border-gray-200 dark:border-gray-700">
                                                 <td class="px-3 py-3">
-                                                    150.000
+                                                    {{ \Carbon\Carbon::parse($transaksi_->created_at)->format('Ymd') }}-{{ $transaksi_->id}}
                                                 </td>
-                                            @endfor
-                                            @for ($i = 0; $i < 4-$nilai; $i++)
                                                 <td class="px-3 py-3">
+                                                    {{ $transaksi_->created_at }}
                                                 </td>
-                                            @endfor
-                                            <td class="px-3 py-3">
-                                                {{ number_format($nilai * 150000, 0, ',', '.') }}
-                                            </td>
-                                        </tr>
+                                                <td class="px-3 py-3">
+                                                    @if ($transaksi_->status == 1)
+                                                        Menunggu Pembayaran
+                                                    @elseif ($transaksi_->status == 2)
+                                                        Menunggu Konfirmasi
+                                                    @elseif ($transaksi_->status == 3)
+                                                        Lunas
+                                                    @elseif ($transaksi_->status == 4)
+                                                        Kadaluarsa
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
