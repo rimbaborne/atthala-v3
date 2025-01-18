@@ -248,7 +248,7 @@
 <div class="">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="flex items-center justify-center">
-            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330031868841562163/ASIF23.png?ex=678c8034&is=678b2eb4&hm=bd1ac858c205a9215593012140382887f1e0d057d6664d9f9eafb4acc3925056&" class="h-32 w-auto border border-gray-300 rounded-lg" alt="Logo">
+            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330038315239604288/banner.png?ex=678c8635&is=678b34b5&hm=996e45a700ec7b336c0f0f203566bc765753ef2aa4205fb102bb62198a36e136&" class="h-32 w-auto border border-gray-300 rounded-lg" alt="Logo">
         </div>
     </div>
 </div>
