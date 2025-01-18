@@ -245,13 +245,7 @@
     </div>
 </div>
 
-<div class="">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex items-center justify-center">
-            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330038315239604288/banner.png?ex=678c8635&is=678b34b5&hm=996e45a700ec7b336c0f0f203566bc765753ef2aa4205fb102bb62198a36e136&" class="w-auto border border-gray-300 rounded-lg" alt="Logo">
-        </div>
-    </div>
-</div>
+
 
 <div class="pt-10">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
@@ -286,6 +280,14 @@
                 </ul>
             </div>
             @endforeach
+        </div>
+    </div>
+</div>
+
+<div class="pt-4">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex items-center justify-center">
+            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330038315239604288/banner.png?ex=678c8635&is=678b34b5&hm=996e45a700ec7b336c0f0f203566bc765753ef2aa4205fb102bb62198a36e136&" class="w-auto border border-gray-300 rounded-lg" alt="Logo">
         </div>
     </div>
 </div>
