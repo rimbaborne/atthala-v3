@@ -57,22 +57,22 @@
                             [
                                 'tanggal' => '21 JAN 2025 - 1 FEB 2025',
                                 'keterangan' => 'Pendaftaran Lomba Tarhib Ramadhan',
-                                'link' => 'https://www.arrahmahbalikpapan.or.id/',
+                                'link' => 'https://berbagi.link/SemarakTarhibRamadhanArRahmah',
                             ],
                             [
                                 'tanggal' => '21 JAN 2025 - 1 FEB 2025',
                                 'keterangan' => 'Tarhib Ramadhan Ar Rahmah',
-                                'link' => 'https://www.arrahmahbalikpapan.or.id/',
+                                'link' => 'https://instagram.com/masjid.arrahmahbpn',
                             ],
                             [
                                 'tanggal' => '21 RAMADHAN 1446H - 30 RAMADHAN 1446H',
                                 'keterangan' => 'ITIKAF Bersama Masjid Ar Rahmah',
-                                'link' => 'https://www.arrahmahbalikpapan.or.id/',
+                                'link' => 'https://instagram.com/masjid.arrahmahbpn',
                             ],
                             [
                                 'tanggal' => '17 APR 2025',
                                 'keterangan' => 'Semarak Tahsin LTTQ Ar Rahmah',
-                                'link' => 'https://www.arrahmahbalikpapan.or.id/',
+                                'link' => 'https://instagram.com/masjid.arrahmahbpn',
                             ],
                         ];
                         @endphp
@@ -245,6 +245,14 @@
     </div>
 </div>
 
+<div class="">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex items-center justify-center">
+            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330031868841562163/ASIF23.png?ex=678c8034&is=678b2eb4&hm=bd1ac858c205a9215593012140382887f1e0d057d6664d9f9eafb4acc3925056&" class="h-32 w-auto border border-gray-300 rounded-lg" alt="Logo">
+        </div>
+    </div>
+</div>
+
 <div class="pt-10">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
         <div class="bg-white rounded-lg p-8">
@@ -281,6 +289,23 @@
         </div>
     </div>
 </div>
+
+<div class="pt-10 pb-10">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex items-center justify-center">
+            <img src="{{ url('/') }}/assets/img/logo-arrahmah.png" class="h-14 w-auto m-4" alt="Logo">
+            <img src="{{ url('/') }}/assets/img/lttq/lttq.png" class="h-14 w-auto m-4" alt="Logo">
+        </div>
+        <div class="flex items-center justify-center">
+            <img src="{{ url('/') }}/assets/img/lttq/rq.png" class="h-14 w-auto m-4" alt="Logo">
+            <img src="{{ url('/') }}/assets/img/lttq/rtq-putra.png" class="h-14 w-auto m-4" alt="Logo">
+            <img src="{{ url('/') }}/assets/img/lttq/rtq-putri.png" class="h-14 w-auto m-4" alt="Logo">
+            <img src="{{ url('/') }}/assets/img/lttq/tahsin.png" class="h-14 w-auto m-4" alt="Logo">
+            <img src="{{ url('/') }}/assets/img/lttq/tla.png" class="h-14 w-auto m-4" alt="Logo">
+        </div>
+    </div>
+</div>
+
 
 
 <div class="pt-10 pb-10">
