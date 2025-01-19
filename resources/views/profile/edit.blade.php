@@ -26,4 +26,5 @@
             </div> --}}
         </div>
     </div>
+    @include('layouts.navigation-mobile')
 </x-app-layout>
