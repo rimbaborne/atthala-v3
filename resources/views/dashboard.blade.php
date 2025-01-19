@@ -20,11 +20,11 @@
         </div>
     </section>
 
-    <div class="pt-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class=" bg-primary-800">
+        <div class="max-w-7xl mx-auto ">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="flow-root">
-                    <div class="mx-auto">
+                    {{-- <div class="mx-auto">
                         @php
                         $slides = [
                         [
@@ -43,10 +43,12 @@
                         ];
                         @endphp
                         <CarouselSlider :initial-slides="{{ json_encode($slides) }}" />
+                    </div> --}}
+                    <div class="bg-no-repeat bg-center bg-cover h-full " style="background-image: url({{ url('/') }}/assets/img/masjid.png)">
                     </div>
                 </div>
-                <div class="flow-root mx-auto w-full text-sm">
-                    <div class="divide-y divide-gray-300 relative pl-3">
+                <div class="flow-root m-4 w-full text-sm bg-white rounded-xl border border-gray-300 ">
+                    <div class="divide-y divide-gray-300 relative pl-3 m-4">
                         @php
                         $events = [
                             [
@@ -214,31 +216,31 @@
 
 <div class="pt-2">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-        <div class="bg-white rounded-lg p-8">
-            <div class="grid grid-cols-3 gap-4">
-                <a href="{{ route('website.lttq') }}" class="border block justify-between p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <x-carbon-education class="mx-auto mb-1 text-primary-800 w-9 h-9 lg:w-12 lg:h-12"/>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">Program Pendidikan</div>
+        <div class="p-4">
+            <div class="grid grid-cols-2 gap-4">
+                <a href="{{ route('website.lttq') }}" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
+                    <x-carbon-education class="text-white w-16 h-16 lg:w-20 lg:h-20"/>
+                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Pendidikan LTTQ</div>
                 </a>
-                <a href="#" class="border block justify-between p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <x-carbon-radio class="mx-auto mb-1 text-primary-800 w-9 h-9 lg:w-12 lg:h-12"/>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">Informasi</div>
+                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
+                    <x-carbon-radio class="text-white w-16 h-16 lg:w-20 lg:h-20"/>
+                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Informasi</div>
                 </a>
-                <a href="#" class="border block justify-between p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <x-carbon-collaborate class="mx-auto mb-1 text-primary-800 w-9 h-9 lg:w-12 lg:h-12"/>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">Donasi</div>
+                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
+                    <x-carbon-collaborate class="text-white w-16 h-16 lg:w-20 lg:h-20"/>
+                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Donasi</div>
                 </a>
-                {{-- <a href="#" class="border block justify-between p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                {{-- <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
                     <svg class="mx-auto mb-1 text-primary-800 w-7 h-7 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">Acara</div>
+                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Acara</div>
                 </a>
-                <a href="#" class="border block justify-between p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
                     <svg class="mx-auto mb-1 text-primary-800 w-7 h-7 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">Settings</div>
+                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Settings</div>
                 </a>
-                <a href="#" class="border block justify-between p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
                     <svg class="mx-auto mb-1 text-primary-800 w-7 h-7 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">Products</div>
+                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Products</div>
                 </a> --}}
             </div>
         </div>
@@ -249,12 +251,12 @@
 
 <div class="pt-10">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-        <div class="bg-white rounded-lg p-8">
+        <div class="m-4">
             <div class="flex items-center justify-between mb-4">
                 <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Peserta Terdaftar</h5>
             </div>
             @foreach ($data_peserta as $peserta)
-            <div class="flow-root">
+            <div class="flow-root bg-white rounded-lg border border-gray-200 px-4">
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                     <li class="py-3 sm:py-4">
                         <div class="flex items-center">

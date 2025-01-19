@@ -1,5 +1,7 @@
 <div class="min-h-screen bg-gray-100">
-    <div class="max-[640px]:hidden">
+    <div class="
+        {{-- max-[640px]:hidden --}}
+    ">
         @include('layouts.navigation')
     </div>
 

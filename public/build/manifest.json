@@ -70,7 +70,7 @@
     "isDynamicEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-NP09nSHo.js",
+    "file": "assets/app-CEc2OGVx.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -89,7 +89,7 @@
       "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js"
     ],
     "css": [
-      "assets/app-B8vBb8Hc.css"
+      "assets/app-Bt-slJPJ.css"
     ]
   }
 }
