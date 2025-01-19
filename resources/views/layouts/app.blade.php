@@ -9,4 +9,5 @@
     <main>
         {{ $slot }}
     </main>
+    @include('layouts.navigation-mobile')
 </div>
