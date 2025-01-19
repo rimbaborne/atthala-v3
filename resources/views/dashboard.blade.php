@@ -8,12 +8,12 @@
     </section> --}}
 
     <section class=" dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 text-xs">
             <div class="">
                 <h2 class="text-base font-bold tracking-tight text-gray-900 dark:text-white">
                     Ahlan Wa Sahlan
                 </h2>
-                <p class="mt-1 text-sm ">
+                <p class="mt-1">
                     Anda login menggunakan nomor {{ auth()->user()->phone_number }}
                 </p>
             </div>
@@ -218,29 +218,29 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
         <div class="p-4">
             <div class="grid grid-cols-2 gap-4">
-                <a href="{{ route('website.lttq') }}" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
+                <a href="{{ route('website.lttq') }}" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600 bg-">
                     <x-carbon-education class="text-white w-16 h-16 lg:w-20 lg:h-20"/>
-                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Pendidikan LTTQ</div>
+                    <div class="sm:text-xl text-lg relative uppercase font-bold text-white flex items-end justify-end">Program LTTQ</div>
                 </a>
-                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
+                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-sky-800 to-sky-600">
                     <x-carbon-radio class="text-white w-16 h-16 lg:w-20 lg:h-20"/>
-                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Informasi</div>
+                    <div class="sm:text-xl text-lg relative uppercase font-bold text-white flex items-end justify-end">Informasi</div>
                 </a>
-                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
+                <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-amber-800 to-amber-600">
                     <x-carbon-collaborate class="text-white w-16 h-16 lg:w-20 lg:h-20"/>
-                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Donasi</div>
+                    <div class="sm:text-xl text-lg relative uppercase font-bold text-white flex items-end justify-end">Donasi</div>
                 </a>
                 {{-- <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
                     <svg class="mx-auto mb-1 text-primary-800 w-7 h-7 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
-                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Acara</div>
+                    <div class="sm:text-xl text-lg relative uppercase font-bold text-white flex items-end justify-end">Acara</div>
                 </a>
                 <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
                     <svg class="mx-auto mb-1 text-primary-800 w-7 h-7 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
-                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Settings</div>
+                    <div class="sm:text-xl text-lg relative uppercase font-bold text-white flex items-end justify-end">Settings</div>
                 </a>
                 <a href="#" class="sm:flex block justify-between p-4 text-center rounded-2xl bg-gradient-to-r from-primary-800 to-primary-600">
                     <svg class="mx-auto mb-1 text-primary-800 w-7 h-7 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                    <div class="sm:text-xl text-lg uppercase font-bold text-white flex items-end justify-center">Products</div>
+                    <div class="sm:text-xl text-lg relative uppercase font-bold text-white flex items-end justify-end">Products</div>
                 </a> --}}
             </div>
         </div>
@@ -289,12 +289,12 @@
 <div class="pt-4">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="flex items-center justify-center">
-            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330038315239604288/banner.png?ex=678c8635&is=678b34b5&hm=996e45a700ec7b336c0f0f203566bc765753ef2aa4205fb102bb62198a36e136&" class="w-auto border border-gray-300 rounded-lg" alt="Logo">
+            <img src="https://cdn.discordapp.com/attachments/867731696706387978/1330038315239604288/banner.png?ex=678c8635&is=678b34b5&hm=996e45a700ec7b336c0f0f203566bc765753ef2aa4205fb102bb62198a36e136&" class="w-auto border border-gray-300" alt="Logo">
         </div>
     </div>
 </div>
 
-<div class="pt-10 pb-10">
+{{-- <div class="pt-10 pb-10">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="flex items-center justify-center">
             <img src="{{ url('/') }}/assets/img/logo-arrahmah.png" class="h-14 w-auto m-4" alt="Logo">
@@ -308,7 +308,7 @@
             <img src="{{ url('/') }}/assets/img/lttq/tla.png" class="h-14 w-auto m-4" alt="Logo">
         </div>
     </div>
-</div>
+</div> --}}
 
 
 
