@@ -4,7 +4,7 @@
             <div class="bg-white rounded-lg p-4">
                 <div class="flex items-center justify-between mb-4">
                     <h1 class="text-2xl font-bold mb-4">Peserta</h1>
-                    <Link href="/dashboard/daftar-program" class="py-2.5 px-5 text-primary-800 border border-primary-800 rounded-lg">Daftar Program</Link>
+                    <Link href="/dashboard/daftar-program" class="py-2.5 px-5 flex text-primary-800 border border-primary-800 rounded-lg">Daftar Program</Link>
                 </div>
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -43,7 +43,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <Link href="{{ route('dashboard.peserta', ['uuid' => $peserta->uuid ]) }}"
-                                        class="text-sm font-semibold border rounded-lg py-2.5 px-5 border-primary-700 text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
+                                        class="text-sm flex font-semibold border rounded-lg py-2.5 px-5 border-primary-700 text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
                                         Pilih
                                     </Link>
                                 </td>

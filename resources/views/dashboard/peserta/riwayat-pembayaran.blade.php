@@ -47,13 +47,13 @@
                                 </td>
                                 <td class="px-6 py-4 uppercase">
                                     @if ($item->status == 1)
-                                        <span class="bg-yellow-300 text-gray-900 px-2 py-1 rounded text-sm">Menunggu Pembayaran</span>
+                                        <span class="bg-yellow-300 text-gray-900 px-2 py-1 rounded text-sm flex">Menunggu Pembayaran</span>
                                     @elseif ($item->status == 2)
-                                        <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm">Menunggu Konfirmasi</span>
+                                        <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm flex">Menunggu Konfirmasi</span>
                                     @elseif ($item->status == 3)
-                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">LUNAS</span>
+                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm flex">LUNAS</span>
                                     @elseif ($item->status == 4)
-                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-sm">Kadaluarsa</span>
+                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-sm flex">Kadaluarsa</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 uppercase">
@@ -62,7 +62,7 @@
 
                                 <td class="px-6 py-4">
                                     <Link href="{{ route('website.lttq.invoice', ['uuid' => $item->uuid, 'program' => $item->program_slug]) }}"
-                                    class="text-sm font-semibold border rounded-lg py-2.5 px-5 border-primary-700 text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
+                                    class="text-sm flex font-semibold border rounded-lg py-2.5 px-5 border-primary-700 text-primary-700 hover:text-white bg-white  hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
                                     Lihat Invoice
                                     </Link>
                                 </td>

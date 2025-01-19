@@ -79,13 +79,13 @@
                                 <dt class="col-span-3 font-semibold text-gray-800 dark:text-neutral-200">Status Pembayaran:</dt>
                                 <dd class="col-span-2 text-gray-500 font-semibold dark:text-neutral-500 sm:flex sm:justify-center sm:text-center">
                                     @if ($data->status == 1)
-                                        <span class="bg-yellow-300 text-gray-900 px-2 py-1 rounded text-sm">Menunggu Pembayaran</span>
+                                        <span class="bg-yellow-300 text-gray-900 px-2 py-1 rounded text-sm flex">Menunggu Pembayaran</span>
                                     @elseif ($data->status == 2)
-                                        <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm">Menunggu Konfirmasi</span>
+                                        <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm flex">Menunggu Konfirmasi</span>
                                     @elseif ($data->status == 3)
-                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">LUNAS</span>
+                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm flex">LUNAS</span>
                                     @elseif ($data->status == 4)
-                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-sm">Kadaluarsa</span>
+                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-sm flex">Kadaluarsa</span>
                                     @endif
                                 </dd>
                             </dl>
