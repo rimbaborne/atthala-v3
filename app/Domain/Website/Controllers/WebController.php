@@ -170,7 +170,9 @@ class WebController extends Controller
             "وَضَلَّ عَنْهُم مَّا كَانُوا۟ يَدْعُونَ مِن قَبْلُ ۖ وَظَنُّوا۟ مَا لَهُم مِّن مَّحِيصٍۢ"
         ];
 
-        $periode = Periode::where('aktifkan_pendaftaran',1)->first();
+        $periode = Periode::where('aktifkan_pendaftaran',1)
+                        ->where('unit_id', 1)
+                        ->first();
         if ($periode) {
             return view('website.pages.lttq.tahsin.pendaftaran', compact('dataindo', 'ayat', 'periode'));
         } else {
@@ -239,7 +241,6 @@ class WebController extends Controller
                         ]
                     ;
                 }
-
             }
 
 
