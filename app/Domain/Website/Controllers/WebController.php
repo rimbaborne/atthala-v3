@@ -247,7 +247,7 @@ class WebController extends Controller
                 $total += $request->get('pembayarandonasicustom');
                 $data_payment['list'][] =
                     [
-                        'name' => 'Donasi',
+                        'name' => 'INFAQ',
                         'nominal' => $request->get('pembayarandonasicustom'),
                     ]
                 ;
@@ -255,7 +255,7 @@ class WebController extends Controller
                 $total += $request->get('pembayarandonasi');
                 $data_payment['list'][] =
                     [
-                        'name' => 'Donasi',
+                        'name' => 'INFAQ',
                         'nominal' => $request->get('pembayarandonasi'),
                     ]
                 ;
@@ -368,7 +368,11 @@ class WebController extends Controller
                 }
 
             $notif_wa = json_decode($periode->notifikasi, true);
-            $this->notifwa($nomor_wa, $notif_wa[0]['pendaftaran']);
+            try {
+                $this->notifwa($nomor_wa, $notif_wa[0]['pendaftaran']);
+            } catch (\Exception $e) {
+                // Skip on error, do nothing
+            }
 
             return redirect()->route('website.lttq.invoice', ['uuid' => $uuid_transaksi]);
         } else {
