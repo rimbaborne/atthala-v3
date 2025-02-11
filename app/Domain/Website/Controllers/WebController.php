@@ -262,7 +262,7 @@ class WebController extends Controller
             }
 
 
-            dd($data_format,$data_payment,$total,$request->all());
+            // dd($data_format,$data_payment,$total,$request->all());
 
             $uuid    = session()->get('pendaftaran.tahsin.uuid');
             $ktp     = session()->get('pendaftaran.tahsin.ktp');
