@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\PaymentGateway;
 use Throwable;
 use App\Models\Kelas;
+use Illuminate\Support\Facades\DB;
 class WebController extends Controller
 {
     public $description, $keywords, $sitename;
@@ -181,6 +182,39 @@ class WebController extends Controller
     {
         // dd($request->all());
 
+        $request->validate([
+            // 'pembayaran_*' => 'required',
+            // Add other fields and validation rules as needed
+            'phone_number' => 'required|digits_between:9,15',
+            'jenis_peserta' => 'required|in:ikhwan,akhwat',
+            'pembelajaran' => 'required',
+            'name' => 'required',
+            'kota_domisili' => 'required|string',
+            'pembayaranpendaftaran' => 'required|boolean',
+            'pembayaranspp1' => 'required|boolean',
+            'pembayaranspp2' => 'nullable|boolean',
+            'pembayaranspp3' => 'nullable|boolean',
+            'pembayaranspp4' => 'nullable|boolean',
+            'pembayarandonasicustom' => 'nullable|numeric',
+        ], [
+            'phone_number.required' => 'Harap masukkan nomor hp yang benar',
+            'phone_number.digits_between' => 'Nomor hp harus berjumlah 9-15 digit',
+            'jenis_peserta.required' => 'Harap pilih jenis peserta',
+            'jenis_peserta.in' => 'Jenis peserta tidak valid',
+            'pembelajaran.required' => 'Harap pilih metode pembelajaran',
+            'name.required' => 'Harap masukkan nama lengkap',
+            'kota_domisili.required' => 'Harap masukkan kota domisili',
+            'pembayaranpendaftaran.required' => 'Harap pilih metode pembayaran pendaftaran',
+            'pembayaranpendaftaran.boolean' => 'Metode pembayaran pendaftaran terjadi kesalahan input',
+            'pembayaranspp1.required' => 'Harap pilih metode pembayaran spp 1',
+            'pembayaranspp1.boolean' => 'Metode pembayaran spp 1 terjadi kesalahan input',
+            'pembayaranspp2.boolean' => 'Metode pembayaran spp 2 terjadi kesalahan input',
+            'pembayaranspp3.boolean' => 'Metode pembayaran spp 3 terjadi kesalahan input',
+            'pembayaranspp4.boolean' => 'Metode pembayaran spp 4 terjadi kesalahan input',
+            'pembayarandonasicustom.numeric' => 'Biaya donasi harus berupa angka',
+        ]);
+
+
         $periode = Periode::where('aktifkan_pendaftaran',1)->first();
         if ($periode) {
             // $request->validated();
@@ -207,6 +241,28 @@ class WebController extends Controller
                 }
 
             }
+
+
+            if($request->get('pembayarandonasi') == 'custom'){
+                $total += $request->get('pembayarandonasicustom');
+                $data_payment['list'][] =
+                    [
+                        'name' => 'Donasi',
+                        'nominal' => $request->get('pembayarandonasicustom'),
+                    ]
+                ;
+            } elseif($request->get('pembayarandonasi') != null){
+                $total += $request->get('pembayarandonasi');
+                $data_payment['list'][] =
+                    [
+                        'name' => 'Donasi',
+                        'nominal' => $request->get('pembayarandonasi'),
+                    ]
+                ;
+            }
+
+
+            dd($data_format,$data_payment,$total,$request->all());
 
             $uuid    = session()->get('pendaftaran.tahsin.uuid');
             $ktp     = session()->get('pendaftaran.tahsin.ktp');
@@ -257,50 +313,59 @@ class WebController extends Controller
             $peserta = Peserta::where('uuid', $uuid)->first();
             $peserta_kelas = Kelas::where('uuid', $uuid)->first();
 
-            if(!$peserta) {
-                $peserta = Peserta::create([
-                    'periode_id'      => $periode->id,
-                    'user_id'         => $user->id,
-                    'uuid'            => $uuid,
-                    'phone_number'    => $nomor_wa,
-                    'nama'            => $request->input('name'),
-                    'jenis_peserta'   => $request->input('jenis_peserta'),
-                    'tanggal_lahir'   => $request->input('tahun') . '-' . $request->input('bulan') . '-' . $request->input('tanggal'),
-                    'biodata'         => json_encode($biodata),
-                    // 'data_pembayaran' => json_encode($data_format),
-                ]);
 
-                $peserta_kelas = Kelas::create([
-                    'periode_id'      => $periode->id,
-                    'peserta_id'      => $peserta->id,
-                    'uuid'            => $uuid,
-                    'data_pembayaran' => json_encode($data_format),
-                    'data_absensi'    => $periode->format_absensi,
-                ]);
+                if(!$peserta) {
+                    DB::beginTransaction();
+                    try {
+                        $peserta = Peserta::create([
+                            'periode_id'      => $periode->id,
+                            'user_id'         => $user->id,
+                            'uuid'            => $uuid,
+                            'phone_number'    => $nomor_wa,
+                            'nama'            => $request->input('name'),
+                            'jenis_peserta'   => $request->input('jenis_peserta'),
+                            'tanggal_lahir'   => $request->input('tahun') . '-' . $request->input('bulan') . '-' . $request->input('tanggal'),
+                            'biodata'         => json_encode($biodata),
+                            // 'data_pembayaran' => json_encode($data_format),
+                        ]);
 
-                $data_payment['kode_unik'] = [
-                                    'name'    => 'KODE UNIK',
-                                    'nominal' => (int)($request->input('bulan').$request->input('tanggal')),
-                                    'keterangan' => 'BBTT - Bulan Tanggal Lahir'
-                                    ];
+                        $peserta_kelas = Kelas::create([
+                            'periode_id'      => $periode->id,
+                            'peserta_id'      => $peserta->id,
+                            'uuid'            => $uuid,
+                            'data_pembayaran' => json_encode($data_format),
+                            'data_absensi'    => $periode->format_absensi,
+                        ]);
 
-                // KARENA DATA BARU JADI DIBUAT TRANSAKSI BARU
-                $uuid_transaksi = Str::uuid();
-                Transaksi::create([
-                    'uuid'                     => $uuid_transaksi,
-                    'periode_id'               => $periode->id,
-                    'peserta_id'               => $peserta_kelas->id,
-                    'user_id'                  => $user->id,
-                    'nominal_total'            => $total,
-                    'nominal_total_pembayaran' => $total + (int)($request->input('bulan').$request->input('tanggal')),
-                    'data_pembayaran'          => json_encode($data_payment),
-                    'payment_gateway_id'       => null,
-                ]);
-            } else {
-                // KARENA DATA BARU TRANSAKSI BARU CUMA SATU
-                $transaksi =Transaksi::where('peserta_id', $peserta_kelas->id)->latest()->first();
-                $uuid_transaksi = $transaksi->uuid;
-            }
+                        $data_payment['kode_unik'] = [
+                                            'name'    => 'KODE UNIK',
+                                            'nominal' => (int)($request->input('bulan').$request->input('tanggal')),
+                                            'keterangan' => 'BBTT - Bulan Tanggal Lahir'
+                                            ];
+
+                        // KARENA DATA BARU JADI DIBUAT TRANSAKSI BARU
+                        $uuid_transaksi = Str::uuid();
+                        Transaksi::create([
+                            'uuid'                     => $uuid_transaksi,
+                            'periode_id'               => $periode->id,
+                            'peserta_id'               => $peserta_kelas->id,
+                            'user_id'                  => $user->id,
+                            'nominal_total'            => $total,
+                            'nominal_total_pembayaran' => $total + (int)($request->input('bulan').$request->input('tanggal')),
+                            'data_pembayaran'          => json_encode($data_payment),
+                            'payment_gateway_id'       => null,
+                        ]);
+                        DB::commit();
+                    } catch (\Exception $e) {
+                        DB::rollBack();
+                        return redirect()->route('website.lttq.tahsin.pendaftaran-gagal');
+                    }
+
+                } else {
+                    // KARENA DATA BARU TRANSAKSI BARU CUMA SATU
+                    $transaksi =Transaksi::where('peserta_id', $peserta_kelas->id)->latest()->first();
+                    $uuid_transaksi = $transaksi->uuid;
+                }
 
             $notif_wa = json_decode($periode->notifikasi, true);
             $this->notifwa($nomor_wa, $notif_wa[0]['pendaftaran']);

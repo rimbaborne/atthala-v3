@@ -38,7 +38,7 @@ export default {
   props: {
     uploadUrl: {
       type: String,
-      required: true
+    //   required: false
     }
   },
   components: {

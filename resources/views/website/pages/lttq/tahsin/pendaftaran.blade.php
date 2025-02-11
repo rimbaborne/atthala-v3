@@ -27,7 +27,9 @@
                                 'phone_number' => auth()->user()->phone_number ?? '',
                                 'jenis_peserta' => 'ikhwan',
                                 'pembelajaran' => 1,
-                                'kota_domisili' => 'Kota Balikpapan'
+                                'kota_domisili' => 'Kota Balikpapan',
+                                'pembayaranpendaftaran' => true,
+                                'pembayaranspp1' => true,
                             ]"
                 >
                 @csrf
@@ -202,15 +204,15 @@
                     @endphp
                     @foreach ([
                         ['name' => 'pendaftaran', 'label' => 'PENDAFTARAN', 'value' => 100000, 'disabled' => false, 'checked' => true, 'required' => true],
-                        ['name' => 'spp1', 'label' => 'SPP BULAN I', 'value' => 100000, 'disabled' => false, 'checked' => true, 'required' => true],
-                        ['name' => 'spp2', 'label' => 'SPP BULAN II', 'value' => 100000, 'disabled' => false, 'checked' => true, 'required' => true],
-                        ['name' => 'spp3', 'label' => 'SPP BULAN III', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => false],
-                        ['name' => 'spp4', 'label' => 'SPP BULAN IV', 'value' => 100000, 'disabled' => false, 'checked' => false, 'required' => false],
+                        ['name' => 'spp1', 'label' => 'SPP BULAN I', 'value' => 120000, 'disabled' => false, 'checked' => true, 'required' => true],
+                        ['name' => 'spp2', 'label' => 'SPP BULAN II', 'value' => 120000, 'disabled' => false, 'checked' => false, 'required' => false],
+                        ['name' => 'spp3', 'label' => 'SPP BULAN III', 'value' => 120000, 'disabled' => false, 'checked' => false, 'required' => false],
+                        ['name' => 'spp4', 'label' => 'SPP BULAN IV', 'value' => 120000, 'disabled' => false, 'checked' => false, 'required' => false],
                     ] as $data)
                         <div class="space-y-2">
                             <dl class="flex items-center justify-between gap-4">
                                 <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
-                                    <input type="checkbox" data="checkbox" class="w-5 h-5 {{ $data['disabled'] ? 'text-blue-300' : 'text-blue-600' }}  bg-gray-100 border-gray-300 rounded focus:ring-blue-500 " name="{{ $data['name'] }}"
+                                    <input type="checkbox" data="checkbox" class="w-5 h-5 {{ $data['disabled'] ? 'text-blue-300' : 'text-blue-600' }}  bg-gray-100 border-gray-300 rounded focus:ring-blue-500 " name="pembayaran_{{ $data['name'] }}"
                                         v-model="form.pembayaran{{ $data['name'] }}"
                                         value="{{ $data['name'] }}"
                                         id="{{ strtolower($data['name']) }}"
@@ -253,48 +255,142 @@
                     });
                 </x-splade-script> --}}
 
-                <div class="my-8 bg-stone-100 p-4 rounded-lg font-semibold">
-                    <p class="text-sm text-gray-500 mb-2">
-                        Dengan ini saya menyetujui aturan-aturan yang berlaku untuk mendaftar diri saya sebagai peserta tahsin Ar Rahmah:
-                    </p>
-                    <table class="w-full text-xs  text-gray-700">
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="px-4">1.</td>
-                                <td class="py-2">Tahsin LTTQ Ar Rahmah Balikpapan menggunakan Metode Al Haqq.</td>
-                            </tr>
-                            <tr class="border-b bg-stone-200">
-                                <td class="px-4">2.</td>
-                                <td class="py-2">Jumlah pertemuan tahsin adalah sebanyak 16 kali pertemuan dalam 1 level (termasuk kuliah perdana).</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4">3.</td>
-                                <td class="py-2">Jumlah pertemuan tahsin dalam sepekan diadakan sebanyak 1 kali dengan durasi maksimal 2 jam.</td>
-                            </tr>
-                            <tr class="border-b bg-stone-200">
-                                <td class="px-4">4.</td>
-                                <td class="py-2">SPP wajib dibayarkan sebanyak 400.000 dalam 1 level pembelajaran (diluar biaya pendaftaran, modul, buku prestasi, dan mushaf).</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4">5.</td>
-                                <td class="py-2">Peserta wajib membeli perlengkapan tahsin; Mushaf Rasm Utsmani, Modul dan Buku Prestasi.</td>
-                            </tr>
-                            <tr class="border-b bg-stone-200">
-                                <td class="px-4">6.</td>
-                                <td class="py-2">Peserta wajib mengikuti minimal 10 pertemuan agar bisa mengikuti ujian.</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4">7.</td>
-                                <td class="py-2">Peserta wajib mengikuti aturan tambahan jika dikeluarkan sewaktu-waktu oleh pihak LTTQ Ar Rahmah Balikpatan.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+
+
+                {{-- <div class="flex items-center justify-center">
+                    <button type="button" class="underline text-medium text-primary-700 rounded-lg flex items-center justify-between" onclick="checkRequired()">
+                        Saya telah mengisi kolom input dengan benar
+                    </button>
+
+                    <div id="konfirmasidaftar" style="display:block">
+                        <Link href="#konfirmasi-daftar" class="bg-primary-700 text-medium text-white py-2.5 px-5 rounded-lg flex items-center justify-between">
+                            Daftar dan Lanjutkan
+                        </Link>
+                    </div>
                 </div>
 
-                <div class="flex items-center justify-center">
-                    <button type="submit" class="bg-primary-700 text-medium text-white py-2.5 px-5 rounded-lg flex items-center justify-between">Daftar dan Lanjutkan Pembayaran <x-carbon-chevron-right class="h-8 w-8 pl-2" /></button>
-                    {{-- <x-splade-submit class="bg-primary-700 text-white" :label="__('Proses Pendaftaran')" /> --}}
-                </div>
+                <x-splade-script>
+                    function checkRequired() {
+                        let allValid = true;
+                        document.querySelectorAll('input[required]').forEach((elem) => {
+                            if (!elem.checkValidity()) {
+                                allValid = false;
+                            }
+                        });
+                        if (allValid) {
+                            document.getElementById('konfirmasidaftar').style.display = 'block';
+                        } else {
+                            document.getElementById('konfirmasidaftar').style.display = 'none';
+                        }
+                    }
+                </x-splade-script> --}}
+
+
+                {{-- <x-splade-modal name="konfirmasi-daftar">
+                    <div class="p-4">
+                        <h2 class="text-2xl font-semibold">Konfirmasi Pendaftaran</h2> --}}
+                        <hr>
+                        <div class="my-4 bg-stone-100 p-4 rounded-lg font-semibold">
+                            <p class="text-sm text-gray-500 mb-2">
+                                Dengan ini saya menyetujui aturan-aturan yang berlaku untuk mendaftar diri saya sebagai peserta tahsin Ar Rahmah:
+                            </p>
+                            <table class="w-full text-xs  text-gray-700">
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="px-4">1.</td>
+                                        <td class="py-2">Tahsin LTTQ Ar Rahmah Balikpapan menggunakan Metode Al Haqq.</td>
+                                    </tr>
+                                    <tr class="border-b bg-stone-200">
+                                        <td class="px-4">2.</td>
+                                        <td class="py-2">Jumlah pertemuan tahsin adalah sebanyak 16 kali pertemuan dalam 1 level (termasuk kuliah perdana).</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="px-4">3.</td>
+                                        <td class="py-2">Jumlah pertemuan tahsin dalam sepekan diadakan sebanyak 1 kali dengan durasi maksimal 2 jam.</td>
+                                    </tr>
+                                    <tr class="border-b bg-stone-200">
+                                        <td class="px-4">4.</td>
+                                        <td class="py-2">SPP wajib dibayarkan sebanyak 480.000 dalam 1 level pembelajaran (diluar biaya pendaftaran, modul, buku prestasi, dan mushaf).</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="px-4">5.</td>
+                                        <td class="py-2">Peserta wajib membeli perlengkapan tahsin; Mushaf Rasm Utsmani, Modul dan Buku Prestasi.</td>
+                                    </tr>
+                                    <tr class="border-b bg-stone-200">
+                                        <td class="px-4">6.</td>
+                                        <td class="py-2">Peserta wajib mengikuti minimal 10 pertemuan agar bisa mengikuti ujian.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4">7.</td>
+                                        <td class="py-2">Peserta wajib mengikuti aturan tambahan jika dikeluarkan sewaktu-waktu oleh pihak LTTQ Ar Rahmah Balikpatan.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 border p-4 rounded-md">
+                            <label for="donasi" class="block text-sm font-medium text-gray-700">Yuk salurkan infaq terbaikmu :)</label>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div>
+                                    <label class="flex items-center space-y-2">
+                                        <input type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" name="pembayaran_donasi" v-model="form.pembayarandonasi" value="0" checked>
+                                        <span class="ml-2 block text-sm text-gray-700">0</span>
+                                    </label>
+                                    <hr>
+                                    @foreach ([
+                                        5000 => 'Rp 5.000',
+                                        10000 => 'Rp 10.000',
+                                        25000 => 'Rp 25.000',
+                                        50000 => 'Rp 50.000',
+                                    ] as $value => $label)
+                                        <label class="flex items-center space-y-2">
+                                            <input type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" name="pembayaran_donasi" v-model="form.pembayarandonasi" value="{{ $value }}">
+                                            <span class="ml-2 block text-sm text-gray-700">{{ $label }}</span>
+                                        </label>
+                                        <hr>
+                                    @endforeach
+                                </div>
+                                <div>
+                                    @foreach ([
+                                        100000 => 'Rp 100.000',
+                                        200000 => 'Rp 200.000',
+                                        500000 => 'Rp 500.000',
+                                        1000000 => 'Rp 1.000.000',
+                                    ] as $value => $label)
+                                        <label class="flex items-center space-y-2">
+                                            <input type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" name="pembayaran_donasi" v-model="form.pembayarandonasi" value="{{ $value }}">
+                                            <span class="ml-2 block text-sm text-gray-700">{{ $label }}</span>
+                                        </label>
+                                        <hr>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <label class="flex items-center pt-2">
+                                <input type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" name="pembayaran_donasi" v-model="form.pembayarandonasi" value="custom">
+                                <input type="number" class="ml-2 block w-full border-gray-300 rounded" name="pembayaran_custom_donasi" v-model="form.pembayarandonasicustom" placeholder="Atau Masukkan nominal" min="0" step="1000" disabled>
+                            </label>
+                            <x-splade-script>
+                                document.querySelectorAll('input[name="pembayaran_donasi"]').forEach(radio => {
+                                    radio.addEventListener('change', function() {
+                                        const customInput = document.querySelector('input[name="pembayaran_custom_donasi"]');
+                                        if (this.value === 'custom') {
+                                            customInput.disabled = false;
+                                            customInput.focus();
+                                        } else {
+                                            customInput.disabled = true;
+                                        }
+                                    });
+                                });
+                            </x-splade-script>
+                        </div>
+
+                        <div class="flex items-center justify-center mt-6">
+                            <button type="submit" class="bg-primary-700 text-medium text-white py-2.5 px-5 rounded-lg flex items-center justify-between">
+                                Daftar & Lanjutkan Pembayaran <x-carbon-chevron-right class="h-8 w-8 pl-2" />
+                            </button>
+                        </div>
+                    {{-- </div>
+                </x-splade-modal> --}}
             </x-splade-form>
 
 
