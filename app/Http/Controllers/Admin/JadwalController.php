@@ -34,7 +34,8 @@ class JadwalController extends Controller
     public function create($unit)
     {
         $table = $this->getJadwalTable($unit);
-        $pengajars = \App\Models\User::select('id', 'name')->whereHas('pengajar.unit', function ($query) use ($unit) {
+        $pengajars = \App\Models\User::selectRaw("id, concat(name, ' (', phone_number, ')') as name")
+            ->whereHas('pengajar.unit', function ($query) use ($unit) {
                 $query->where('slug', $unit);
             })->get();
         $periodes = \App\Models\Periode::select('id', 'nama')->whereHas('unit', function ($query) use ($unit) {
@@ -84,6 +85,7 @@ class JadwalController extends Controller
             $jadwal->jam_selesai      = $request->jam_selesai;
             $jadwal->level_id         = $request->level;
             $jadwal->status_belajar   = $request->status_belajar;
+            $jadwal->jenis_peserta    = $request->jenis_peserta;
 
             $jadwal->save();
             Toast::message('Data berhasil di tambahkan')->autoDismiss(5);
@@ -107,7 +109,8 @@ class JadwalController extends Controller
     {
         $table = $this->getJadwalTable($unit);
         $jadwal = \App\Models\Jadwal::with('periode.unit')->findOrFail($jadwal);
-        $pengajars = \App\Models\User::select('id', 'name')->whereHas('pengajar.unit', function ($query) use ($unit) {
+        $pengajars = \App\Models\User::selectRaw("id, concat(name, ' (', phone_number, ')') as name")
+            ->whereHas('pengajar.unit', function ($query) use ($unit) {
                 $query->where('slug', $unit);
             })->get();
         $periodes = \App\Models\Periode::select('id', 'nama')->whereHas('unit', function ($query) use ($unit) {

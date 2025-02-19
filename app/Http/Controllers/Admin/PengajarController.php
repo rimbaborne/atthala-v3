@@ -25,7 +25,8 @@ class PengajarController extends Controller
 
     public function create($unit)
     {
-        $pengajars = \App\Models\User::select('id', 'name')->get();
+        $pengajars = \App\Models\User::selectRaw("id, concat(name, ' (', phone_number, ')') as name")
+            ->get();
         return view('dashboard.admin.pengajar.create', compact('unit','pengajars'));
     }
 
