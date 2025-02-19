@@ -115,7 +115,13 @@ Tahsin Ar Rahmah Balikpapan',
 
     public function update(Request $request, $unit, $id)
     {
-        $periode = Periode::find($id)->update([
+        $periode = Periode::find($id);
+
+        if ($request->aktifkan_pendaftaran == true) {
+            Periode::where('aktifkan_pendaftaran', true)->update(['aktifkan_pendaftaran' => false]);
+        }
+
+        $periode->update([
             'aktifkan_pendaftaran' => $request->aktifkan_pendaftaran,
             'tahun_ajaran'         => $request->tahun_ajaran,
             'waktu_start'          => $request->waktu_start,

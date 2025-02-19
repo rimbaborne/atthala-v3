@@ -15,7 +15,7 @@ class PembayaranController extends Controller
 {
     // use TableTrait;
     use FilterTable1Trait;
-    public function index(Request $request, $unit)
+    public function index_b(Request $request, $unit)
     {
         // $columns = [
         //     ['key' => 'id', 'label' => 'ID', 'filter' => true],
@@ -164,23 +164,41 @@ class PembayaranController extends Controller
         // return $this->exportToExcel($filters, KelasExport::class, 'kelas.xlsx');
     }
 
-    public function store(Request $request, $unit)
+    private function getPembayaranRekapTable($unit)
     {
-        // Logika untuk menyimpan data baru
+        return match ($unit) {
+            'tahsin' => new \App\Tables\Admin\TahsinPembayaranRekap(),
+            default => new \App\Tables\Admin\TahsinPembayaranRekap(),
+        };
     }
 
-    public function show($unit, $id)
+    private function getPembayaranTransaksiTable($unit)
     {
-        // Logika untuk menampilkan data berdasarkan ID
+        return match ($unit) {
+            'tahsin' => new \App\Tables\Admin\TahsinPembayaranTransaksi(),
+            default => new \App\Tables\Admin\TahsinPembayaranTransaksi(),
+        };
+    }
+    public function index($unit)
+    {
+        return view('dashboard.admin.pembayaran.index', compact('unit'));
     }
 
-    public function update(Request $request, $unit, $id)
+    public function rekap($unit)
     {
-        // Logika untuk memperbarui data berdasarkan ID
+        $table = $this->getPembayaranRekapTable($unit);
+        return view('dashboard.admin.pembayaran.rekap', compact('unit', 'table'));
     }
 
-    public function destroy($unit, $id)
+    public function transaksi($unit)
     {
-        // Logika untuk menghapus data berdasarkan ID
+        $table = $this->getPembayaranTransaksiTable($unit);
+        return view('dashboard.admin.pembayaran.transaksi', compact('unit', 'table'));
+    }
+
+    public function peserta($unit, $peserta)
+    {
+        $peserta = \App\Models\Peserta::findOrFail($peserta);
+        return view('dashboard.admin.pembayaran.peserta', compact('unit', 'peserta'));
     }
 }

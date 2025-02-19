@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class, 'id');
     }
+
+    public function pengajar()
+    {
+        return $this->hasOne(Pengajar::class, 'user_id');
+    }
 }

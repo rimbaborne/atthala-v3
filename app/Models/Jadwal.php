@@ -12,16 +12,23 @@ class Jadwal extends Model
 
     protected $fillable = [
         'periode_id',
-        'pengajar_id',
         'slug',
-        'nip_pengajar',
+        'pengajar_id',
         'jadwal_belajar',
         'nama_jadwal',
+        'jenis_peserta',
         'level_id',
         'batasan_peserta',
-        'jenis_peserta',
         'banyak_peserta',
-        'keterangan'
+        'keterangan',
+        'status_belajar',
+        'status_waktu',
+        'hari_belajar',
+        'jam_mulai',
+        'jam_selesai',
+        'batas_mulai',
+        'batas_akhir',
+        'data',
     ];
 
     public function periode()
@@ -29,13 +36,18 @@ class Jadwal extends Model
         return $this->belongsTo(Periode::class);
     }
 
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
     public function pengajar()
     {
         return $this->belongsTo(Pengajar::class);
     }
 
-    public function level()
+    public function kelas()
     {
-        return $this->belongsTo(Level::class);
+        return $this->hasMany(Kelas::class, 'jadwal_id');
     }
 }

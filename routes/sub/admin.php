@@ -48,8 +48,9 @@ Route::prefix('/admin/{unit}')->middleware('role:admin-tahsin|admin-rtq|admin-tl
     Route::delete('/peserta/{peserta}', [PesertaController::class, 'destroy'])->name('admin.peserta.destroy');
 
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('admin.pembayaran.index');
-    Route::get('/pembayaran/create', [PembayaranController::class, 'create'])->name('admin.pembayaran.create');
-    Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('admin.pembayaran.store');
+    Route::get('/pembayaran/rekap', [PembayaranController::class, 'rekap'])->name('admin.pembayaran.rekap');
+    Route::get('/pembayaran/transaksi', [PembayaranController::class, 'transaksi'])->name('admin.pembayaran.transaksi');
+    Route::get('/pembayaran/peserta/{peserta}', [PembayaranController::class, 'peserta'])->name('admin.pembayaran.peserta');
     Route::get('/pembayaran/{pembayaran}', [PembayaranController::class, 'show'])->name('admin.pembayaran.show');
     Route::get('/pembayaran/{pembayaran}/edit', [PembayaranController::class, 'edit'])->name('admin.pembayaran.edit');
     Route::put('/pembayaran/{pembayaran}', [PembayaranController::class, 'update'])->name('admin.pembayaran.update');

@@ -11,16 +11,25 @@ class Pengajar extends Model
 
     protected $fillable = [
         'user_id',
+        'unit_id',
         'kode_pengajar',
         'slug',
         'tanggal_masuk',
         'kode_nama_pengajar',
-        'status_aktif'
+        'nip_pengajar',
+        'data',
+        'status_aktif',
+        'foto',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Modules\Unit::class, 'unit_id');
     }
 
     public function periodes()

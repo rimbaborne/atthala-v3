@@ -58,6 +58,15 @@ class DataPengujiPesertaBaru extends AbstractTable
         });
     }
 
+    private function getAngkatan(): array
+    {
+        return [
+            '26' => 'Angkatan 26',
+            '27' => 'Angkatan 27',
+            '28' => 'Angkatan 28',
+            '29' => 'Angkatan 29',
+        ];
+    }
     /**
      * Configure the given SpladeTable.
      *
@@ -69,6 +78,7 @@ class DataPengujiPesertaBaru extends AbstractTable
         $table
         ->withGlobalSearch(columns: ['peserta.nama', 'peserta.phone_number'])
         ->rowLink(fn (Kelas $kelas) => route('penguji.peserta-baru.show', ['unit' => $this->namaunit, $kelas]))
+        ->selectFilter('angkatan', $this->getAngkatan())
         ->column(
             key: 'nis_peserta',
             label: 'NIS',
