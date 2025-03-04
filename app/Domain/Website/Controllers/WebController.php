@@ -119,7 +119,7 @@ class WebController extends Controller
 
     public function lttq_tahsin_pendaftaran()
     {
-        $page_title = 'LTTQ Arrahmah Balikpapan';
+        $page_title = 'Daftar Tahsin - LTTQ Arrahmah Balikpapan';
         SEO::title($page_title)
             ->description($this->description)
             ->keywords($this->keywords)

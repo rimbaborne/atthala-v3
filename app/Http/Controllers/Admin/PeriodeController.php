@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Periode;
-use App\Tables\Periode as TablePeriode;
-use App\Tables\Admin\PeriodeTahsin;
 use ProtoneMedia\Splade\Facades\Toast;
-use App\Models\Modules\Unit;
 use Illuminate\Support\Str;
 
 
@@ -16,30 +12,37 @@ class PeriodeController extends Controller
 {
     public function index($unit)
     {
-        if($unit == 'tahsin') {
-            $periode = PeriodeTahsin::class;
-        } else {
-            $periode = TablePeriode::class;
-        }
-        return view('modules.periode.index', compact('unit', 'periode'));
+        // if($unit == 'tahsin') {
+        //     $periode = PeriodeTahsin::class;
+        // } else {
+        //     $periode = TablePeriode::class;
+        // }
+
+        $periode = \App\Models\Periode::whereHas('unit', function($query) use ($unit) {
+                                $query->where('slug', $unit);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(10);
+
+                            return view('dashboard.admin.periode.index', compact('unit', 'periode'));
     }
 
     public function create($unit)
     {
-        return view('modules.periode.create', compact('unit'));
+        return view('dashboard.admin.periode.create', compact('unit'));
     }
 
     public function store(Request $request, $unit)
     {
 
-        $d_unit = Unit::where('slug', $unit)->first();
+        $d_unit = \App\Models\Modules\Unit::where('slug', $unit)->first();
 
         if($request->aktifkan_pendaftaran == 1) {
-            Periode::where('unit_id', $d_unit->id)->update(['aktifkan_pendaftaran' => 0]);
+            \App\Models\Periode::where('unit_id', $d_unit->id)->update(['aktifkan_pendaftaran' => 0]);
         }
 
 
-        $periode = Periode::create([
+        $periode = \App\Models\Periode::create([
             'unit_id'              => $d_unit->id,
             'nama'                 => $request->nama,
             'slug'                 => Str::slug($request->nama),
@@ -108,17 +111,17 @@ Tahsin Ar Rahmah Balikpapan',
 
     public function show($unit, $periode)
     {
-        $d_periode = Periode::find($periode);
+        $d_periode = \App\Models\Periode::find($periode);
 
-        return view('modules.periode.show', compact('unit', 'd_periode'));
+        return view('dashboard.admin.periode.show', compact('unit', 'd_periode'));
     }
 
     public function update(Request $request, $unit, $id)
     {
-        $periode = Periode::find($id);
+        $periode = \App\Models\Periode::find($id);
 
         if ($request->aktifkan_pendaftaran == true) {
-            Periode::where('aktifkan_pendaftaran', true)->update(['aktifkan_pendaftaran' => false]);
+            \App\Models\Periode::where('aktifkan_pendaftaran', true)->update(['aktifkan_pendaftaran' => false]);
         }
 
         $periode->update([
@@ -136,5 +139,11 @@ Tahsin Ar Rahmah Balikpapan',
     public function destroy($unit, $id)
     {
         // Logika untuk menghapus data berdasarkan ID
+    }
+
+    public function dashboard($unit, $periode)
+    {
+        $dataperiode = \App\Models\Periode::find($periode);
+        return view('dashboard.admin.periode.dashboard', compact('unit', 'periode', 'dataperiode'));
     }
 }

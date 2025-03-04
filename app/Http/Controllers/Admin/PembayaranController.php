@@ -179,21 +179,25 @@ class PembayaranController extends Controller
             default => new \App\Tables\Admin\TahsinPembayaranTransaksi(),
         };
     }
-    public function index($unit)
-    {
-        return view('dashboard.admin.pembayaran.index', compact('unit'));
-    }
-
-    public function rekap($unit)
+    public function index($unit, $periode)
     {
         $table = $this->getPembayaranRekapTable($unit);
-        return view('dashboard.admin.pembayaran.rekap', compact('unit', 'table'));
+        $dataperiode = \App\Models\Periode::find( $periode);
+        return view('dashboard.admin.periode.pembayaran.index', compact('unit', 'table', 'periode', 'dataperiode'));
     }
 
-    public function transaksi($unit)
+    public function rekap($unit, $periode)
+    {
+        $table = $this->getPembayaranRekapTable($unit);
+        $dataperiode = \App\Models\Periode::find( $periode);
+        return view('dashboard.admin.periode.pembayaran.rekap', compact('unit', 'table', 'periode', 'dataperiode'));
+    }
+
+    public function transaksi($unit, $periode)
     {
         $table = $this->getPembayaranTransaksiTable($unit);
-        return view('dashboard.admin.pembayaran.transaksi', compact('unit', 'table'));
+        $dataperiode = \App\Models\Periode::find( $periode);
+        return view('dashboard.admin.periode.pembayaran.transaksi', compact('unit', 'table', 'periode', 'dataperiode'));
     }
 
     public function peserta($unit, $peserta)

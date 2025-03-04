@@ -34,7 +34,7 @@
             <span class="ml-3">Pengajar</span>
         </x-link-item>
     </li>
-    <li>
+    {{-- <li>
         <x-link-item :href="route('admin.jadwal.index', ['unit' => $unit])" :active="request()->routeIs('admin.jadwal.index', ['unit' => $unit])">
             @svg('carbon-table-alias', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Jadwal</span>
@@ -46,19 +46,19 @@
             @svg('carbon-user-multiple', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Peserta</span>
         </x-link-item>
-    </li>
+    </li> --}}
     {{-- <li>
         <x-link-item :href="route('admin.peserta.index', ['unit' => $unit])" :active="request()->routeIs('admin.peserta.index', ['unit' => $unit])">
             @svg('carbon-chart-custom', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Absensi</span>
         </x-link-item>
     </li> --}}
-    <li>
+    {{-- <li>
         <x-link-item :href="route('admin.pembayaran.index', ['unit' => $unit])" :active="request()->routeIs('admin.pembayaran.index', ['unit' => $unit])">
             @svg('carbon-list-dropdown', 'text-gray-600 h-6 w-6')
             <span class="ml-3">Pembayaran</span>
         </x-link-item>
-    </li>
+    </li> --}}
     {{-- <li>
         <x-link-item :href="route('superadmin.roles.index')" :active="request()->routeIs('superadmin.roles.index')">
             @svg('carbon-settings-services', 'text-gray-600 h-6 w-6')

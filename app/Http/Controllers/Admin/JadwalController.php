@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
 
-
 class JadwalController extends Controller
 {
     private function getJadwalTable($unit)
@@ -17,10 +16,45 @@ class JadwalController extends Controller
         };
     }
 
-    public function index($unit)
+    public function index($unit, $periode)
+    {
+        // $jadwal = $this->getJadwalTable($unit);
+        $jadwal = \ProtoneMedia\Splade\SpladeTable::for(\App\Models\Jadwal::where('periode_id', $periode)->orderBy('created_at', 'desc'))
+                        ->withGlobalSearch(columns: ['nama_jadwal', 'pengajar.user.name', 'periode.angkatan', 'hari_belajar'])
+                        ->column(label: 'Actions')
+                        ->column(
+                            key:'periode.nama',
+                            label:'Periode',
+                        )
+                        ->column(
+                            key:'pengajar.user.name',
+                            label:'Pengajar',
+                            sortable: true
+                        )
+                        ->column('jenis_peserta')
+                        ->column('batasan_peserta')
+                        ->column('nama_jadwal')
+                        ->column(
+                            key:'level.nama',
+                            label:'Level',
+                            sortable: true
+                        )
+                        ->column('hari_belajar', sortable: true)
+                        ->column('jam_mulai')
+                        ->column('status_belajar', sortable: true)
+                        ->paginate(15)
+                    ;
+        $dataperiode = \App\Models\Periode::find( $periode);
+
+        return view('dashboard.admin.periode.jadwal.index', compact('unit', 'jadwal', 'periode', 'dataperiode'));
+    }
+
+    public function absen($unit, $periode)
     {
         $jadwal = $this->getJadwalTable($unit);
-        return view('dashboard.admin.jadwal.index', compact('unit', 'jadwal'));
+        $dataperiode = \App\Models\Periode::find( $periode);
+
+        return view('dashboard.admin.periode.jadwal.absen', compact('unit', 'jadwal', 'periode', 'dataperiode'));
     }
     // public function index($unit)
     // {
@@ -28,10 +62,10 @@ class JadwalController extends Controller
     //     $periode = Periode::all();
     //     $pengajar = Pengajar::all();
     //     $level = Level::all();
-    //     return view('dashboard.admin.jadwal.index', compact('unit', 'jadwal', 'periode', 'pengajar', 'level'));
+    //     return view('dashboard.admin.periode.jadwal.index', compact('unit', 'jadwal', 'periode', 'pengajar', 'level'));
     // }
 
-    public function create($unit)
+    public function create($unit, $periode)
     {
         $table = $this->getJadwalTable($unit);
         $pengajars = \App\Models\User::selectRaw("id, concat(name, ' (', phone_number, ')') as name")
@@ -59,14 +93,19 @@ class JadwalController extends Controller
             ['id' => 1, 'nama' => 'IKHWAN'],
             ['id' => 2, 'nama' => 'AKHWAT'],
         ];
+        $kelas_jadwal = [
+            ['id' => 1, 'nama' => 'REGULER'],
+            ['id' => 2, 'nama' => 'ESKLUSIF'],
+            ['id' => 3, 'nama' => 'LOKASI'],
+        ];
         $level = \App\Models\Modules\Level::select('id', 'nama')->whereHas('unit', function ($query) use ($unit) {
             $query->where('slug', $unit);
         })->get();
 
-        return view('dashboard.admin.jadwal.create', compact('unit', 'table', 'pengajars', 'periodes', 'hari', 'level', 'status_belajar', 'jenis'));
+        return view('dashboard.admin.periode.jadwal.create', compact('unit', 'table', 'pengajars', 'periodes', 'hari', 'level', 'status_belajar', 'jenis', 'kelas_jadwal', 'periode'));
     }
 
-    public function store(Request $request, $unit)
+    public function store(Request $request, $unit, $periode)
     {
         $request->validate([
             'periode' => 'required',
@@ -92,23 +131,25 @@ class JadwalController extends Controller
         // } catch (\Exception $e) {
         //     Toast::warning('Terjadi kesalahan, data gagal disimpan')->autoDismiss(5);
         // }
-        return redirect()->route('admin.jadwal.index', ['unit' => $unit])->with('success', 'Data jadwal berhasil disimpan');
+        return redirect()->route('admin.periode.jadwal.index', ['unit' => $unit, 'periode' => $periode])->with('success', 'Data jadwal berhasil disimpan');
     }
 
-    public function show($unit, $jadwal)
+    public function show($unit, $jadwal, $periode)
     {
-        $jadwal = \App\Models\Jadwal::with('periode.unit')->findOrFail($jadwal);
+        $datajadwal = \App\Models\Jadwal::find($jadwal);
+        dd($datajadwal);
         $pesertas = \ProtoneMedia\Splade\SpladeTable::
                                 for(\App\Models\Kelas::where('jadwal_id', $jadwal->id)->get())
                                 ->column('peserta.nama')
                                 ;
-        return view('dashboard.admin.jadwal.show', compact('unit', 'jadwal', 'pesertas'));
+                                dd($jadwal);
+        return view('dashboard.admin.periode.jadwal.show', compact('unit', 'jadwal', 'pesertas', 'periode'));
     }
 
-    public function edit($unit, $jadwal)
+    public function edit($unit, $jadwal, $periode)
     {
         $table = $this->getJadwalTable($unit);
-        $jadwal = \App\Models\Jadwal::with('periode.unit')->findOrFail($jadwal);
+        $jadwal = \App\Models\Jadwal::find($jadwal);
         $pengajars = \App\Models\User::selectRaw("id, concat(name, ' (', phone_number, ')') as name")
             ->whereHas('pengajar.unit', function ($query) use ($unit) {
                 $query->where('slug', $unit);
@@ -138,10 +179,10 @@ class JadwalController extends Controller
         $level = \App\Models\Modules\Level::select('id', 'nama')->whereHas('unit', function ($query) use ($unit) {
                 $query->where('slug', $unit);
             })->get();
-        return view('dashboard.admin.jadwal.edit', compact('unit', 'table', 'jadwal', 'pengajars', 'periodes', 'hari', 'status_belajar', 'level', 'jenis'));
+        return view('dashboard.admin.periode.jadwal.edit', compact('unit', 'table', 'jadwal', 'pengajars', 'periodes', 'hari', 'status_belajar', 'level', 'jenis', 'periode'));
     }
 
-    public function update(Request $request, $unit, $jadwal)
+    public function update(Request $request, $unit, $jadwal, $periode)
     {
         $request->validate([
             'periode' => 'required',
@@ -169,7 +210,7 @@ class JadwalController extends Controller
         return redirect()->back()->with('success', 'Data jadwal berhasil diupdate');
     }
 
-    public function destroy($unit, $jadwal)
+    public function destroy($unit, $jadwal, $periode)
     {
         try {
             $jadwal = \App\Models\Jadwal::findOrFail($jadwal);
@@ -178,7 +219,7 @@ class JadwalController extends Controller
         } catch (\Exception $e) {
             Toast::warning('Terjadi kesalahan, data gagal dihapus')->autoDismiss(5);
         }
-        return redirect()->route('admin.jadwal.index', ['unit' => $unit])->with('success', 'Data jadwal berhasil dihapus');
+        return redirect()->route('admin.periode.jadwal.index', ['unit' => $unit])->with('success', 'Data jadwal berhasil dihapus');
     }
 }
 

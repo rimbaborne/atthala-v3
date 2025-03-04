@@ -9,13 +9,29 @@ use App\Models\Modules\Unit;
 
 class PesertaController extends Controller
 {
-    public function index($unit)
+    // public function index($unit)
+    // {
+    //     $data_unit = Unit::where('slug',$unit)->first();
+    //     if (!$data_unit) { abort(404); }
+    //     $unit_id['id'] = $data_unit->id;
+    //     $peserta = new Pesertas($unit_id);
+    //     return view('modules.peserta.index', compact('unit', 'peserta'));
+    // }
+
+    public function index($unit, $periode)
     {
-        $data_unit = Unit::where('slug',$unit)->first();
-        if (!$data_unit) { abort(404); }
-        $unit_id['id'] = $data_unit->id;
-        $peserta = new Pesertas($unit_id);
-        return view('modules.peserta.index', compact('unit', 'peserta'));
+        // $jadwal = $this->getJadwalTable($unit);
+        $dataperiode = \App\Models\Periode::find( $periode);
+
+        return view('dashboard.admin.periode.peserta.index', compact('unit',  'periode', 'dataperiode'));
+    }
+
+    public function kehadiran($unit, $periode)
+    {
+        // $jadwal = $this->getJadwalTable($unit);
+        $dataperiode = \App\Models\Periode::find( $periode);
+
+        return view('dashboard.admin.periode.peserta.kehadiran', compact('unit',  'periode', 'dataperiode'));
     }
 
     public function store(Request $request, $unit)
